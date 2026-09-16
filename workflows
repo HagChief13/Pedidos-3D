@@ -1,0 +1,6 @@
+name: Build Kivy APK
+onj:[push]
+jobs:
+   build:
+      runs-on: ubuntu-latest
+      steps:
