@@ -51,51 +51,29 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     function openMenu() {
+    if (!siteMenu || !menuToggle) return;
+    siteMenu.classList.add("menu-open");
+    menuToggle.classList.add("menu-open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    menuToggle.setAttribute("aria-label", "Cerrar menú");
+}
 
-        if (!siteMenu || !menuToggle) {
-            return;
-        }
+function closeMenu() {
+    if (!siteMenu || !menuToggle) return;
+    siteMenu.classList.remove("menu-open");
+    menuToggle.classList.remove("menu-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menú");
+}
 
-
-        siteMenu.classList.add("open");
-
-        menuToggle.classList.add("active");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Cerrar menú"
-        );
-
+function toggleMenu() {
+    if (!siteMenu) return;
+    if (siteMenu.classList.contains("menu-open")) {
+        closeMenu();
+    } else {
+        openMenu();
     }
-
-
-    function closeMenu() {
-
-        if (!siteMenu || !menuToggle) {
-            return;
-        }
-
-
-        siteMenu.classList.remove("open");
-
-        menuToggle.classList.remove("active");
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        menuToggle.setAttribute(
-            "aria-label",
-            "Abrir menú"
-        );
-
-    }
+}
 
 
     function toggleMenu() {
