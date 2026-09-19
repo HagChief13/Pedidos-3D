@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="./style.css?v=5">
   <link rel="icon" type="image/png" href="logo.png?v=2">
   <style>
-@media (max-width: 360px){
+@media (max-width: 768px){
   .nova-mine{
     height: auto !important;
     display: flex !important;
@@ -47,6 +47,12 @@
   .nova-mine .nova-svg-line,
   .nova-mine .nova-node{
     display: none !important;
+  }
+  .nova-mine::before{
+    background-size: 100% auto !important;
+    background-repeat: repeat-y !important;
+    background-position: top center !important;
+    opacity: 0.3 !important;
   }
 }
 </style>
