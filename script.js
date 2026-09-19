@@ -1,316 +1,1027 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 
-/* =====================================================
-   ANIMACIONES AL HACER SCROLL
-   
-   Los encabezados de las secciones permanecen siempre
-   visibles. Solo animamos contenido secundario.
-===================================================== */
+    /* =====================================================
+       REFERENCIAS PRINCIPALES
+    ===================================================== */
 
-const animatedElements =
-    document.querySelectorAll(
-        ".feature-card, .about-text, .about-stamp"
-    );
+    const menuToggle =
+        document.getElementById("menuToggle");
 
 
-if ("IntersectionObserver" in window) {
+    const siteMenu =
+        document.getElementById("siteMenu");
 
-    const observer =
-        new IntersectionObserver(
-            (entries) => {
 
-                entries.forEach((entry) => {
+    const navbar =
+        document.querySelector(".navbar");
 
-                    if (entry.isIntersecting) {
 
-                        entry.target.classList.add(
-                            "visible"
-                        );
+    const views =
+        document.querySelectorAll(".site-view");
 
-                        /*
-                         * Dejamos de observar el elemento
-                         * después de mostrarlo.
-                         */
 
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
-
-                });
-
-            },
-            {
-                threshold: 0.15
-            }
+    const menuLinks =
+        document.querySelectorAll(
+            "#siteMenu a[data-section]"
         );
 
 
-    animatedElements.forEach((element) => {
-
-        observer.observe(element);
-
-    });
-
-} else {
-
-    animatedElements.forEach((element) => {
-
-        element.classList.add(
-            "visible"
+    const sectionLinks =
+        document.querySelectorAll(
+            "[data-section]"
         );
 
-    });
 
-}
-
-
-
-/* =====================================================
-   NAVBAR AL HACER SCROLL
-===================================================== */
-
-const navbar =
-    document.querySelector(
-        ".navbar"
-    );
+    const validViews = [
+        "inicio",
+        "pedidos3d",
+        "nova"
+    ];
 
 
-if (navbar) {
+    let currentView = null;
 
-    const updateNavbar = () => {
+    let isChangingView = false;
 
-        if (window.scrollY > 40) {
 
-            navbar.classList.add(
-                "scrolled"
-            );
+
+    /* =====================================================
+       MENÚ HAMBURGUESA
+    ===================================================== */
+
+    function openMenu() {
+
+        if (!siteMenu || !menuToggle) {
+            return;
+        }
+
+
+        siteMenu.classList.add("open");
+
+        menuToggle.classList.add("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        menuToggle.setAttribute(
+            "aria-label",
+            "Cerrar menú"
+        );
+
+    }
+
+
+    function closeMenu() {
+
+        if (!siteMenu || !menuToggle) {
+            return;
+        }
+
+
+        siteMenu.classList.remove("open");
+
+        menuToggle.classList.remove("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        menuToggle.setAttribute(
+            "aria-label",
+            "Abrir menú"
+        );
+
+    }
+
+
+    function toggleMenu() {
+
+        if (!siteMenu) {
+            return;
+        }
+
+
+        if (
+            siteMenu.classList.contains("open")
+        ) {
+
+            closeMenu();
 
         } else {
 
-            navbar.classList.remove(
-                "scrolled"
-            );
+            openMenu();
 
         }
 
-    };
+    }
 
 
-    updateNavbar();
+    if (menuToggle) {
 
-
-    window.addEventListener(
-        "scroll",
-        updateNavbar,
-        {
-            passive: true
-        }
-    );
-
-}
-
-
-
-/* =====================================================
-   DETECCIÓN DEL SISTEMA OPERATIVO
-===================================================== */
-
-const windowsCard =
-    document.getElementById(
-        "card-windows"
-    );
-
-
-const androidCard =
-    document.getElementById(
-        "card-android"
-    );
-
-
-const userAgent =
-    navigator.userAgent ||
-    navigator.vendor ||
-    window.opera ||
-    "";
-
-
-let operatingSystem =
-    "unknown";
-
-
-if (/android/i.test(userAgent)) {
-
-    operatingSystem =
-        "android";
-
-}
-
-else if (
-    /Win32|Win64|Windows|WinCE/i.test(
-        userAgent
-    )
-) {
-
-    operatingSystem =
-        "windows";
-
-}
-
-else if (
-    /iPhone|iPad|iPod/i.test(
-        userAgent
-    )
-) {
-
-    operatingSystem =
-        "ios";
-
-}
-
-else if (
-    /Macintosh|Mac OS X/i.test(
-        userAgent
-    )
-) {
-
-    operatingSystem =
-        "mac";
-
-}
-
-else if (
-    /Linux/i.test(
-        userAgent
-    )
-) {
-
-    operatingSystem =
-        "linux";
-
-}
-
-
-
-/* =====================================================
-   RESALTAR TARJETA RECOMENDADA
-===================================================== */
-
-if (
-    operatingSystem === "windows" &&
-    windowsCard
-) {
-
-    windowsCard.classList.add(
-        "recomendado"
-    );
-
-
-    console.log(
-        "Pedidos 3D: sistema detectado → Windows"
-    );
-
-}
-
-else if (
-    operatingSystem === "android" &&
-    androidCard
-) {
-
-    androidCard.classList.add(
-        "recomendado"
-    );
-
-
-    console.log(
-        "Pedidos 3D: sistema detectado → Android"
-    );
-
-}
-
-else {
-
-    console.log(
-        "Pedidos 3D: sistema operativo no compatible o no detectado →",
-        operatingSystem
-    );
-
-}
-
-
-
-/* =====================================================
-   BOTONES DE DESCARGA
-===================================================== */
-
-const downloadButtons =
-    document.querySelectorAll(
-        ".download-platform-btn"
-    );
-
-
-downloadButtons.forEach(
-    (button) => {
-
-        button.addEventListener(
+        menuToggle.addEventListener(
             "click",
-            () => {
+            (event) => {
 
-                const platform =
-                    button.dataset.download ||
-                    "Desconocida";
+                event.stopPropagation();
 
-
-                console.log(
-                    `Pedidos 3D: descarga iniciada → ${platform}`
-                );
-
-
-                console.log(
-                    "URL:",
-                    button.href
-                );
+                toggleMenu();
 
             }
         );
 
     }
-);
 
 
 
-/* =====================================================
-   BOTÓN GITHUB
-===================================================== */
+    /* =====================================================
+       CERRAR MENÚ AL HACER CLICK FUERA
+    ===================================================== */
 
-const githubDownload =
-    document.querySelector(
-        ".big-download"
+    document.addEventListener(
+        "click",
+        (event) => {
+
+            if (!siteMenu) {
+                return;
+            }
+
+
+            const clickedMenu =
+                siteMenu.contains(
+                    event.target
+                );
+
+
+            const clickedButton =
+                menuToggle &&
+                menuToggle.contains(
+                    event.target
+                );
+
+
+            if (
+                !clickedMenu &&
+                !clickedButton
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
     );
 
 
-if (githubDownload) {
 
-    githubDownload.addEventListener(
-        "click",
-        () => {
+    /* =====================================================
+       CERRAR CON ESC
+    ===================================================== */
 
-            console.log(
-                "Pedidos 3D: acceso a GitHub Releases"
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeMenu();
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       CAMBIO REAL DE VISTA
+       
+       Inicio
+       Pedidos 3D
+       Nova
+    ===================================================== */
+
+    function changeView(
+        viewName,
+        updateHistory = true
+    ) {
+
+        if (
+            !validViews.includes(
+                viewName
+            )
+        ) {
+
+            viewName = "inicio";
+
+        }
+
+
+        if (
+            isChangingView ||
+            currentView === viewName
+        ) {
+
+            closeMenu();
+
+            return;
+
+        }
+
+
+        const targetView =
+            document.getElementById(
+                viewName
             );
 
 
-            console.log(
-                "URL:",
-                githubDownload.href
+        if (!targetView) {
+
+            console.warn(
+                `Vista no encontrada: ${viewName}`
+            );
+
+            return;
+
+        }
+
+
+        isChangingView = true;
+
+
+        closeMenu();
+
+
+
+        /* =================================================
+           VISTA ANTERIOR
+        ================================================= */
+
+        const previousView =
+            document.querySelector(
+                ".site-view.active-view"
+            );
+
+
+        if (previousView) {
+
+            previousView.classList.add(
+                "view-exit"
+            );
+
+        }
+
+
+
+        /* =================================================
+           PREPARAR NUEVA VISTA
+        ================================================= */
+
+        views.forEach(
+            (view) => {
+
+                view.classList.remove(
+                    "active-view"
+                );
+
+                view.classList.remove(
+                    "view-enter"
+                );
+
+                view.classList.remove(
+                    "view-exit"
+                );
+
+            }
+        );
+
+
+        targetView.classList.add(
+            "active-view"
+        );
+
+
+        targetView.classList.add(
+            "view-enter"
+        );
+
+
+
+        /* =================================================
+           ACTUALIZAR MENÚ ACTIVO
+        ================================================= */
+
+        menuLinks.forEach(
+            (link) => {
+
+                const isActive =
+                    link.dataset.section ===
+                    viewName;
+
+
+                link.classList.toggle(
+                    "active",
+                    isActive
+                );
+
+            }
+        );
+
+
+
+        /* =================================================
+           URL
+        ================================================= */
+
+        if (updateHistory) {
+
+            const newUrl =
+                `${window.location.pathname}#${viewName}`;
+
+
+            window.history.pushState(
+                {
+                    view: viewName
+                },
+                "",
+                newUrl
+            );
+
+        }
+
+
+
+        /* =================================================
+           VOLVER ARRIBA
+        ================================================= */
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+
+
+        /* =================================================
+           INICIAR ANIMACIONES DE LA VISTA
+        ================================================= */
+
+        requestAnimationFrame(
+            () => {
+
+                requestAnimationFrame(
+                    () => {
+
+                        targetView.classList.add(
+                            "view-visible"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =================================================
+           ANIMACIONES INTERNAS
+        ================================================= */
+
+        initializeViewAnimations(
+            targetView
+        );
+
+
+
+        /* =================================================
+           TERMINAR TRANSICIÓN
+        ================================================= */
+
+        setTimeout(
+            () => {
+
+                views.forEach(
+                    (view) => {
+
+                        view.classList.remove(
+                            "view-exit"
+                        );
+
+                        view.classList.remove(
+                            "view-enter"
+                        );
+
+                    }
+                );
+
+
+                isChangingView = false;
+
+            },
+            550
+        );
+
+
+        currentView =
+            viewName;
+
+
+        console.log(
+            `Vista activa → ${viewName}`
+        );
+
+    }
+
+
+
+    /* =====================================================
+       EVENTOS DE LOS ENLACES DEL MENÚ
+    ===================================================== */
+
+    sectionLinks.forEach(
+        (link) => {
+
+            link.addEventListener(
+                "click",
+                (event) => {
+
+                    const viewName =
+                        link.dataset.section;
+
+
+                    if (
+                        !validViews.includes(
+                            viewName
+                        )
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    event.preventDefault();
+
+
+                    changeView(
+                        viewName,
+                        true
+                    );
+
+                }
             );
 
         }
     );
 
-}
 
+
+    /* =====================================================
+       BOTONES INTERNOS DE PEDIDOS 3D
+       
+       Estos NO cambian de vista.
+       Solo navegan dentro de Pedidos 3D.
+    ===================================================== */
+
+    const internalLinks =
+        document.querySelectorAll(
+            '.pedidos-view a[href^="#pedidos-"]'
+        );
+
+
+    internalLinks.forEach(
+        (link) => {
+
+            link.addEventListener(
+                "click",
+                (event) => {
+
+                    const targetId =
+                        link.getAttribute(
+                            "href"
+                        );
+
+
+                    const target =
+                        document.querySelector(
+                            targetId
+                        );
+
+
+                    if (!target) {
+                        return;
+                    }
+
+
+                    event.preventDefault();
+
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       ANIMACIONES DE CONTENIDO
+    ===================================================== */
+
+    function initializeViewAnimations(
+        container = document
+    ) {
+
+        const animatedElements =
+            container.querySelectorAll(
+                ".feature-card, .about-text, .about-stamp, .nova-content, .welcome-project-card"
+            );
+
+
+        if (
+            !animatedElements.length
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+         * Si IntersectionObserver existe,
+         * esperamos a que los elementos entren
+         * en pantalla.
+         */
+
+        if (
+            "IntersectionObserver" in window
+        ) {
+
+            const observer =
+                new IntersectionObserver(
+                    (
+                        entries,
+                        observerInstance
+                    ) => {
+
+                        entries.forEach(
+                            (entry) => {
+
+                                if (
+                                    entry.isIntersecting
+                                ) {
+
+                                    entry.target.classList.add(
+                                        "visible"
+                                    );
+
+
+                                    observerInstance.unobserve(
+                                        entry.target
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    },
+                    {
+                        threshold: 0.12
+                    }
+                );
+
+
+            animatedElements.forEach(
+                (element) => {
+
+                    /*
+                     * Eliminamos el estado anterior
+                     * para que la animación pueda
+                     * repetirse cuando volvamos a
+                     * la vista.
+                     */
+
+                    element.classList.remove(
+                        "visible"
+                    );
+
+
+                    observer.observe(
+                        element
+                    );
+
+                }
+            );
+
+        } else {
+
+            animatedElements.forEach(
+                (element) => {
+
+                    element.classList.add(
+                        "visible"
+                    );
+
+                }
+            );
+
+        }
+
+    }
+
+
+
+    /* =====================================================
+       NAVBAR AL HACER SCROLL
+    ===================================================== */
+
+    if (navbar) {
+
+        const updateNavbar =
+            () => {
+
+                if (
+                    window.scrollY > 40
+                ) {
+
+                    navbar.classList.add(
+                        "scrolled"
+                    );
+
+                } else {
+
+                    navbar.classList.remove(
+                        "scrolled"
+                    );
+
+                }
+
+            };
+
+
+        updateNavbar();
+
+
+        window.addEventListener(
+            "scroll",
+            updateNavbar,
+            {
+                passive: true
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       DETECCIÓN DEL SISTEMA OPERATIVO
+    ===================================================== */
+
+    const windowsCard =
+        document.getElementById(
+            "card-windows"
+        );
+
+
+    const androidCard =
+        document.getElementById(
+            "card-android"
+        );
+
+
+    const userAgent =
+        navigator.userAgent ||
+        navigator.vendor ||
+        window.opera ||
+        "";
+
+
+    let operatingSystem =
+        "unknown";
+
+
+    if (
+        /android/i.test(
+            userAgent
+        )
+    ) {
+
+        operatingSystem =
+            "android";
+
+    }
+
+    else if (
+        /Win32|Win64|Windows|WinCE/i.test(
+            userAgent
+        )
+    ) {
+
+        operatingSystem =
+            "windows";
+
+    }
+
+    else if (
+        /iPhone|iPad|iPod/i.test(
+            userAgent
+        )
+    ) {
+
+        operatingSystem =
+            "ios";
+
+    }
+
+    else if (
+        /Macintosh|Mac OS X/i.test(
+            userAgent
+        )
+    ) {
+
+        operatingSystem =
+            "mac";
+
+    }
+
+    else if (
+        /Linux/i.test(
+            userAgent
+        )
+    ) {
+
+        operatingSystem =
+            "linux";
+
+    }
+
+
+
+    /* =====================================================
+       RESALTAR PLATAFORMA
+       
+       Esto NO descarga nada.
+    ===================================================== */
+
+    if (
+        operatingSystem === "windows" &&
+        windowsCard
+    ) {
+
+        windowsCard.classList.add(
+            "recomendado"
+        );
+
+
+        console.log(
+            "Pedidos 3D → Windows detectado"
+        );
+
+    }
+
+
+    else if (
+        operatingSystem === "android" &&
+        androidCard
+    ) {
+
+        androidCard.classList.add(
+            "recomendado"
+        );
+
+
+        console.log(
+            "Pedidos 3D → Android detectado"
+        );
+
+    }
+
+
+
+    /* =====================================================
+       BOTONES PRÓXIMAMENTE
+    ===================================================== */
+
+    const comingSoonButtons =
+        document.querySelectorAll(
+            ".coming-soon, [data-coming-soon]"
+        );
+
+
+    comingSoonButtons.forEach(
+        (button) => {
+
+            button.addEventListener(
+                "click",
+                (event) => {
+
+                    /*
+                     * Evitamos cualquier navegación
+                     * accidental.
+                     */
+
+                    if (
+                        button.tagName === "A"
+                    ) {
+
+                        event.preventDefault();
+
+                    }
+
+
+                    const platform =
+                        button.dataset.download ||
+                        button.dataset.platform ||
+                        "general";
+
+
+                    console.log(
+                        `Pedidos 3D → ${platform} → próximamente`
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       BOTONES DE DESCARGA ANTIGUOS
+       
+       Protección por si todavía existe
+       alguna clase del HTML anterior.
+    ===================================================== */
+
+    const oldDownloadButtons =
+        document.querySelectorAll(
+            ".download-platform-btn, .big-download"
+        );
+
+
+    oldDownloadButtons.forEach(
+        (button) => {
+
+            button.addEventListener(
+                "click",
+                (event) => {
+
+                    event.preventDefault();
+
+
+                    console.log(
+                        "Esta descarga estará disponible próximamente."
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       HISTORIAL DEL NAVEGADOR
+       
+       Permite usar:
+       
+       #inicio
+       #pedidos3d
+       #nova
+       
+       y también los botones Atrás / Adelante.
+    ===================================================== */
+
+    window.addEventListener(
+        "popstate",
+        () => {
+
+            let viewName =
+                window.location.hash
+                    .replace("#", "");
+
+
+            if (
+                !validViews.includes(
+                    viewName
+                )
+            ) {
+
+                viewName =
+                    "inicio";
+
+            }
+
+
+            changeView(
+                viewName,
+                false
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       VISTA INICIAL
+    ===================================================== */
+
+    let initialView =
+        window.location.hash
+            .replace("#", "");
+
+
+    if (
+        !validViews.includes(
+            initialView
+        )
+    ) {
+
+        initialView =
+            "inicio";
+
+    }
+
+
+    /*
+     * Mostramos inicialmente la vista
+     * sin animación de cambio.
+     */
+
+    views.forEach(
+        (view) => {
+
+            view.classList.remove(
+                "active-view"
+            );
+
+            view.classList.remove(
+                "view-visible"
+            );
+
+        }
+    );
+
+
+    const initialElement =
+        document.getElementById(
+            initialView
+        );
+
+
+    if (initialElement) {
+
+        initialElement.classList.add(
+            "active-view"
+        );
+
+        initialElement.classList.add(
+            "view-visible"
+        );
+
+    }
+
+
+    menuLinks.forEach(
+        (link) => {
+
+            link.classList.toggle(
+                "active",
+                link.dataset.section ===
+                initialView
+            );
+
+        }
+    );
+
+
+    currentView =
+        initialView;
+
+
+    initializeViewAnimations(
+        initialElement || document
+    );
+
+
+    console.log(
+        `Sistema iniciado → vista: ${initialView}`
+    );
 
 });

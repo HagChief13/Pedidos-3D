@@ -1,994 +1,1611 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
 
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="description"
+        content="Un espacio dedicado a proyectos, herramientas y tecnología: Pedidos 3D y NOVA."
+    >
 
-<meta
-    name="description"
-    content="Pedidos 3D — Organiza, controla y gestiona tus pedidos de impresión 3D."
->
+    <meta
+        name="theme-color"
+        content="#080808"
+    >
 
-<meta
-    name="theme-color"
-    content="#12100d"
->
+    <title>
+        PROYECTOS — Pedidos 3D & NOVA
+    </title>
 
-<title>
-    Pedidos 3D — Organiza. Controla. Crece.
-</title>
 
-<link
-    rel="stylesheet"
-    href="style.css"
->
+    <!-- =====================================================
+         ESTILOS
+    ====================================================== -->
 
-<link
-    rel="icon"
-    type="image/png"
-    href="logo.png?v=2"
->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
+
+    <!-- =====================================================
+         FAVICON
+    ====================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="logo.png?v=2"
+    >
 
 </head>
+
 
 <body>
 
 
-<!-- =========================================
-     TEXTURA
-========================================== -->
+    <!-- =====================================================
+         TEXTURA GENERAL
+    ====================================================== -->
 
-<div class="noise"></div>
+    <div
+        class="noise"
+        aria-hidden="true"
+    ></div>
 
 
 
-<!-- =========================================
-     NAVBAR
-========================================== -->
+    <!-- =====================================================
+         MENÚ GENERAL
+    ====================================================== -->
 
-<header class="navbar">
+    <header class="navbar">
 
-    <a
-        href="#inicio"
-        class="nav-logo"
-    >
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="siteMenu"
+        >
 
-        <div class="logo-mark">
-            P3D
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <div
+            class="menu-label"
+            aria-hidden="true"
+        >
+            MENÚ
         </div>
 
-        <span>
-            PEDIDOS 3D
-        </span>
-
-    </a>
 
 
-    <nav>
+        <nav
+            id="siteMenu"
+            class="site-menu"
+            aria-label="Navegación principal"
+        >
 
-        <a href="#inicio">
-            INICIO
-        </a>
+            <div class="menu-header">
 
-        <a href="#nosotros">
-            SOBRE NOSOTROS
-        </a>
-
-        <a href="#caracteristicas">
-            CARACTERÍSTICAS
-        </a>
-
-        <a href="#descarga">
-            DESCARGA
-        </a>
-
-    </nav>
-
-
-    <a
-        href="#descarga"
-        class="nav-download"
-    >
-        DESCARGAR
-    </a>
-
-</header>
-
-
-
-<!-- =========================================
-     CONTENIDO PRINCIPAL
-     
-     ORDEN:
-     01 INICIO
-     02 SOBRE NOSOTROS
-     03 CARACTERÍSTICAS
-     04 DESCARGA
-========================================== -->
-
-<main>
-
-
-    <!-- =========================================
-         01 — INICIO / HERO
-    ========================================== -->
-
-    <section
-        class="hero"
-        id="inicio"
-    >
-
-        <div class="hero-content">
-
-            <div class="vintage-label">
-                ✦ GESTIÓN • IMPRESIÓN 3D • 2026 ✦
-            </div>
-
-
-            <h1>
-
-                <span>
-                    ORGANIZA.
+                <span class="menu-kicker">
+                    PROYECTOS
                 </span>
 
-                <strong>
-                    PEDIDOS 3D
-                </strong>
-
-                <span>
-                    CONTROLA. CRECE.
+                <span class="menu-title">
+                    NAVEGACIÓN
                 </span>
-
-            </h1>
-
-
-            <div class="divider">
-
-                <span></span>
-
-                ◆
-
-                <span></span>
 
             </div>
 
 
-            <p class="hero-subtitle">
-
-                La herramienta creada para ayudar a negocios
-                de impresión 3D a organizar sus pedidos,
-                controlar sus trabajos y mejorar su eficiencia.
-
-            </p>
-
-
-            <div class="hero-buttons">
+            <div class="menu-links">
 
                 <a
-                    href="#descarga"
-                    class="download-btn"
+                    href="#inicio"
+                    data-section="inicio"
+                    class="menu-link active"
                 >
 
-                    <span class="download-icon">
-                        ↓
-                    </span>
-
-                    <span>
-
-                        <small>
-                            SOFTWARE PARA IMPRESIÓN 3D
-                        </small>
-
-                        DESCARGA AQUÍ
-
-                    </span>
-
-                </a>
-
-
-                <a
-                    href="#caracteristicas"
-                    class="secondary-btn"
-                >
-                    CONOCER LA APP
-                </a>
-
-            </div>
-
-
-            <div class="platform">
-
-                <span class="platform-dot"></span>
-
-                Diseñado para negocios de impresión 3D
-
-            </div>
-
-        </div>
-
-
-
-        <div class="hero-decoration">
-
-            <div class="sunburst"></div>
-
-
-            <div class="retro-card">
-
-                <div class="card-top">
-                    EST. 2026
-                </div>
-
-                <div class="card-p3d">
-                    P3D
-                </div>
-
-                <div class="card-title">
-
-                    PEDIDOS
-
-                    <br>
-
-                    3D
-
-                </div>
-
-                <div class="card-bottom">
-                    ORGANIZE YOUR WORK
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
-         SEPARADOR
-    ========================================== -->
-
-    <div class="ornament">
-
-        <span></span>
-
-        <div>
-            ✦
-        </div>
-
-        <span></span>
-
-    </div>
-
-
-
-    <!-- =========================================
-         02 — SOBRE NOSOTROS
-    ========================================== -->
-
-    <section
-        class="about section"
-        id="nosotros"
-    >
-
-        <div class="section-heading">
-
-            <span class="section-number">
-                01
-            </span>
-
-
-            <div>
-
-                <p class="eyebrow">
-                    CONOCE PEDIDOS 3D
-                </p>
-
-                <h2>
-
-                    MÁS CONTROL.
-
-                    <br>
-
-                    MENOS DESORDEN.
-
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="about-grid">
-
-            <div class="about-text">
-
-                <p>
-
-                    Gestionar un negocio de impresión 3D puede
-                    significar tener que controlar pedidos,
-                    clientes, materiales, colores, cantidades,
-                    precios y estados de producción al mismo tiempo.
-
-                </p>
-
-
-                <p>
-
-                    <strong>
-                        Pedidos 3D
-                    </strong>
-
-                    nace para hacer ese trabajo más sencillo.
-
-                </p>
-
-
-                <p>
-
-                    Nuestra aplicación permite organizar tus
-                    pedidos en un solo lugar, ayudándote a
-                    mantener una visión clara de lo que tienes
-                    pendiente, lo que está en producción y lo
-                    que ya está listo.
-
-                </p>
-
-
-                <div class="quote">
-
-                    <span>
-                        “
-                    </span>
-
-                    TU NEGOCIO.
-
-                    <br>
-
-                    TU PRODUCCIÓN.
-
-                    <br>
-
-                    TU CONTROL.
-
-                </div>
-
-            </div>
-
-
-            <div class="about-stamp">
-
-                <div class="stamp-inner">
-
-                    <span>
-                        DISEÑADO PARA
-                    </span>
-
-                    <strong>
-                        P3D
-                    </strong>
-
-                    <small>
-                        IMPRESIÓN 3D
-                    </small>
-
-                    <span>
-                        2026
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
-         03 — CARACTERÍSTICAS
-         
-         IMPORTANTE:
-         ESTA SECCIÓN DEBE ESTAR DESPUÉS DE
-         SOBRE NOSOTROS Y ANTES DE DESCARGA.
-    ========================================== -->
-
-    <section
-        class="features section"
-        id="caracteristicas"
-    >
-
-        <div class="section-heading centered">
-
-            <span class="section-number">
-                02
-            </span>
-
-
-            <div>
-
-                <p class="eyebrow">
-                    TODO EN UN SOLO LUGAR
-                </p>
-
-                <h2>
-                    CARACTERÍSTICAS
-                </h2>
-
-            </div>
-
-        </div>
-
-
-        <div class="features-grid">
-
-
-            <!-- CARACTERÍSTICA 01 -->
-
-            <article class="feature-card">
-
-                <div class="feature-number">
-                    01
-                </div>
-
-                <div class="feature-icon">
-                    ◈
-                </div>
-
-                <h3>
-                    GESTIÓN DE PEDIDOS
-                </h3>
-
-                <p>
-
-                    Registra y organiza tus pedidos de impresión
-                    3D para mantener toda la información importante
-                    en un solo lugar.
-
-                </p>
-
-            </article>
-
-
-
-            <!-- CARACTERÍSTICA 02 -->
-
-            <article class="feature-card featured">
-
-                <div class="feature-number">
-                    02
-                </div>
-
-                <div class="feature-icon">
-                    ◆
-                </div>
-
-                <h3>
-                    CONTROL DE PRODUCCIÓN
-                </h3>
-
-                <p>
-
-                    Visualiza fácilmente qué pedidos están
-                    pendientes, en producción o listos para entregar.
-
-                </p>
-
-            </article>
-
-
-
-            <!-- CARACTERÍSTICA 03 -->
-
-            <article class="feature-card">
-
-                <div class="feature-number">
-                    03
-                </div>
-
-                <div class="feature-icon">
-                    ◉
-                </div>
-
-                <h3>
-                    MATERIALES Y COLORES
-                </h3>
-
-                <p>
-
-                    Registra materiales como PLA, PETG y ASA,
-                    además del color utilizado en cada pedido.
-
-                </p>
-
-            </article>
-
-
-
-            <!-- CARACTERÍSTICA 04 -->
-
-            <article class="feature-card">
-
-                <div class="feature-number">
-                    04
-                </div>
-
-                <div class="feature-icon">
-                    $
-                </div>
-
-                <h3>
-                    CONTROL DE PRECIOS
-                </h3>
-
-                <p>
-
-                    Lleva un mejor control del valor de tus trabajos
-                    y de la información económica asociada a ellos.
-
-                </p>
-
-            </article>
-
-
-
-            <!-- CARACTERÍSTICA 05 -->
-
-            <article class="feature-card">
-
-                <div class="feature-number">
-                    05
-                </div>
-
-                <div class="feature-icon">
-                    ⚙
-                </div>
-
-                <h3>
-                    CALCULADORA 3D
-                </h3>
-
-                <p>
-
-                    Calcula costes de impresión considerando
-                    materiales, tiempo, electricidad, desgaste
-                    y otros factores.
-
-                </p>
-
-            </article>
-
-
-
-            <!-- CARACTERÍSTICA 06 -->
-
-            <article class="feature-card">
-
-                <div class="feature-number">
-                    06
-                </div>
-
-                <div class="feature-icon">
-                    ★
-                </div>
-
-                <h3>
-                    PARA CRECER CONTIGO
-                </h3>
-
-                <p>
-
-                    Pensada tanto para quienes están comenzando
-                    como para negocios que buscan mejorar su
-                    organización y productividad.
-
-                </p>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =========================================
-         04 — DESCARGA
-    ========================================== -->
-
-    <section
-        class="download-section"
-        id="descarga"
-    >
-
-        <div class="download-pattern"></div>
-
-
-        <div class="download-content">
-
-            <div class="download-badge">
-                ✦ PEDIDOS 3D ✦
-            </div>
-
-
-            <p class="eyebrow">
-                ¿LISTO PARA ORGANIZAR TU NEGOCIO?
-            </p>
-
-
-            <h2>
-
-                ¿CÓMO DESCARGAR
-
-                <span>
-                    NUESTRA APP?
-                </span>
-
-            </h2>
-
-
-            <div class="divider">
-
-                <span></span>
-
-                ◆
-
-                <span></span>
-
-            </div>
-
-
-            <p class="download-description">
-
-                Descargar Pedidos 3D es sencillo.
-                Nuestra aplicación se distribuye mediante
-                GitHub Releases, donde encontrarás siempre
-                las versiones disponibles.
-
-            </p>
-
-
-
-            <!-- PASOS -->
-
-            <div class="download-steps">
-
-
-                <div class="download-step">
-
-                    <div class="step-number">
+                    <span class="menu-number">
                         01
-                    </div>
+                    </span>
 
-                    <div>
+                    <span>
+                        INICIO
+                    </span>
 
-                        <h3>
-                            HAZ CLICK EN DESCARGAR
-                        </h3>
-
-                        <p>
-                            Pulsa el botón de descarga
-                            que encontrarás abajo.
-                        </p>
-
-                    </div>
-
-                </div>
+                </a>
 
 
-                <div class="download-step">
+                <a
+                    href="#pedidos3d"
+                    data-section="pedidos3d"
+                    class="menu-link"
+                >
 
-                    <div class="step-number">
+                    <span class="menu-number">
                         02
-                    </div>
+                    </span>
 
-                    <div>
+                    <span>
+                        PEDIDOS 3D
+                    </span>
 
-                        <h3>
-                            VE A GITHUB RELEASES
-                        </h3>
-
-                        <p>
-                            Serás dirigido a la página oficial
-                            de versiones de Pedidos 3D.
-                        </p>
-
-                    </div>
-
-                </div>
+                </a>
 
 
-                <div class="download-step">
+                <a
+                    href="#nova"
+                    data-section="nova"
+                    class="menu-link"
+                >
 
-                    <div class="step-number">
+                    <span class="menu-number">
                         03
-                    </div>
+                    </span>
 
-                    <div>
+                    <span>
+                        NOVA
+                    </span>
 
-                        <h3>
-                            DESCARGA LA VERSIÓN
-                        </h3>
+                </a>
 
-                        <p>
-                            Selecciona el archivo correspondiente
-                            y comienza la instalación.
-                        </p>
+            </div>
 
-                    </div>
+
+            <div class="menu-footer">
+
+                <span>
+                    PROYECTOS • TECNOLOGÍA • CREACIÓN
+                </span>
+
+                <span>
+                    2026
+                </span>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+    ====================================================== -->
+
+    <main id="mainContent">
+
+
+
+        <!-- =================================================
+             VISTA 01 — INICIO GENERAL
+        ================================================== -->
+
+        <section
+            id="inicio"
+            class="site-view home-view active-view"
+            data-view="inicio"
+        >
+
+
+            <!-- =============================================
+                 LUCES
+            ============================================== -->
+
+            <div
+                class="home-light home-light-red"
+                aria-hidden="true"
+            ></div>
+
+
+            <div
+                class="home-light home-light-white"
+                aria-hidden="true"
+            ></div>
+
+
+            <div
+                class="home-light home-light-red-secondary"
+                aria-hidden="true"
+            ></div>
+
+
+
+            <!-- =============================================
+                 CONTENIDO
+            ============================================== -->
+
+            <div class="home-container">
+
+
+                <div class="home-eyebrow">
+
+                    <span class="home-line"></span>
+
+                    <span>
+                        PROYECTOS • TECNOLOGÍA • CREACIÓN
+                    </span>
+
+                    <span class="home-line"></span>
 
                 </div>
+
+
+                <h1 class="home-title">
+
+                    <span>
+                        UN ESPACIO
+                    </span>
+
+                    <span class="home-title-accent">
+                        PARA CREAR.
+                    </span>
+
+                </h1>
+
+
+                <p class="home-description">
+
+                    Este sitio reúne proyectos,
+                    herramientas e ideas desarrolladas
+                    para convertir conceptos en
+                    soluciones reales.
+
+                    <br><br>
+
+                    Desde la gestión de trabajos de
+                    impresión 3D hasta proyectos de
+                    inteligencia artificial y tecnología
+                    experimental.
+
+                </p>
+
+
+
+                <div class="home-scroll-indicator">
+
+                    <span class="home-scroll-line"></span>
+
+                    <span>
+                        EXPLORA LOS PROYECTOS
+                    </span>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     PROYECTOS
+                ========================================== -->
+
+                <div class="welcome-projects">
+
+
+                    <!-- PEDIDOS 3D -->
+
+                    <a
+                        href="#pedidos3d"
+                        class="welcome-project-card"
+                        data-section="pedidos3d"
+                    >
+
+                        <div class="welcome-card-number">
+                            01
+                        </div>
+
+
+                        <div class="welcome-card-content">
+
+                            <span class="welcome-card-label">
+                                PROYECTO
+                            </span>
+
+                            <h2>
+                                PEDIDOS 3D
+                            </h2>
+
+                            <p>
+                                Organización y gestión
+                                para impresión 3D.
+                            </p>
+
+                        </div>
+
+
+                        <div class="welcome-card-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- NOVA -->
+
+                    <a
+                        href="#nova"
+                        class="welcome-project-card"
+                        data-section="nova"
+                    >
+
+                        <div class="welcome-card-number">
+                            02
+                        </div>
+
+
+                        <div class="welcome-card-content">
+
+                            <span class="welcome-card-label">
+                                PROYECTO
+                            </span>
+
+                            <h2>
+                                NOVA
+                            </h2>
+
+                            <p>
+                                Asistente virtual,
+                                visión, voz e inteligencia.
+                            </p>
+
+                        </div>
+
+
+                        <div class="welcome-card-arrow">
+                            →
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+
+
+        <!-- =================================================
+             VISTA 02 — PEDIDOS 3D
+        ================================================== -->
+
+        <section
+            id="pedidos3d"
+            class="site-view pedidos-view"
+            data-view="pedidos3d"
+        >
+
+
+            <!-- =================================================
+                 NAVBAR INTERNA PEDIDOS 3D
+            ================================================== -->
+
+            <div class="p3d-local-nav">
+
+
+                <a
+                    href="#pedidos3d"
+                    class="p3d-local-logo"
+                    data-section="pedidos3d"
+                >
+
+                    <div class="p3d-local-logo-mark">
+                        P3D
+                    </div>
+
+                    <span>
+                        PEDIDOS 3D
+                    </span>
+
+                </a>
+
+
+
+                <nav class="p3d-local-links">
+
+                    <a href="#pedidos-inicio">
+                        INICIO
+                    </a>
+
+                    <a href="#pedidos-nosotros">
+                        SOBRE NOSOTROS
+                    </a>
+
+                    <a href="#pedidos-caracteristicas">
+                        CARACTERÍSTICAS
+                    </a>
+
+                    <a href="#pedidos-descarga">
+                        DESCARGA
+                    </a>
+
+                </nav>
+
+
+
+                <a
+                    href="#pedidos-descarga"
+                    class="p3d-local-download"
+                >
+                    DESCARGAR
+                </a>
+
 
             </div>
 
 
 
-            <!-- BOTÓN GITHUB -->
+            <!-- =================================================
+                 01 — HERO
+            ================================================== -->
 
-            <a
-                href="https://github.com/HagChief13/Pedidos-3D/releases"
-                class="big-download"
-                target="_blank"
-                rel="noopener noreferrer"
+            <section
+                class="hero pedidos-hero"
+                id="pedidos-inicio"
             >
 
-                <span>
-                    ↓
-                </span>
-
-                DESCARGAR PEDIDOS 3D
-
-            </a>
+                <div class="hero-content">
 
 
-            <div class="download-note">
+                    <div class="vintage-label">
 
-                <span>
-                    ✓
-                </span>
+                        ✦ GESTIÓN • IMPRESIÓN 3D • 2026 ✦
 
-                VERSIÓN MÁS RECIENTE DISPONIBLE EN GITHUB
+                    </div>
+
+
+
+                    <h1>
+
+                        <span>
+                            ORGANIZA.
+                        </span>
+
+                        <strong>
+                            PEDIDOS 3D
+                        </strong>
+
+                        <span>
+                            CONTROLA. CRECE.
+                        </span>
+
+                    </h1>
+
+
+
+                    <div class="divider">
+
+                        <span></span>
+
+                        ◆
+
+                        <span></span>
+
+                    </div>
+
+
+
+                    <p class="hero-subtitle">
+
+                        La herramienta creada para ayudar
+                        a negocios de impresión 3D a
+                        organizar sus pedidos, controlar
+                        sus trabajos y mejorar su eficiencia.
+
+                    </p>
+
+
+
+                    <div class="hero-buttons">
+
+
+                        <a
+                            href="#pedidos-descarga"
+                            class="download-btn"
+                        >
+
+                            <span class="download-icon">
+                                ↓
+                            </span>
+
+                            <span>
+
+                                <small>
+                                    SOFTWARE PARA IMPRESIÓN 3D
+                                </small>
+
+                                DESCARGA AQUÍ
+
+                            </span>
+
+                        </a>
+
+
+
+                        <a
+                            href="#pedidos-caracteristicas"
+                            class="secondary-btn"
+                        >
+
+                            CONOCER LA APP
+
+                        </a>
+
+
+                    </div>
+
+
+
+                    <div class="platform">
+
+                        <span class="platform-dot"></span>
+
+                        Diseñado para negocios de impresión 3D
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =============================================
+                     DECORACIÓN
+                ============================================== -->
+
+                <div
+                    class="hero-decoration"
+                    aria-hidden="true"
+                >
+
+                    <div class="sunburst"></div>
+
+
+                    <div class="retro-card">
+
+
+                        <div class="card-top">
+                            EST. 2026
+                        </div>
+
+
+                        <div class="card-p3d">
+                            P3D
+                        </div>
+
+
+                        <div class="card-title">
+
+                            PEDIDOS
+
+                            <br>
+
+                            3D
+
+                        </div>
+
+
+                        <div class="card-bottom">
+                            ORGANIZE YOUR WORK
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 SEPARADOR
+            ================================================== -->
+
+            <div class="ornament">
+
+                <span></span>
+
+                <div>
+                    ✦
+                </div>
+
+                <span></span>
 
             </div>
 
 
 
-            <!-- DESCARGA DIRECTA -->
+            <!-- =================================================
+                 02 — SOBRE NOSOTROS
+            ================================================== -->
 
-            <div class="platform-download-area">
+            <section
+                class="about section"
+                id="pedidos-nosotros"
+            >
+
+                <div class="section-heading">
 
 
-                <div class="platform-download-heading">
+                    <span class="section-number">
+                        01
+                    </span>
+
+
+                    <div>
+
+                        <p class="eyebrow">
+                            CONOCE PEDIDOS 3D
+                        </p>
+
+                        <h2>
+
+                            MÁS CONTROL.
+
+                            <br>
+
+                            MENOS DESORDEN.
+
+                        </h2>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="about-grid">
+
+
+                    <div class="about-text">
+
+
+                        <p>
+
+                            Gestionar un negocio de
+                            impresión 3D puede significar
+                            tener que controlar pedidos,
+                            clientes, materiales, colores,
+                            cantidades, precios y estados
+                            de producción al mismo tiempo.
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                Pedidos 3D
+                            </strong>
+
+                            nace para hacer ese trabajo
+                            más sencillo.
+
+                        </p>
+
+
+                        <p>
+
+                            Nuestra aplicación permite
+                            organizar tus pedidos en un
+                            solo lugar, ayudándote a
+                            mantener una visión clara
+                            de lo que tienes pendiente,
+                            lo que está en producción y
+                            lo que ya está listo.
+
+                        </p>
+
+
+
+                        <div class="quote">
+
+                            <span>
+                                “
+                            </span>
+
+                            TU NEGOCIO.
+
+                            <br>
+
+                            TU PRODUCCIÓN.
+
+                            <br>
+
+                            TU CONTROL.
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="about-stamp">
+
+
+                        <div class="stamp-inner">
+
+                            <span>
+                                DISEÑADO PARA
+                            </span>
+
+                            <strong>
+                                P3D
+                            </strong>
+
+                            <small>
+                                IMPRESIÓN 3D
+                            </small>
+
+                            <span>
+                                2026
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 03 — CARACTERÍSTICAS
+            ================================================== -->
+
+            <section
+                class="features section"
+                id="pedidos-caracteristicas"
+            >
+
+
+                <div class="section-heading centered">
+
+
+                    <span class="section-number">
+                        02
+                    </span>
+
+
+                    <div>
+
+                        <p class="eyebrow">
+                            TODO EN UN SOLO LUGAR
+                        </p>
+
+                        <h2>
+                            CARACTERÍSTICAS
+                        </h2>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="features-grid">
+
+
+                    <!-- 01 -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-number">
+                            01
+                        </div>
+
+                        <div class="feature-icon">
+                            ◈
+                        </div>
+
+                        <h3>
+                            GESTIÓN DE PEDIDOS
+                        </h3>
+
+                        <p>
+
+                            Registra y organiza tus pedidos
+                            de impresión 3D para mantener
+                            toda la información importante
+                            en un solo lugar.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- 02 -->
+
+                    <article class="feature-card featured">
+
+                        <div class="feature-number">
+                            02
+                        </div>
+
+                        <div class="feature-icon">
+                            ◆
+                        </div>
+
+                        <h3>
+                            CONTROL DE PRODUCCIÓN
+                        </h3>
+
+                        <p>
+
+                            Visualiza fácilmente qué pedidos
+                            están pendientes, en producción
+                            o listos para entregar.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- 03 -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-number">
+                            03
+                        </div>
+
+                        <div class="feature-icon">
+                            ◉
+                        </div>
+
+                        <h3>
+                            MATERIALES Y COLORES
+                        </h3>
+
+                        <p>
+
+                            Registra materiales como PLA,
+                            PETG y ASA, además del color
+                            utilizado en cada pedido.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- 04 -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-number">
+                            04
+                        </div>
+
+                        <div class="feature-icon">
+                            $
+                        </div>
+
+                        <h3>
+                            CONTROL DE PRECIOS
+                        </h3>
+
+                        <p>
+
+                            Lleva un mejor control del valor
+                            de tus trabajos y de la información
+                            económica asociada a ellos.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- 05 -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-number">
+                            05
+                        </div>
+
+                        <div class="feature-icon">
+                            ⚙
+                        </div>
+
+                        <h3>
+                            CALCULADORA 3D
+                        </h3>
+
+                        <p>
+
+                            Calcula costes de impresión
+                            considerando materiales, tiempo,
+                            electricidad, desgaste y otros
+                            factores.
+
+                        </p>
+
+                    </article>
+
+
+
+                    <!-- 06 -->
+
+                    <article class="feature-card">
+
+                        <div class="feature-number">
+                            06
+                        </div>
+
+                        <div class="feature-icon">
+                            ★
+                        </div>
+
+                        <h3>
+                            PARA CRECER CONTIGO
+                        </h3>
+
+                        <p>
+
+                            Pensada tanto para quienes están
+                            comenzando como para negocios que
+                            buscan mejorar su organización
+                            y productividad.
+
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 04 — DESCARGA
+            ================================================== -->
+
+            <section
+                class="download-section"
+                id="pedidos-descarga"
+            >
+
+
+                <div class="download-pattern"></div>
+
+
+
+                <div class="download-content">
+
+
+                    <div class="download-badge">
+                        ✦ PEDIDOS 3D ✦
+                    </div>
+
 
                     <p class="eyebrow">
-                        DESCARGA DIRECTA
+                        ¿LISTO PARA ORGANIZAR TU NEGOCIO?
                     </p>
 
-                    <h3>
-                        ELIGE TU PLATAFORMA
-                    </h3>
 
-                    <p>
-                        También puedes descargar directamente
-                        la versión correspondiente a tu dispositivo.
+                    <h2>
+
+                        ¿CÓMO DESCARGAR
+
+                        <span>
+                            NUESTRA APP?
+                        </span>
+
+                    </h2>
+
+
+
+                    <div class="divider">
+
+                        <span></span>
+
+                        ◆
+
+                        <span></span>
+
+                    </div>
+
+
+
+                    <p class="download-description">
+
+                        Descargar Pedidos 3D es sencillo.
+                        Nuestra aplicación se distribuye
+                        mediante GitHub Releases, donde
+                        encontrarás las versiones disponibles.
+
                     </p>
+
+
+
+                    <!-- =========================================
+                         PASOS
+                    ========================================== -->
+
+                    <div class="download-steps">
+
+
+                        <div class="download-step">
+
+                            <div class="step-number">
+                                01
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    HAZ CLICK EN DESCARGAR
+                                </h3>
+
+                                <p>
+                                    Pulsa el botón de descarga
+                                    que encontrarás abajo.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="download-step">
+
+                            <div class="step-number">
+                                02
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    VE A GITHUB RELEASES
+                                </h3>
+
+                                <p>
+                                    Serás dirigido a la página
+                                    oficial de versiones de
+                                    Pedidos 3D.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="download-step">
+
+                            <div class="step-number">
+                                03
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    DESCARGA LA VERSIÓN
+                                </h3>
+
+                                <p>
+                                    Selecciona el archivo
+                                    correspondiente y comienza
+                                    la instalación.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- =========================================
+                         GITHUB RELEASES
+                    ========================================== -->
+
+                    <a
+                        href="https://github.com/HagChief13/Pedidos-3D/releases"
+                        class="big-download"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <span>
+                            ↓
+                        </span>
+
+                        DESCARGAR PEDIDOS 3D
+
+                    </a>
+
+
+
+                    <div class="download-note">
+
+                        <span>
+                            ✓
+                        </span>
+
+                        VERSIÓN MÁS RECIENTE DISPONIBLE EN GITHUB
+
+                    </div>
+
+
+
+                    <!-- =========================================
+                         DESCARGA DIRECTA
+                    ========================================== -->
+
+                    <div class="platform-download-area">
+
+
+                        <div class="platform-download-heading">
+
+                            <p class="eyebrow">
+                                DESCARGA DIRECTA
+                            </p>
+
+                            <h3>
+                                ELIGE TU PLATAFORMA
+                            </h3>
+
+                            <p>
+                                Descarga directamente la versión
+                                correspondiente a tu dispositivo.
+                            </p>
+
+                        </div>
+
+
+
+                        <div class="download-platforms">
+
+
+                            <!-- WINDOWS -->
+
+                            <article
+                                class="download-card"
+                                id="card-windows"
+                                data-platform="windows"
+                            >
+
+                                <div class="recommended-badge">
+                                    WINDOWS
+                                </div>
+
+
+                                <div class="platform-icon">
+                                    PC
+                                </div>
+
+
+                                <h3>
+                                    PC WINDOWS
+                                </h3>
+
+
+                                <p class="platform-version">
+                                    Windows 10/11
+                                </p>
+
+
+                                <p class="platform-size">
+                                    v1.0 - 85 MB
+                                </p>
+
+
+                                <a
+                                    href="https://github.com/HagChief13/Pedidos-3D/releases/download/v1.0/Pedidos3D-PC.exe"
+                                    class="download-platform-btn"
+                                    download
+                                    data-download="Windows"
+                                >
+
+                                    DESCARGAR PARA PC
+
+                                </a>
+
+                            </article>
+
+
+
+                            <!-- ANDROID -->
+
+                            <article
+                                class="download-card"
+                                id="card-android"
+                                data-platform="android"
+                            >
+
+                                <div class="recommended-badge">
+                                    ANDROID
+                                </div>
+
+
+                                <div class="platform-icon">
+                                    APK
+                                </div>
+
+
+                                <h3>
+                                    ANDROID
+                                </h3>
+
+
+                                <p class="platform-version">
+                                    Android 8.0+
+                                </p>
+
+
+                                <p class="platform-size">
+                                    APK
+                                </p>
+
+
+                                <a
+                                    href="URL_APK_AQUI"
+                                    class="download-platform-btn"
+                                    data-download="Android"
+                                >
+
+                                    DESCARGAR APK
+
+                                </a>
+
+                            </article>
+
+
+                        </div>
+
+
+
+                        <p class="download-help">
+
+                            ¿Problemas con la descarga?
+
+                            <span>
+                                Contáctanos
+                            </span>
+
+                        </p>
+
+
+                    </div>
+
 
                 </div>
 
 
-                <div class="download-platforms">
+            </section>
 
 
-                    <!-- WINDOWS -->
-
-                    <article
-                        class="download-card"
-                        id="card-windows"
-                        data-platform="windows"
-                    >
-
-                        <div class="recommended-badge">
-                            RECOMENDADO
-                        </div>
-
-
-                        <div class="platform-icon">
-                            PC
-                        </div>
-
-
-                        <h3>
-                            PC WINDOWS
-                        </h3>
-
-
-                        <p class="platform-version">
-                            Windows 10/11
-                        </p>
-
-
-                        <p class="platform-size">
-                            v1.0 - 85 MB
-                        </p>
-
-
-                        <a
-                            href="https://github.com/HagChief13/Pedidos-3D/releases/download/v1.0/Pedidos3D-PC.exe"
-                            class="download-platform-btn"
-                            download
-                            data-download="Windows"
-                        >
-                            DESCARGAR PARA PC
-                        </a>
-
-                    </article>
+        </section>
 
 
 
-                    <!-- ANDROID -->
-
-                    <article
-                        class="download-card"
-                        id="card-android"
-                        data-platform="android"
-                    >
-
-                        <div class="recommended-badge">
-                            RECOMENDADO
-                        </div>
 
 
-                        <div class="platform-icon">
-                            APK
-                        </div>
+        <!-- =================================================
+             VISTA 03 — NOVA
+        ================================================== -->
+
+        <section
+            id="nova"
+            class="site-view nova-view"
+            data-view="nova"
+        >
 
 
-                        <h3>
-                            ANDROID
-                        </h3>
+            <!-- =============================================
+                 LUCES
+            ============================================== -->
+
+            <div
+                class="nova-light nova-light-red"
+                aria-hidden="true"
+            ></div>
 
 
-                        <p class="platform-version">
-                            Android 8.0+
-                        </p>
+            <div
+                class="nova-light nova-light-white"
+                aria-hidden="true"
+            ></div>
 
 
-                        <p class="platform-size">
-                            v1.0 - 32 MB
-                        </p>
+
+            <!-- =============================================
+                 CONTENIDO
+            ============================================== -->
+
+            <div class="nova-container">
 
 
-                        <a
-                            href="URL_APK_AQUI"
-                            class="download-platform-btn"
-                            download
-                            data-download="Android"
-                        >
-                            DESCARGAR APK
-                        </a>
-
-                    </article>
-
-                </div>
-
-
-                <p class="download-help">
-
-                    ¿Problemas con la descarga?
+                <div class="nova-eyebrow">
 
                     <span>
-                        Contáctanos
+                        PROYECTO 03
                     </span>
 
-                </p>
+                    <span class="nova-status">
+                        EN DESARROLLO
+                    </span>
 
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-
-<!-- =========================================
-     FOOTER
-========================================== -->
-
-<footer>
-
-    <div class="footer-main">
-
-
-        <div class="footer-brand">
-
-            <div class="footer-logo">
-
-                <div class="logo-mark">
-                    P3D
                 </div>
 
-                <strong>
-                    PEDIDOS 3D
-                </strong>
+
+
+                <div class="nova-content">
+
+
+                    <div class="nova-logo-area">
+
+                        <div class="nova-symbol">
+                            N
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="nova-text">
+
+
+                        <span class="eyebrow">
+                            ASISTENTE VIRTUAL
+                        </span>
+
+
+                        <h1>
+                            NOVA
+                        </h1>
+
+
+                        <h2>
+
+                            UNA NUEVA FORMA
+
+                            <br>
+
+                            DE INTERACTUAR.
+
+                        </h2>
+
+
+                        <p>
+
+                            NOVA es un proyecto de asistente
+                            virtual en desarrollo, creado para
+                            combinar inteligencia artificial,
+                            voz, visión y una interfaz propia.
+
+                        </p>
+
+
+                        <p>
+
+                            La idea es construir un sistema
+                            capaz de comprender el entorno,
+                            interactuar mediante voz, recordar
+                            información y convertirse en una
+                            herramienta personal.
+
+                        </p>
+
+
+
+                        <div class="nova-features">
+
+
+                            <div class="nova-feature">
+
+                                <span>
+                                    01
+                                </span>
+
+                                <strong>
+                                    VOZ
+                                </strong>
+
+                            </div>
+
+
+                            <div class="nova-feature">
+
+                                <span>
+                                    02
+                                </span>
+
+                                <strong>
+                                    VISIÓN
+                                </strong>
+
+                            </div>
+
+
+                            <div class="nova-feature">
+
+                                <span>
+                                    03
+                                </span>
+
+                                <strong>
+                                    MEMORIA
+                                </strong>
+
+                            </div>
+
+
+                            <div class="nova-feature">
+
+                                <span>
+                                    04
+                                </span>
+
+                                <strong>
+                                    IA LOCAL
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="nova-coming-soon">
+
+                            <span>
+                                PROYECTO EN DESARROLLO
+                            </span>
+
+                            <strong>
+                                PRÓXIMAMENTE
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
 
             </div>
 
 
-            <p>
-                Organiza.
-                Controla.
-                Crece.
-            </p>
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+
+        <div class="footer-inner">
+
+
+            <div class="footer-brand">
+
+                <span class="footer-mark">
+                    P3D
+                </span>
+
+                <span>
+                    PROYECTOS
+                </span>
+
+            </div>
+
+
+
+            <nav class="footer-nav">
+
+                <a
+                    href="#inicio"
+                    data-section="inicio"
+                >
+                    INICIO
+                </a>
+
+                <a
+                    href="#pedidos3d"
+                    data-section="pedidos3d"
+                >
+                    PEDIDOS 3D
+                </a>
+
+                <a
+                    href="#nova"
+                    data-section="nova"
+                >
+                    NOVA
+                </a>
+
+            </nav>
+
+
+
+            <div class="footer-description">
+
+                PROYECTOS,
+                TECNOLOGÍA
+                Y CREACIÓN.
+
+            </div>
+
 
         </div>
 
 
-        <div class="footer-links">
 
-            <a href="#inicio">
-                Inicio
-            </a>
+        <div class="footer-bottom">
 
-            <a href="#nosotros">
-                Sobre nosotros
-            </a>
+            <span>
+                © 2026 PROYECTOS
+            </span>
 
-            <a href="#caracteristicas">
-                Características
-            </a>
-
-            <a href="#descarga">
-                Descargar
-            </a>
-
-            <a
-                href="https://github.com/HagChief13/Pedidos-3D/releases"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                GitHub
-            </a>
+            <span>
+                PEDIDOS 3D • NOVA
+            </span>
 
         </div>
 
-    </div>
 
-
-    <div class="footer-bottom">
-
-        <span>
-            © 2026 PEDIDOS 3D
-        </span>
-
-        <span>
-            SOFTWARE PARA IMPRESIÓN 3D
-        </span>
-
-        <span>
-            MADE WITH ◆
-        </span>
-
-    </div>
-
-</footer>
+    </footer>
 
 
 
-<script src="app.js"></script>
-```
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="script.js"
+    ></script>
+
 
 </body>
 
