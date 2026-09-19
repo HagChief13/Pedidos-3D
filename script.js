@@ -1158,19 +1158,16 @@ document.addEventListener('DOMContentLoaded',function(){
 })();
 
 (function(){
-  const KEY = 'prog-start-v1';
-  let start = localStorage.getItem(KEY);
-  if(!start){
-    // 5 días + 3 horas hacia atrás desde ahora
-    start = Date.now() - ((5*24 + 3) * 3600 * 1000);
-    localStorage.setItem(KEY, start);
-  } else {
-    start = parseInt(start, 10);
-  }
+  // FECHA FIJA DE INICIO - todos ven lo mismo
+  // Ajusta a tu fecha real de inicio del proyecto
+  const START = new Date('2026-09-14T00:00:00-03:00').getTime();
+
   const el = document.getElementById('devTimer');
   if(!el) return;
+
   function update(){
-    let diff = Math.floor((Date.now() - start) / 1000);
+    let diff = Math.floor((Date.now() - START) / 1000);
+    if(diff < 0) diff = 0;
     const d = Math.floor(diff / 86400); diff %= 86400;
     const h = Math.floor(diff / 3600); diff %= 3600;
     const m = Math.floor(diff / 60);
