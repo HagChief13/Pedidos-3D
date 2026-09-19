@@ -1017,3 +1017,56 @@ function drawNovaLine(){
 }
 window.addEventListener('load', drawNovaLine);
 window.addEventListener('resize', drawNovaLine);
+
+
+const banner = document.getElementById('cookie-banner');
+if(!localStorage.getItem('cookies-ok')){
+  setTimeout(()=>banner.classList.add('show'), 1200);
+}
+document.getElementById('accept-cookies').onclick = ()=>{
+  localStorage.setItem('cookies-ok','yes');
+  banner.classList.remove('show');
+};
+document.getElementById('reject-cookies').onclick = ()=>{
+  localStorage.setItem('cookies-ok','no');
+  banner.classList.remove('show');
+};
+document.getElementById('open-cookies').onclick = ()=>{
+  banner.classList.add('show');
+};
+const modal = document.getElementById('legal-modal');
+const lTitle = document.getElementById('legal-title');
+const lText = document.getElementById('legal-text');
+
+document.getElementById('open-terms').addEventListener('click', (e)=>{
+  e.preventDefault();
+  lTitle.textContent = "Términos de uso";
+  lText.textContent = "Al usar este sitio aceptas que los diseños y contenidos son propiedad de Proyectos P3D. Los pedidos 3D están sujetos a disponibilidad de materiales y tiempos de impresión.";
+  modal.classList.add('show');
+});
+
+document.getElementById('open-privacy').addEventListener('click', (e)=>{
+  e.preventDefault();
+  lTitle.textContent = "Política de privacidad";
+  lText.textContent = "Solo usamos tus datos para gestionar tus pedidos. No vendemos ni compartimos tu información con terceros y puedes pedir su eliminación cuando quieras.";
+  modal.classList.add('show');
+});
+
+document.getElementById('close-legal').onclick = ()=> modal.classList.remove('show');
+modal.onclick = (e)=>{ if(e.target===modal) modal.classList.remove('show'); };
+function openSpa(id){
+  document.getElementById(id).classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeSpa(){
+  document.querySelectorAll('.spa-page').forEach(p=>p.classList.remove('show'));
+  document.body.style.overflow = '';
+}
+
+document.getElementById('open-terms').addEventListener('click', e=>{
+  e.preventDefault(); openSpa('spa-terms');
+});
+document.getElementById('open-privacy').addEventListener('click', e=>{
+  e.preventDefault(); openSpa('spa-privacy');
+});
+document.querySelectorAll('.spa-back').forEach(b=> b.onclick = closeSpa);
