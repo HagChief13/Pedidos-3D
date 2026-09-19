@@ -3115,3 +3115,40 @@ html {
 .spa-foot{text-align:center;color:#444;font-size:12px;margin-top:28px;letter-spacing:1px}
 .spa-back{background:none;border:1px solid #333;color:#fff;padding:8px 18px;border-radius:99px;cursor:pointer;margin-bottom:24px}
 .spa-back:hover{border-color:#ffcf00;color:#ffcf00}
+
+.p3d-mockup{background:#0f0f0f;border:1px solid #222;border-radius:16px;padding:18px;width:320px;box-shadow:0 20px 60px rgba(255,20,20,.15)}
+.mockup-bar{display:flex;gap:6px;margin-bottom:12px}
+.mockup-bar span{width:10px;height:10px;border-radius:50%;background:#333}
+.mockup-bar span:first-child{background:#ff2a2a}
+.mockup-title{font-size:11px;letter-spacing:2px;color:#888;margin-bottom:12px}
+.mockup-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1e1e1e;font-size:13px;color:#ddd}
+.mockup-row.head{color:#666;font-size:11px;letter-spacing:1px}
+.st-ready{color:#00e676} .st-prod{color:#ffab00} .st-pend{color:#ff2a2a}
+.mockup-foot{margin-top:12px;font-size:11px;color:#666;text-align:center;letter-spacing:1px}
+
+.book-tutorial-section{text-align:center;padding:80px 20px;background:#0a0a0a;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;overflow:hidden;display:flex;flex-direction:column;align-items:center}
+.book-scene{perspective:2000px;display:flex;justify-content:center;align-items:flex-start;margin-top:40px;min-height:480px;width:100%}
+.book{position:relative;width:620px;max-width:92vw;height:420px;transform-style:preserve-3d;flex-shrink:0}
+.book-cover{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a,#0d0d0d);border:1px solid #ff2a2a;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transform-origin:left center;transition:transform .9s ease;z-index:30;cursor:pointer;backface-visibility:visible}
+.book.open .book-cover{transform:rotateY(-180deg);z-index:25;cursor:pointer}
+.cover-p3d{font-size:64px;font-weight:900;color:#ff2a2a;letter-spacing:2px}
+.cover-title{color:#fff;font-size:22px;letter-spacing:3px;text-align:center;line-height:1.3}
+.cover-click{color:#888;font-size:11px;letter-spacing:2px;margin-top:20px}
+.bpage{position:absolute;inset:0;transform-origin:left center;transition:transform .45s ease;transform-style:preserve-3d}
+.bpage .page-inner{position:absolute;inset:0;background:#f5f0e6;border-radius:12px;padding:28px 28px 70px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,.08);overflow:hidden;color:#222;text-align:left}
+.bpage.flipped{transform:rotateY(-180deg);pointer-events:none}
+.bpage.flipping-fast{transition:transform .18s ease}
+.book-nav{position:absolute;bottom:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.book-nav button{background:#111;color:#fff;border:none;padding:9px 16px;border-radius:20px;cursor:pointer;font-size:12px}
+.book-nav button:active{transform:scale(.96)}
+.book-nav span{font-size:12px;color:#888;font-weight:700}
+.index-page{display:flex;flex-direction:column;gap:12px}
+.idx-btn{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e8e0d0;border-radius:12px;padding:14px;cursor:pointer;text-align:left;width:100%;transition:transform .15s ease}
+.idx-btn:hover{transform:translateY(-2px)}
+.idx-btn b{background:#111;color:#fff;padding:6px 10px;border-radius:8px;font-size:13px;flex-shrink:0}
+.idx-btn span{flex:1;font-size:13px;color:#444}
+.idx-btn i{font-style:normal;font-size:18px}
+.demo-box{background:#fff;border-radius:12px;padding:14px;margin-top:12px;font-size:13px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.beta-mini{background:#fff;padding:14px;border-radius:12px;margin-top:10px;display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.beta-mini input{padding:10px;border:1px solid #ddd;border-radius:8px;font-size:13px}
+.beta-mini button{background:#ff2a2a;color:#fff;border:none;padding:10px;border-radius:8px;cursor:pointer;font-weight:700}
