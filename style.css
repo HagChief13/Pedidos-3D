@@ -3325,10 +3325,30 @@ html {
   50%{transform:translateX(2px)} 75%{transform:translateX(-1px)}
 }
 
-@media (max-width:768px){
-  .home-title{ font-size:clamp(2rem,10vw,3rem); line-height:1.1; }
-  .home-description{ font-size:.95rem; padding:0 1rem; }
-  .welcome-projects{ flex-direction:column; }
-  .p3d-local-links{ display:none; }
-  img, video{ max-width:100%; height:auto; }
+@media (max-width: 768px){
+  .nova-mine{
+    overflow-x: hidden;
+    padding: 0 12px;
+  }
+  .nova-roadmap-item.left,
+  .nova-roadmap-item.right{
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    margin: 24px 0 !important;
+  }
+  .nova-roadmap-card{
+    width: 88% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+  .nova-svg-line{
+    display: none !important; /* la línea roja en celu molesta más de lo que ayuda */
+  }
+  .nova-node{
+    display: none !important;
+  }
 }
