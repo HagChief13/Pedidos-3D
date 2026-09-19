@@ -1034,28 +1034,11 @@ document.getElementById('reject-cookies').onclick = ()=>{
 document.getElementById('open-cookies').onclick = ()=>{
   banner.classList.add('show');
 };
-const modal = document.getElementById('legal-modal');
-const lTitle = document.getElementById('legal-title');
-const lText = document.getElementById('legal-text');
 
-document.getElementById('open-terms').addEventListener('click', (e)=>{
-  e.preventDefault();
-  lTitle.textContent = "Términos de uso";
-  lText.textContent = "Al usar este sitio aceptas que los diseños y contenidos son propiedad de Proyectos P3D. Los pedidos 3D están sujetos a disponibilidad de materiales y tiempos de impresión.";
-  modal.classList.add('show');
-});
-
-document.getElementById('open-privacy').addEventListener('click', (e)=>{
-  e.preventDefault();
-  lTitle.textContent = "Política de privacidad";
-  lText.textContent = "Solo usamos tus datos para gestionar tus pedidos. No vendemos ni compartimos tu información con terceros y puedes pedir su eliminación cuando quieras.";
-  modal.classList.add('show');
-});
-
-document.getElementById('close-legal').onclick = ()=> modal.classList.remove('show');
-modal.onclick = (e)=>{ if(e.target===modal) modal.classList.remove('show'); };
 function openSpa(id){
-  document.getElementById(id).classList.add('show');
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 function closeSpa(){
@@ -1063,10 +1046,94 @@ function closeSpa(){
   document.body.style.overflow = '';
 }
 
-document.getElementById('open-terms').addEventListener('click', e=>{
+document.getElementById('open-terms')?.addEventListener('click', e=>{
   e.preventDefault(); openSpa('spa-terms');
 });
-document.getElementById('open-privacy').addEventListener('click', e=>{
+document.getElementById('open-privacy')?.addEventListener('click', e=>{
   e.preventDefault(); openSpa('spa-privacy');
 });
 document.querySelectorAll('.spa-back').forEach(b=> b.onclick = closeSpa);
+
+document.addEventListener('DOMContentLoaded',function(){
+  var book=document.getElementById('p3dBook'); if(!book) return;
+  var cover=document.getElementById('bookCover');
+
+  var order=[0,1,2,3,4,5,6,7,8];
+  var pagesById={};
+  order.forEach(function(id){
+    var el=book.querySelector('.bpage[data-i="'+id+'"]');
+    if(el){ pagesById[id]=el; el.style.zIndex = 20 - id; }
+  });
+  var stack=[];
+  var animating=false;
+
+  function flipNext(){
+    if(animating) return;
+    var nextId=order.find(function(id){return stack.indexOf(id)===-1;});
+    if(nextId===undefined || nextId===8) return;
+    var el=pagesById[nextId];
+    stack.push(nextId);
+    el.classList.add('flipped');
+    el.style.zIndex = 1 + nextId;
+  }
+  function flipPrev(){
+    if(animating ||!stack.length) return;
+    var lastId=stack.pop();
+    var el=pagesById[lastId];
+    el.classList.remove('flipped');
+    el.style.zIndex = 20 - lastId;
+  }
+
+  cover.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(!book.classList.contains('open')){
+      book.classList.add('open');
+    } else {
+      book.classList.remove('open');
+      animating=true;
+      var ids=stack.slice().reverse();
+      var i=0;
+      var t=setInterval(function(){
+        if(i>=ids.length){clearInterval(t);animating=false;return;}
+        var id=ids[i];
+        var el=pagesById[id];
+        el.classList.add('flipping-fast');
+        el.classList.remove('flipped');
+        el.style.zIndex=20-id;
+        (function(elm){setTimeout(function(){elm.classList.remove('flipping-fast');},220);})(el);
+        i++;
+      },120);
+      stack=[];
+    }
+  });
+
+  book.addEventListener('click',function(e){
+    if(e.target.closest('.nextB')){e.stopPropagation();flipNext();}
+    if(e.target.closest('.prevB')){e.stopPropagation();flipPrev();}
+  });
+
+  book.querySelectorAll('.idx-btn').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(animating) return;
+      var target=parseInt(btn.dataset.goto,10);
+      animating=true;
+      var timer=setInterval(function(){
+        if(stack.length < target){
+          var nid=order.find(function(id){return stack.indexOf(id)===-1;});
+          if(nid < target){ stack.push(nid); var el=pagesById[nid]; el.classList.add('flipped'); el.style.zIndex=1+nid; }
+          else { clearInterval(timer); animating=false; }
+        } else if(stack.length > target){
+          var lid=stack.pop(); var el2=pagesById[lid]; el2.classList.remove('flipped'); el2.style.zIndex=20-lid;
+        } else {
+          clearInterval(timer); animating=false;
+        }
+      },180);
+    });
+  });
+
+  var betaAdd=document.getElementById('betaAdd');
+  if(betaAdd){betaAdd.addEventListener('click',function(e){e.stopPropagation();var inp=document.getElementById('betaInput');var list=document.getElementById('betaList');if(!inp.value.trim())return;var li=document.createElement('li');li.textContent='● '+inp.value;list.appendChild(li);inp.value='';});}
+  var betaAdd2=document.getElementById('betaAdd2');
+  if(betaAdd2){betaAdd2.addEventListener('click',function(e){e.stopPropagation();var inp=document.getElementById('betaInput2');var list=document.getElementById('betaList2');if(!inp.value.trim())return;var li=document.createElement('li');li.textContent='● '+inp.value;list.appendChild(li);inp.value='';});}
+});
