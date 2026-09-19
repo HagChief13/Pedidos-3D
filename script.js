@@ -833,41 +833,6 @@ function closeMenu() {
 
 
     /* =====================================================
-       BOTONES DE DESCARGA ANTIGUOS
-       
-       Protección por si todavía existe
-       alguna clase del HTML anterior.
-    ===================================================== */
-
-    const oldDownloadButtons =
-        document.querySelectorAll(
-            ".download-platform-btn, .big-download"
-        );
-
-
-    oldDownloadButtons.forEach(
-        (button) => {
-
-            button.addEventListener(
-                "click",
-                (event) => {
-
-                    event.preventDefault();
-
-
-                    console.log(
-                        "Esta descarga estará disponible próximamente."
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-
-    /* =====================================================
        HISTORIAL DEL NAVEGADOR
        
        Permite usar:
