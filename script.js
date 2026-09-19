@@ -998,7 +998,11 @@ function drawNovaLine(){
   const mine = document.querySelector('.nova-mine');
   const svg = document.querySelector('.nova-svg-line');
   const poly = document.getElementById('novaPoly');
+  if(!mine || !svg || !poly) return;
+  // si la vista está oculta, no dibujar aún
   const mr = mine.getBoundingClientRect();
+  if(mr.width < 10) return;
+
   svg.setAttribute('viewBox', `0 0 ${mr.width} ${mr.height}`);
   const pts = [...document.querySelectorAll('.nova-roadmap-item .nova-node')].map(n=>{
     const r = n.getBoundingClientRect();
@@ -1006,7 +1010,7 @@ function drawNovaLine(){
   });
   poly.setAttribute('points', pts.join(' '));
 }
-window.addEventListener('load', drawNovaLine);
+window.addEventListener('load', ()=> setTimeout(drawNovaLine, 500));
 window.addEventListener('resize', drawNovaLine);
 
 
@@ -1128,3 +1132,20 @@ document.addEventListener('DOMContentLoaded',function(){
   var betaAdd2=document.getElementById('betaAdd2');
   if(betaAdd2){betaAdd2.addEventListener('click',function(e){e.stopPropagation();var inp=document.getElementById('betaInput2');var list=document.getElementById('betaList2');if(!inp.value.trim())return;var li=document.createElement('li');li.textContent='● '+inp.value;list.appendChild(li);inp.value='';});}
 });
+
+(function(){
+  const bg = document.getElementById('homeBg');
+  if(!bg) return;
+  for(let i=0;i<70;i++){
+    const s = document.createElement('span');
+    const size = Math.random()*3+1;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'%';
+    s.style.animationDuration = (Math.random()*8+6)+'s';
+    s.style.animationDelay = (Math.random()*8)+'s';
+    if(Math.random()>0.85) s.style.background = 'rgba(255,40,40,.7)';
+    bg.appendChild(s);
+  }
+  console.log('particulas creadas');
+})();
