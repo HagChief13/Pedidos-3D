@@ -25,6 +25,7 @@
     gap: 20px !important;
     padding: 20px 16px 40px !important;
     background: #050505 !important;
+    overflow: hidden !important;
   }
   .nova-mine .nova-roadmap-item{
     position: relative !important;
@@ -52,9 +53,13 @@
   .nova-mine::before{
     display: none !important;
   }
-}
-    .nova-roadmap{
-  background: #050505 !important;
+  .nova-roadmap{
+    background: #050505 !important;
+    overflow: hidden !important;
+  }
+  html, body{
+    overflow-x: hidden !important;
+  }
 }
 </style>
 </head>
