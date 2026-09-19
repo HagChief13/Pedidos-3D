@@ -195,6 +195,9 @@ function closeMenu() {
             isChangingView ||
             currentView === viewName
         ) {
+        if(viewName === 'nova'){
+  setTimeout(drawNovaLine, 650);
+}
 
             closeMenu();
 
@@ -999,18 +1002,22 @@ function drawNovaLine(){
   const svg = document.querySelector('.nova-svg-line');
   const poly = document.getElementById('novaPoly');
   if(!mine || !svg || !poly) return;
-  // si la vista está oculta, no dibujar aún
   const mr = mine.getBoundingClientRect();
-  if(mr.width < 10) return;
-
+  if(mr.width < 10) {
+    // reintenta en 600ms por si la vista aún está abriendo
+    setTimeout(drawNovaLine, 600);
+    return;
+  }
   svg.setAttribute('viewBox', `0 0 ${mr.width} ${mr.height}`);
+  svg.style.width = mr.width + 'px';
+  svg.style.height = mr.height + 'px';
   const pts = [...document.querySelectorAll('.nova-roadmap-item .nova-node')].map(n=>{
     const r = n.getBoundingClientRect();
     return `${r.left - mr.left + r.width/2},${r.top - mr.top + r.height/2}`;
   });
   poly.setAttribute('points', pts.join(' '));
 }
-window.addEventListener('load', ()=> setTimeout(drawNovaLine, 500));
+window.addEventListener('load', ()=> setTimeout(drawNovaLine, 800));
 window.addEventListener('resize', drawNovaLine);
 
 
