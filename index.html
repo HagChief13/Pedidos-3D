@@ -15,8 +15,18 @@
 
   <link rel="stylesheet" href="./style.css?v=5">
   <link rel="icon" type="image/png" href="logo.png?v=2">
-  <style>
+ <style>
 @media (max-width: 768px){
+  .nova-roadmap,
+  .nova-roadmap::before,
+  .nova-roadmap::after,
+  .nova-mine,
+  .nova-mine::before,
+  .nova-mine::after{
+    background: #050505 !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
   .nova-mine{
     height: auto !important;
     display: flex !important;
@@ -24,7 +34,6 @@
     align-items: center !important;
     gap: 20px !important;
     padding: 20px 16px 40px !important;
-    background: #050505 !important;
     overflow: hidden !important;
   }
   .nova-mine .nova-roadmap-item{
@@ -51,21 +60,13 @@
   .nova-mine .nova-crystal,
   .nova-mine .nova-rock,
   .nova-mine .nova-tunnel-glow,
-  .nova-mine .nova-tunnel-core{
-    display: none !important;
-  }
-  .nova-mine::before{
-    display: none !important;
-  }
+  .nova-mine .nova-tunnel-core,
   .nova-core{
     display: none !important;
   }
-  .nova-roadmap{
-    background: #050505 !important;
-    overflow: hidden !important;
-  }
   html, body{
     overflow-x: hidden !important;
+    background: #050505 !important;
   }
 }
 </style>
