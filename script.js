@@ -1003,3 +1003,17 @@ function toggleMenu() {
     );
 
 });
+function drawNovaLine(){
+  const mine = document.querySelector('.nova-mine');
+  const svg = document.querySelector('.nova-svg-line');
+  const poly = document.getElementById('novaPoly');
+  const mr = mine.getBoundingClientRect();
+  svg.setAttribute('viewBox', `0 0 ${mr.width} ${mr.height}`);
+  const pts = [...document.querySelectorAll('.nova-roadmap-item .nova-node')].map(n=>{
+    const r = n.getBoundingClientRect();
+    return `${r.left - mr.left + r.width/2},${r.top - mr.top + r.height/2}`;
+  });
+  poly.setAttribute('points', pts.join(' '));
+}
+window.addEventListener('load', drawNovaLine);
+window.addEventListener('resize', drawNovaLine);
