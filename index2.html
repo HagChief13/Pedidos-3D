@@ -127,7 +127,11 @@
       id="inicio"
       class="site-view home-view active-view"
       data-view="inicio"
+      
     >
+    <div class="home-bg" aria-hidden="true">
+  <span></span><span></span><span></span>
+</div>
 
       <div
         class="home-light home-light-red"
@@ -180,6 +184,17 @@
           de inteligencia artificial y tecnología experimental.
         </p>
 
+        <div class="dev-timer">
+  <span class="dev-timer-label">TIEMPO PROGRAMANDO HASTA TERMINAR EL PROYECTO</span>
+  <strong id="devTimer">5d 3h 00m 00s</strong>
+  
+</div>
+<button class="btn-unknown" type="button">
+  <span class="btn-unknown-top">?????</span>
+  <span class="btn-unknown-sub">// SEÑAL NO DECODIFICADA</span>
+</button>
+
+
 
         <div class="home-scroll-indicator">
 
@@ -195,68 +210,24 @@
 
 
         <div class="welcome-projects">
+  <a href="#pedidos3d" class="welcome-project-card" data-section="pedidos3d">
+    <div class="welcome-card-content">
+      <span class="welcome-card-label">01 — DISPONIBLE</span>
+      <h2>PEDIDOS 3D</h2>
+      <p>Gestión para impresión 3D</p>
+    </div>
+    <div class="welcome-card-arrow">→</div>
+  </a>
 
-
-          <!-- PEDIDOS 3D -->
-
-          <a
-            href="#pedidos3d"
-            class="welcome-project-card"
-            data-section="pedidos3d"
-          >
-
-            <div class="welcome-card-content">
-
-              <span class="welcome-card-label">
-                PROYECTO 01
-              </span>
-
-              <h2>
-                PEDIDOS 3D
-              </h2>
-
-              <p>
-                Organización y gestión para impresión 3D.
-              </p>
-
-            </div>
-
-            <div class="welcome-card-arrow">
-              →
-            </div>
-
-          </a>
-
-
-          <!-- NOVA -->
-
-          <a
-            href="#nova"
-            class="welcome-project-card"
-            data-section="nova"
-          >
-
-            <div class="welcome-card-content">
-
-              <span class="welcome-card-label">
-                PROYECTO 02
-              </span>
-
-              <h2>
-                NOVA
-              </h2>
-
-              <p>
-                Asistente virtual e inteligencia artificial.
-              </p>
-
-            </div>
-
-            <div class="welcome-card-arrow">
-              →
-            </div>
-
-          </a>
+  <a href="#nova" class="welcome-project-card" data-section="nova">
+    <div class="welcome-card-content">
+      <span class="welcome-card-label">02 — EN DESARROLLO</span>
+      <h2>NOVA</h2>
+      <p>Asistente virtual IA</p>
+    </div>
+    <div class="welcome-card-arrow">→</div>
+  </a>
+</div>
 
 
         </div>

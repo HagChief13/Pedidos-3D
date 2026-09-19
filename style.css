@@ -3152,3 +3152,183 @@ html {
 .beta-mini{background:#fff;padding:14px;border-radius:12px;margin-top:10px;display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .beta-mini input{padding:10px;border:1px solid #ddd;border-radius:8px;font-size:13px}
 .beta-mini button{background:#ff2a2a;color:#fff;border:none;padding:10px;border-radius:8px;cursor:pointer;font-weight:700}
+
+/* MEJORA HERO INICIO */
+.home-view {
+  position: relative;
+  overflow: hidden;
+}
+.home-title {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+.home-title-accent {
+  background: linear-gradient(180deg, #ff1a1a 0%, #b30000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 25px rgba(255,0,0,.35));
+}
+.home-description {
+  max-width: 620px;
+  margin: 1.5rem auto;
+  opacity: .75;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+.welcome-projects {
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+.welcome-project-card {
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(12px);
+  border-radius: 4px;
+  padding: 2rem;
+  transition: all .35s cubic-bezier(.2,.8,.2,1);
+  position: relative;
+  overflow: hidden;
+}
+.welcome-project-card::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg, rgba(255,0,0,.12), transparent 50%);
+  opacity:0;
+  transition: opacity .35s;
+}
+.welcome-project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255,0,0,.4);
+  box-shadow: 0 20px 50px rgba(0,0,0,.5), 0 0 0 1px rgba(255,0,0,.2);
+}
+.welcome-project-card:hover::before { opacity:1; }
+.welcome-card-arrow {
+  transition: transform .3s;
+}
+.welcome-project-card:hover .welcome-card-arrow {
+  transform: translateX(8px);
+}
+.welcome-card-icon{font-size:2.2rem;margin:1rem 0 .5rem}
+.welcome-card-features{list-style:none;margin:1rem 0;padding:0;display:grid;gap:.4rem}
+.welcome-card-features li{font-size:.85rem;opacity:.7}
+.welcome-card-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.welcome-card-tags span{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:.3rem .7rem;border-radius:100px}
+/* FONDO ANIMADO MINIMALISTA */
+.home-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.home-bg span{position:absolute;width:2px;height:2px;background:rgba(255,255,255,.4);border-radius:50%;animation:floatUp 12s linear infinite}
+.home-bg span:nth-child(1){left:20%;animation-delay:0s}
+.home-bg span:nth-child(2){left:40%;animation-delay:3s;width:3px;height:3px}
+.home-bg span:nth-child(3){left:60%;animation-delay:6s}
+.home-bg span:nth-child(4){left:80%;animation-delay:2s;width:1px;height:1px}
+.home-bg span:nth-child(5){left:10%;animation-delay:8s}
+@keyframes floatUp{
+  0%{transform:translateY(100vh);opacity:0}
+  10%{opacity:1}
+  90%{opacity:1}
+  100%{transform:translateY(-10vh);opacity:0}
+}
+
+/* CARDS MINIMALISTAS */
+.welcome-project-card{
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  padding:1.8rem;
+  transition:all .3s ease;
+}
+.welcome-project-card:hover{
+  background:rgba(255,255,255,.04);
+  border-color:rgba(255,255,255,.18);
+  transform:translateY(-4px);
+}
+.welcome-card-label{font-size:.7rem;letter-spacing:.15em;opacity:.5}
+.welcome-project-card h2{font-size:1.6rem;letter-spacing:.05em;margin:.6rem 0 .3rem}
+.welcome-project-card p{font-size:.9rem;opacity:.6;margin:0}
+
+.home-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.home-bg span{position:absolute;bottom:-10px;border-radius:50%;background:rgba(255,255,255,.5);animation:floatUp linear infinite;opacity:0}
+@keyframes floatUp{
+ 0%{transform:translateY(0);opacity:0}
+ 10%{opacity:.8}
+ 100%{transform:translateY(-110vh);opacity:0}
+}
+
+.dev-timer{
+  text-align:center;
+  padding:1.5rem 1rem;
+  margin:2rem auto;
+  max-width:520px;
+  width:92%;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  backdrop-filter:blur(8px);
+}
+.dev-timer-label{
+  display:block;
+  color:#ff1a1a;
+  font-size:.68rem;
+  letter-spacing:.25em;
+  font-weight:700;
+  margin-bottom:.8rem;
+  line-height:1.6;
+}
+.dev-timer-label::before{content:"// "}
+#devTimer{
+  display:block;
+  font-size:clamp(1.6rem,8vw,2.8rem);
+  font-weight:900;
+  color:#fff;
+  letter-spacing:.03em;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+  text-shadow:0 0 20px rgba(255,255,255,.15);
+}
+.dev-timer small{
+  display:block;
+  margin-top:.6rem;
+  color:#666;
+  font-size:.65rem;
+  letter-spacing:.2em;
+}
+
+@media (max-width:480px){
+  .dev-timer{ padding:1.2rem .8rem; }
+  .dev-timer-label{
+    font-size:.6rem;
+    letter-spacing:.18em;
+    white-space:normal;
+  }
+  #devTimer{ font-size:clamp(1.4rem,9vw,1.9rem); }
+}
+
+.btn-unknown{
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  background:#0a0a0a; color:#00ff66;
+  border:1px dashed rgba(0,255,102,.5);
+  padding:14px 22px; cursor:pointer;
+  font-family:'Orbitron',sans-serif;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  transition:.25s;
+}
+.btn-unknown-top{ font-size:1.2rem; letter-spacing:.4em; }
+.btn-unknown-sub{ font-size:.6rem; letter-spacing:.2em; opacity:.6; }
+.btn-unknown:hover{
+  animation: shake .3s infinite;
+  border-color:#ff1010; color:#ff1010;
+}
+@keyframes shake{
+  0%{transform:translateX(0)} 25%{transform:translateX(-2px)}
+  50%{transform:translateX(2px)} 75%{transform:translateX(-1px)}
+}
+
+@media (max-width:768px){
+  .home-title{ font-size:clamp(2rem,10vw,3rem); line-height:1.1; }
+  .home-description{ font-size:.95rem; padding:0 1rem; }
+  .welcome-projects{ flex-direction:column; }
+  .p3d-local-links{ display:none; }
+  img, video{ max-width:100%; height:auto; }
+}

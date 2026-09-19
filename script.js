@@ -1149,3 +1149,27 @@ document.addEventListener('DOMContentLoaded',function(){
   }
   console.log('particulas creadas');
 })();
+
+(function(){
+  const KEY = 'prog-start-v1';
+  let start = localStorage.getItem(KEY);
+  if(!start){
+    // 5 días + 3 horas hacia atrás desde ahora
+    start = Date.now() - ((5*24 + 3) * 3600 * 1000);
+    localStorage.setItem(KEY, start);
+  } else {
+    start = parseInt(start, 10);
+  }
+  const el = document.getElementById('devTimer');
+  if(!el) return;
+  function update(){
+    let diff = Math.floor((Date.now() - start) / 1000);
+    const d = Math.floor(diff / 86400); diff %= 86400;
+    const h = Math.floor(diff / 3600); diff %= 3600;
+    const m = Math.floor(diff / 60);
+    const s = diff % 60;
+    el.textContent = `${d}d ${h}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+  }
+  setInterval(update, 1000);
+  update();
+})();
