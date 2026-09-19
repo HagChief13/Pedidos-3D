@@ -66,15 +66,6 @@ function closeMenu() {
     menuToggle.setAttribute("aria-label", "Abrir menú");
 }
 
-function toggleMenu() {
-    if (!siteMenu) return;
-    if (siteMenu.classList.contains("menu-open")) {
-        closeMenu();
-    } else {
-        openMenu();
-    }
-}
-
 
     function toggleMenu() {
 
@@ -84,7 +75,7 @@ function toggleMenu() {
 
 
         if (
-            siteMenu.classList.contains("open")
+            siteMenu.classList.contains("menu-open")
         ) {
 
             closeMenu();
