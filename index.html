@@ -418,29 +418,16 @@
 
 
         <div class="hero-decoration">
-
-          <div class="retro-card">
-
-            <div class="card-top">
-              EST. 2026
-            </div>
-
-            <div class="card-p3d">
-              P3D
-            </div>
-
-            <div class="card-title">
-              PEDIDOS<br>
-              3D
-            </div>
-
-            <div class="card-bottom">
-              ORGANIZE YOUR WORK
-            </div>
-
-          </div>
-
-        </div>
+  <div class="p3d-mockup">
+    <div class="mockup-bar"><span></span><span></span><span></span></div>
+    <div class="mockup-title">PEDIDOS 3D — PANEL</div>
+    <div class="mockup-row head"><span>PEDIDO</span><span>ESTADO</span></div>
+    <div class="mockup-row"><span>#1024 - Groot</span><b class="st-ready">● Listo</b></div>
+    <div class="mockup-row"><span>#1025 - Llaveros x20</span><b class="st-prod">● En producción</b></div>
+    <div class="mockup-row"><span>#1026 - Pieza motor</span><b class="st-pend">● Pendiente</b></div>
+    <div class="mockup-foot">3 PEDIDOS ACTIVOS</div>
+  </div>
+</div>
 
       </section>
 
@@ -545,7 +532,34 @@
 
       </section>
 
-
+<section class="book-tutorial-section" id="pedidos-tutorial">
+  <p class="eyebrow">TUTORIAL INTERACTIVO</p>
+  <h2>CÓMO FUNCIONA</h2>
+  <p class="book-hint">Haz click en la tapa para abrir / cerrar</p>
+  <div class="book-scene">
+    <div class="book" id="p3dBook">
+      <!-- 8 -->
+      <div class="bpage" data-i="8"><div class="page-inner"><h3>8. Beta filamentos</h3><div class="beta-mini"><input id="betaInput2" placeholder="Ej: PLA Rojo"><button id="betaAdd2">Agregar</button><ul id="betaList2"></ul></div><div class="book-nav"><button class="prevB">← Anterior</button><span>8 / 8</span></div></div></div>
+      <!-- 7 -->
+      <div class="bpage" data-i="7"><div class="page-inner"><h3>7. Control de stock</h3><p>Registra rollos, peso y color. Te avisa cuando queda poco.</p><div class="demo-box">PLA Negro: <b>320g</b> restantes<br><small>⚠️ Stock bajo</small></div><div class="book-nav"><button class="prevB">← Anterior</button><span>7 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
+      <!-- 6 -->
+      <div class="bpage" data-i="6"><div class="page-inner"><h3>6. Tipos de filamento</h3><p>PLA, PETG, ASA, TPU. Cada uno con temperatura ideal.</p><div class="demo-box">PLA: 200°C | PETG: 240°C | ASA: 250°C</div><div class="book-nav"><button class="prevB">← Anterior</button><span>6 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
+      <!-- 5 -->
+      <div class="bpage" data-i="5"><div class="page-inner"><h3>5. Filamentos</h3><p>Gestiona tus materiales y asigna a cada pedido.</p><div class="demo-box">Material: <b>PETG Azul</b></div><div class="book-nav"><button class="prevB">← Anterior</button><span>5 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
+      <!-- 4 -->
+      <div class="bpage" data-i="4"><div class="page-inner"><h3>4. Pruébalo aquí</h3><div class="beta-mini"><input id="betaInput" placeholder="Ej: Llavero Pikachu"><button id="betaAdd">Agregar</button><ul id="betaList"></ul></div><div class="book-nav"><button class="prevB">← Anterior</button><span>4 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
+      <!-- 3 -->
+      <div class="bpage" data-i="3"><div class="page-inner"><h3>3. Calcula y entrega</h3><p>Usa la <b>Calculadora 3D</b> para costos.</p><div class="demo-box">Costo: $4.200 → Precio: $15.000</div><div class="book-nav"><button class="prevB">← Anterior</button><span>3 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
+      <!-- 2 -->
+      <div class="bpage" data-i="2"><div class="page-inner"><h3>2. Asigna material</h3><p>Elige material y pon <b>En producción</b>.</p><div class="demo-box">Material: <b>PLA Negro</b></div><div class="book-nav"><button class="prevB">← Anterior</button><span>2 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
+      <!-- 1 -->
+      <div class="bpage" data-i="1"><div class="page-inner"><h3>1. Registra el pedido</h3><p>Ve a <b>Pedidos 3D</b> → <b>+ Nuevo</b>.</p><div class="demo-box">Cliente: Juan | Pieza: Groot | $15.000</div><div class="book-nav"><button class="prevB">← Índice</button><span>1 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
+      <!-- 0 INDICE -->
+      <div class="bpage" data-i="0"><div class="page-inner index-page"><h3>ÍNDICE</h3><button class="idx-btn" data-goto="1"><b>1 - 4</b><span>Pedidos: registrar, producir, entregar + beta</span><i>→</i></button><button class="idx-btn" data-goto="5"><b>5 - 8</b><span>Filamentos: tipos, stock y control</span><i>→</i></button><div class="book-nav"><span>Índice</span><button class="nextB">Empezar →</button></div></div></div>
+      <div class="book-cover" id="bookCover"><div class="cover-p3d">P3D</div><div class="cover-title">MANUAL<br>RÁPIDO</div><div class="cover-click">CLICK PARA ABRIR</div></div>
+    </div>
+  </div>
+</section>
 
       <!-- =====================================================
            CARACTERÍSTICAS
@@ -1846,6 +1860,8 @@
   </div>
 </div>
 </div>
+
+
   <!-- =========================================================
        JAVASCRIPT GENERAL
        ========================================================= -->
