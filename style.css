@@ -3326,29 +3326,23 @@ html {
 }
 
 @media (max-width: 768px){
-  .nova-mine{
-    overflow-x: hidden;
-    padding: 0 12px;
+  /* footer de Pedidos 3D - pasar de 3 columnas a 1 */
+  .footer-grid,
+  .pedidos-footer-grid,
+  footer .grid,
+  [class*="footer-grid"]{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    text-align: center !important;
+    height: auto !important;
+    overflow: visible !important;
   }
-  .nova-roadmap-item.left,
-  .nova-roadmap-item.right{
-    display: flex !important;
-    justify-content: center !important;
-    width: 100% !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    margin: 24px 0 !important;
-  }
-  .nova-roadmap-card{
-    width: 88% !important;
-    max-width: 320px !important;
-    margin: 0 auto !important;
-  }
-  .nova-svg-line{
-    display: none !important; /* la línea roja en celu molesta más de lo que ayuda */
-  }
-  .nova-node{
-    display: none !important;
+
+  footer{
+    height: auto !important;
+    min-height: auto !important;
+    padding-bottom: 40px !important;
+    overflow: visible !important;
   }
 }
