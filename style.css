@@ -3326,23 +3326,38 @@ html {
 }
 
 @media (max-width: 768px){
-  /* footer de Pedidos 3D - pasar de 3 columnas a 1 */
-  .footer-grid,
-  .pedidos-footer-grid,
-  footer .grid,
-  [class*="footer-grid"]{
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-    text-align: center !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-
   footer{
+    overflow-x: hidden !important;
     height: auto !important;
-    min-height: auto !important;
-    padding-bottom: 40px !important;
-    overflow: visible !important;
+  }
+  footer > div,
+  footer > div > div{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 28px !important;
+    max-width: 100% !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+@media (max-width: 768px){
+  .nova-mine{ overflow-x:hidden !important; }
+  .nova-roadmap-item{
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    float: none !important;
+    clear: both !important;
+    transform: none !important;
+    width: 90% !important;
+    max-width: 320px !important;
+    margin: 24px auto !important;
+    display: block !important;
+  }
+  .nova-roadmap-card{
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
