@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Un espacio dedicado a proyectos, herramientas y tecnología: Pedidos 3D y NOVA."
+  >
+
+  <meta name="theme-color" content="#080808">
+
+  <title>PROYECTOS — Pedidos 3D &amp; NOVA</title>
+
+  <link rel="stylesheet" href="./style.css?v=5">
+  <link rel="icon" type="image/png" href="logo.png?v=2">
+</head>
+
+<body>
+
+  <!-- =========================================================
+       TEXTURA GENERAL
+       ========================================================= -->
+
+  <div class="noise" aria-hidden="true"></div>
+
+
+  <!-- =========================================================
+       NAVBAR / MENÚ GENERAL
+       ========================================================= -->
+
+  <header class="navbar">
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="siteMenu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="menu-label" aria-hidden="true">
+      MENÚ
+    </div>
+
+
+    <nav id="siteMenu" class="site-menu">
+
+      <div class="menu-header">
+        <span class="menu-kicker">
+          NAVEGACIÓN
+        </span>
+
+        <span class="menu-title">
+          MENÚ
+        </span>
+      </div>
+
+
+      <div class="menu-links">
+
+        <a
+          href="#inicio"
+          data-section="inicio"
+          class="menu-link active"
+        >
+          <span class="menu-number">01</span>
+          <span>INICIO</span>
+        </a>
+
+
+        <a
+          href="#pedidos3d"
+          data-section="pedidos3d"
+          class="menu-link"
+        >
+          <span class="menu-number">02</span>
+          <span>PEDIDOS 3D</span>
+        </a>
+
+
+        <a
+          href="#nova"
+          data-section="nova"
+          class="menu-link"
+        >
+          <span class="menu-number">03</span>
+          <span>NOVA</span>
+        </a>
+
+      </div>
+
+
+      <div class="menu-footer">
+        <span>
+          PROYECTOS • TECNOLOGÍA • CREACIÓN
+        </span>
+
+        <span>
+          2026
+        </span>
+      </div>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =========================================================
+       CONTENIDO PRINCIPAL
+       ========================================================= -->
+
+  <main id="mainContent">
+
+
+    <!-- =======================================================
+         VISTA 01 — INICIO
+         ======================================================= -->
+
+    <section
+      id="inicio"
+      class="site-view home-view active-view"
+      data-view="inicio"
+    >
+
+      <div
+        class="home-light home-light-red"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="home-light home-light-white"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="home-light home-light-red-secondary"
+        aria-hidden="true"
+      ></div>
+
+
+      <div class="home-container">
+
+        <div class="home-eyebrow">
+
+          <span class="home-line"></span>
+
+          <span>
+            PROYECTOS • TECNOLOGÍA • CREACIÓN
+          </span>
+
+          <span class="home-line"></span>
+
+        </div>
+
+
+        <h1 class="home-title">
+
+          <span>
+            UN ESPACIO
+          </span>
+
+          <span class="home-title-accent">
+            PARA CREAR.
+          </span>
+
+        </h1>
+
+
+        <p class="home-description">
+          Este sitio reúne proyectos, herramientas e ideas
+          desarrolladas para convertir conceptos en soluciones reales.
+          Desde la gestión de trabajos de impresión 3D hasta proyectos
+          de inteligencia artificial y tecnología experimental.
+        </p>
+
+
+        <div class="home-scroll-indicator">
+
+          <span class="home-scroll-line"></span>
+
+          <span>
+            EXPLORA LOS PROYECTOS
+          </span>
+
+          <span class="home-scroll-line"></span>
+
+        </div>
+
+
+        <div class="welcome-projects">
+
+
+          <!-- PEDIDOS 3D -->
+
+          <a
+            href="#pedidos3d"
+            class="welcome-project-card"
+            data-section="pedidos3d"
+          >
+
+            <div class="welcome-card-content">
+
+              <span class="welcome-card-label">
+                PROYECTO 01
+              </span>
+
+              <h2>
+                PEDIDOS 3D
+              </h2>
+
+              <p>
+                Organización y gestión para impresión 3D.
+              </p>
+
+            </div>
+
+            <div class="welcome-card-arrow">
+              →
+            </div>
+
+          </a>
+
+
+          <!-- NOVA -->
+
+          <a
+            href="#nova"
+            class="welcome-project-card"
+            data-section="nova"
+          >
+
+            <div class="welcome-card-content">
+
+              <span class="welcome-card-label">
+                PROYECTO 02
+              </span>
+
+              <h2>
+                NOVA
+              </h2>
+
+              <p>
+                Asistente virtual e inteligencia artificial.
+              </p>
+
+            </div>
+
+            <div class="welcome-card-arrow">
+              →
+            </div>
+
+          </a>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         VISTA 02 — PEDIDOS 3D
+         ======================================================= -->
+
+    <section
+      id="pedidos3d"
+      class="site-view pedidos-view"
+      data-view="pedidos3d"
+    >
+
+
+      <!-- NAVEGACIÓN LOCAL -->
+
+      <div class="p3d-local-nav">
+
+        <a
+          href="#inicio"
+          data-section="inicio"
+          class="p3d-local-logo"
+        >
+
+          <div class="p3d-badge">
+            P3D
+          </div>
+
+          <span>
+            PEDIDOS 3D
+          </span>
+
+        </a>
+
+
+        <nav class="p3d-local-links">
+
+          <a href="#pedidos-inicio">
+            INICIO
+          </a>
+
+          <a href="#pedidos-nosotros">
+            SOBRE NOSOTROS
+          </a>
+
+          <a href="#pedidos-caracteristicas">
+            CARACTERÍSTICAS
+          </a>
+
+          <a href="#pedidos-descarga">
+            DESCARGA
+          </a>
+
+        </nav>
+
+
+        <a
+          href="#pedidos-descarga"
+          class="p3d-local-download"
+        >
+          DESCARGAR
+        </a>
+
+      </div>
+
+
+
+      <!-- =====================================================
+           HERO PEDIDOS 3D
+           ===================================================== -->
+
+      <section
+        class="hero pedidos-hero"
+        id="pedidos-inicio"
+      >
+
+        <div class="hero-content">
+
+          <div class="vintage-label">
+            ✦ GESTIÓN • IMPRESIÓN 3D • 2026 ✦
+          </div>
+
+
+          <h1>
+
+            <span>
+              ORGANIZA.
+            </span>
+
+            <strong>
+              PEDIDOS 3D
+            </strong>
+
+            <span>
+              CONTROLA. CRECE.
+            </span>
+
+          </h1>
+
+
+          <div class="divider">
+            <span></span>
+            ◆
+            <span></span>
+          </div>
+
+
+          <p class="hero-subtitle">
+            La herramienta creada para ayudar a negocios de impresión 3D
+            a organizar sus pedidos, controlar sus trabajos y mejorar
+            su eficiencia.
+          </p>
+
+
+          <div class="hero-buttons">
+
+            <a
+              href="#pedidos-descarga"
+              class="download-btn"
+            >
+
+              <span class="download-icon">
+                ↓
+              </span>
+
+              <span>
+                <small>
+                  SOFTWARE PARA IMPRESIÓN 3D
+                </small>
+
+                DESCARGA AQUÍ
+              </span>
+
+            </a>
+
+
+            <a
+              href="#pedidos-caracteristicas"
+              class="secondary-btn"
+            >
+              CONOCER LA APP
+            </a>
+
+          </div>
+
+
+          <div class="platform">
+            DISPONIBLE PARA PC WINDOWS Y ANDROID
+          </div>
+
+        </div>
+
+
+        <div class="hero-decoration">
+
+          <div class="retro-card">
+
+            <div class="card-top">
+              EST. 2026
+            </div>
+
+            <div class="card-p3d">
+              P3D
+            </div>
+
+            <div class="card-title">
+              PEDIDOS<br>
+              3D
+            </div>
+
+            <div class="card-bottom">
+              ORGANIZE YOUR WORK
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <div class="ornament">
+        <span></span>
+        <div>✦</div>
+        <span></span>
+      </div>
+
+
+
+      <!-- =====================================================
+           SOBRE NOSOTROS
+           ===================================================== -->
+
+      <section
+        class="about section"
+        id="pedidos-nosotros"
+      >
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            01
+          </span>
+
+          <div>
+
+            <p class="eyebrow">
+              SOBRE NOSOTROS
+            </p>
+
+            <h2>
+              LA HERRAMIENTA QUE TU TRABAJO NECESITA
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="about-grid">
+
+          <div class="about-text">
+
+            <p>
+              Pedidos 3D nació para resolver un problema común
+              en el sector de la fabricación aditiva: la falta
+              de una herramienta sencilla, directa y enfocada
+              en la gestión real de pedidos.
+            </p>
+
+            <p>
+              Nuestra aplicación permite organizar tus pedidos
+              en un solo lugar, ayudándote a mantener una visión
+              clara de lo que tienes pendiente, lo que está en
+              producción y lo que ya está listo.
+            </p>
+
+
+            <div class="quote">
+
+              <span>
+                “
+              </span>
+
+              TU NEGOCIO.<br>
+              TU PRODUCCIÓN.<br>
+              TU CONTROL.
+
+            </div>
+
+          </div>
+
+
+          <div class="about-stamp">
+
+            <div class="stamp-inner">
+
+              <span>
+                DISEÑADO PARA
+              </span>
+
+              <strong>
+                P3D
+              </strong>
+
+              <small>
+                IMPRESIÓN 3D
+              </small>
+
+              <span>
+                2026
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =====================================================
+           CARACTERÍSTICAS
+           ===================================================== -->
+
+      <section
+        class="features section"
+        id="pedidos-caracteristicas"
+      >
+
+        <div class="section-heading centered">
+
+          <span class="section-number">
+            02
+          </span>
+
+          <div>
+
+            <p class="eyebrow">
+              TODO EN UN SOLO LUGAR
+            </p>
+
+            <h2>
+              CARACTERÍSTICAS PRINCIPALES
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="features-grid">
+
+
+          <article class="feature-card">
+
+            <div class="feature-number">
+              01
+            </div>
+
+            <div class="feature-icon">
+              📋
+            </div>
+
+            <h3>
+              GESTIÓN DE PEDIDOS
+            </h3>
+
+            <p>
+              Registra y organiza tus pedidos de impresión 3D
+              para mantener toda la información importante
+              en un solo lugar.
+            </p>
+
+          </article>
+
+
+          <article class="feature-card featured">
+
+            <div class="feature-number">
+              02
+            </div>
+
+            <div class="feature-icon">
+              ◆
+            </div>
+
+            <h3>
+              CONTROL DE PRODUCCIÓN
+            </h3>
+
+            <p>
+              Visualiza fácilmente qué pedidos están pendientes,
+              en producción o listos para entregar.
+            </p>
+
+          </article>
+
+
+          <article class="feature-card">
+
+            <div class="feature-number">
+              03
+            </div>
+
+            <div class="feature-icon">
+              🧵
+            </div>
+
+            <h3>
+              GESTIÓN DE MATERIALES
+            </h3>
+
+            <p>
+              Registra materiales como PLA, PETG y ASA,
+              además del color utilizado en cada pedido.
+            </p>
+
+          </article>
+
+
+          <article class="feature-card">
+
+            <div class="feature-number">
+              04
+            </div>
+
+            <div class="feature-icon">
+              $
+            </div>
+
+            <h3>
+              CONTROL DE PRECIOS
+            </h3>
+
+            <p>
+              Lleva un mejor control del valor de tus trabajos
+              y de la información económica asociada a ellos.
+            </p>
+
+          </article>
+
+
+          <article class="feature-card">
+
+            <div class="feature-number">
+              05
+            </div>
+
+            <div class="feature-icon">
+              ⚙
+            </div>
+
+            <h3>
+              CALCULADORA 3D
+            </h3>
+
+            <p>
+              Calcula costes de impresión considerando materiales,
+              tiempo, electricidad, desgaste y otros factores.
+            </p>
+
+          </article>
+
+
+          <article class="feature-card">
+
+            <div class="feature-number">
+              06
+            </div>
+
+            <div class="feature-icon">
+              📱
+            </div>
+
+            <h3>
+              MULTIPLATAFORMA
+            </h3>
+
+            <p>
+              Utiliza Pedidos 3D en tu ordenador o dispositivo
+              móvil según las necesidades de tu taller.
+            </p>
+
+          </article>
+
+
+        </div>
+
+      </section>
+
+
+
+      <!-- =====================================================
+           DESCARGA
+           ===================================================== -->
+
+      <section
+        class="download-section section"
+        id="pedidos-descarga"
+      >
+
+        <div class="download-content">
+
+          <div class="download-badge">
+            ✦ DESCARGA ✦
+          </div>
+
+          <p class="eyebrow">
+            OBTÉN LA APLICACIÓN
+          </p>
+
+          <h2>
+            LISTO PARA ORGANIZAR
+            <span>NUESTRA APP?</span>
+          </h2>
+
+
+          <div class="divider">
+            <span></span>
+            ◆
+            <span></span>
+          </div>
+
+
+          <p class="download-description">
+            Descargar Pedidos 3D es sencillo. Nuestra aplicación
+            se distribuye mediante GitHub Releases, donde encontrarás
+            las versiones disponibles.
+          </p>
+
+
+          <div class="download-steps">
+
+
+            <div class="download-step">
+
+              <div class="step-number">
+                01
+              </div>
+
+              <div>
+
+                <h3>
+                  REVISA LOS REQUISITOS
+                </h3>
+
+                <p>
+                  Asegúrate de contar con Windows 10/11
+                  o Android 8.0+.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="download-step">
+
+              <div class="step-number">
+                02
+              </div>
+
+              <div>
+
+                <h3>
+                  VE A GITHUB RELEASES
+                </h3>
+
+                <p>
+                  Serás dirigido a la página oficial de versiones
+                  de Pedidos 3D.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="download-step">
+
+              <div class="step-number">
+                03
+              </div>
+
+              <div>
+
+                <h3>
+                  DESCARGA LA VERSIÓN
+                </h3>
+
+                <p>
+                  Selecciona el archivo correspondiente
+                  y comienza a utilizar Pedidos 3D.
+                </p>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <a
+            href="URL_GITHUB_RELEASES"
+            class="big-download"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>↓</span>
+            DESCARGAR PEDIDOS 3D
+          </a>
+
+
+          <div class="download-note">
+            <span>✓</span>
+            VERSIÓN MÁS RECIENTE DISPONIBLE EN GITHUB
+          </div>
+
+
+          <div
+            class="platform-download-area"
+            id="descarga"
+          >
+
+            <div class="platform-download-heading">
+
+              <p class="eyebrow">
+                DESCARGA DIRECTA
+              </p>
+
+              <h3>
+                ELIGE TU PLATAFORMA
+              </h3>
+
+              <p>
+                Descarga directamente la versión correspondiente
+                a tu dispositivo.
+              </p>
+
+            </div>
+
+
+            <div class="download-platforms">
+
+
+              <!-- WINDOWS -->
+
+              <article
+                class="download-card recommended"
+                id="card-windows"
+                data-platform="windows"
+              >
+
+                <div class="recommended-badge">
+                  RECOMENDADO
+                </div>
+
+                <div class="platform-icon">
+                  PC
+                </div>
+
+                <h3>
+                  PC WINDOWS
+                </h3>
+
+                <p class="platform-version">
+                  Windows 10 / 11
+                </p>
+
+                <p class="platform-size">
+                  64 bits
+                </p>
+
+                <a
+                  href="https://github.com/HagChief13/Pedidos-3D/releases/download/v1.0pc/Pedidos.3D.Setup.exe"
+                  class="download-platform-btn"
+                  data-download="Windows"
+                  download
+                >
+                  DESCARGAR PARA PC
+                </a>
+
+              </article>
+
+
+              <!-- ANDROID -->
+
+              <article
+                class="download-card"
+                id="card-android"
+                data-platform="android"
+              >
+
+                <div class="recommended-badge">
+                  ANDROID
+                </div>
+
+                <div class="platform-icon">
+                  APK
+                </div>
+
+                <h3>
+                  ANDROID
+                </h3>
+
+                <p class="platform-version">
+                  Android 8.0+
+                </p>
+
+                <p class="platform-size">
+                  APK
+                </p>
+
+                <a
+                  href="https://github.com/HagChief13/Pedidos-3D/releases/download/v1.0pc/app-debug.apk"
+                  class="download-platform-btn"
+                  data-download="Android"
+                  download
+                >
+                  DESCARGAR APK
+                </a>
+
+              </article>
+
+
+            </div>
+
+
+            <p class="download-help">
+              ¿Problemas con la descarga?
+              <span>Contáctanos</span>
+            </p>
+
+
+            <footer class="footer-min">
+
+              <p>
+                © 2026 NOVA - Todos los derechos reservados
+              </p>
+
+              <p>
+                Desarrollado por [tu nombre] |
+                Pedidos 3D &amp; NOVA
+              </p>
+
+            </footer>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         VISTA 03 — NOVA
+         ======================================================= -->
+
+    <section
+      id="nova"
+      class="site-view nova-view"
+      data-view="nova"
+    >
+
+
+      <!-- LUCES AMBIENTALES -->
+
+      <div
+        class="nova-light nova-light-red"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        class="nova-light nova-light-white"
+        aria-hidden="true"
+      ></div>
+
+
+      <div class="nova-container">
+
+
+        <!-- ===================================================
+             CABECERA NOVA
+             =================================================== -->
+
+        <div class="nova-eyebrow">
+
+          <span>
+            PROYECTO 03
+          </span>
+
+          <span class="nova-status">
+            EN DESARROLLO
+          </span>
+
+        </div>
+
+
+        <!-- ===================================================
+             PRESENTACIÓN SUPERIOR
+             =================================================== -->
+
+        <div class="nova-content">
+
+
+          <!-- LOGO -->
+
+          <div class="nova-logo-area">
+
+            <div class="nova-symbol">
+              N
+            </div>
+
+          </div>
+
+
+          <!-- TEXTO -->
+
+          <div class="nova-text">
+
+            <span class="eyebrow">
+              ASISTENTE VIRTUAL
+            </span>
+
+
+            <h1>
+              NOVA
+            </h1>
+
+
+            <h2>
+              UNA NUEVA FORMA<br>
+              DE INTERACTUAR.
+            </h2>
+
+
+            <p>
+              NOVA es un proyecto de asistente virtual en desarrollo,
+              creado para combinar inteligencia artificial, voz,
+              visión y una interfaz propia.
+            </p>
+
+
+            <p>
+              La idea es construir un sistema capaz de comprender
+              el entorno, interactuar mediante voz, recordar
+              información y convertirse en una herramienta personal.
+            </p>
+
+
+            <!-- CARACTERÍSTICAS SUPERIORES -->
+
+            <div class="nova-features">
+
+
+              <div class="nova-feature">
+
+                <span>
+                  01
+                </span>
+
+                <strong>
+                  VOZ Y VISIÓN
+                </strong>
+
+              </div>
+
+
+              <div class="nova-feature">
+
+                <span>
+                  02
+                </span>
+
+                <strong>
+                  INTEGRACIÓN
+                </strong>
+
+              </div>
+
+
+              <div class="nova-feature">
+
+                <span>
+                  03
+                </span>
+
+                <strong>
+                  MEMORIA
+                </strong>
+
+              </div>
+
+
+              <div class="nova-feature">
+
+                <span>
+                  04
+                </span>
+
+                <strong>
+                  CONTROL
+                </strong>
+
+              </div>
+
+
+            </div>
+
+
+            <div class="nova-coming-soon">
+
+              ESTADO DE DESARROLLO:
+
+              <strong>
+                PRÓXIMAMENTE
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ===================================================
+             TRANSICIÓN HACIA EL SUBSUELO
+             =================================================== -->
+
+        <div class="nova-descent">
+
+          <div class="nova-descent-line"></div>
+
+          <span>
+            DESCENDIENDO AL NÚCLEO
+          </span>
+
+          <div class="nova-descent-line"></div>
+
+        </div>
+
+
+
+        <!-- ===================================================
+             RECORRIDO DE DESARROLLO
+             =================================================== -->
+             <div class="nova-journey-intro">
+    <span class="nova-journey-line"></span>
+
+  
+
+    <span class="nova-journey-line"></span>
+</div>
+
+        <section class="nova-roadmap">
+
+
+          <!-- CABECERA DEL RECORRIDO -->
+
+          <div class="nova-roadmap-header">
+
+
+            <div>
+
+              <span class="nova-roadmap-kicker">
+                NOVA DEVELOPMENT PATH
+              </span>
+
+              <h3>
+                EL CAMINO DE NOVA
+              </h3>
+
+              <p>
+                Cada módulo representa una parte del sistema.
+                Los componentes activos muestran el estado
+                actual del desarrollo.
+              </p>
+
+            </div>
+
+
+            <!-- PROGRESO -->
+
+            <div class="nova-roadmap-progress">
+
+              <span>
+                PROGRESO
+              </span>
+
+              <strong>
+                <b>03</b> / 09
+              </strong>
+
+              <div class="nova-progress-track">
+
+                <div
+                  class="nova-progress-fill"
+                  style="width: 33.333%;"
+                ></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- =================================================
+               MINA / TÚNEL
+               ================================================= -->
+
+          <div class="nova-mine">
+
+
+            <!-- TÚNEL -->
+
+            <div class="nova-tunnel-glow"></div>
+
+            <div class="nova-tunnel-core"></div>
+
+
+
+            <!-- =================================================
+                 MINERALES
+                 ================================================= -->
+
+            <span
+              class="nova-crystal crystal-1"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-crystal crystal-2"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-crystal crystal-3"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-crystal crystal-4"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-crystal crystal-5"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-crystal crystal-6"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-crystal crystal-7"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-crystal crystal-8"
+              aria-hidden="true"
+            ></span>
+
+
+
+            <!-- ROCAS -->
+
+            <span
+              class="nova-rock rock-1"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-rock rock-2"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-rock rock-3"
+              aria-hidden="true"
+            ></span>
+
+            <span
+              class="nova-rock rock-4"
+              aria-hidden="true"
+            ></span>
+
+
+
+            <!-- =================================================
+                 01 — VOZ
+                 ================================================= -->
+
+            <article class="nova-roadmap-item ready right">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  01
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status ready-status">
+                    ● LISTO
+                  </span>
+
+                  <h4>
+                    VOZ
+                  </h4>
+
+                  <p>
+                    Sistema de interacción mediante voz para
+                    recibir instrucciones y responder de forma natural.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 02 — VISIÓN
+                 ================================================= -->
+
+            <article class="nova-roadmap-item ready left">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  02
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status ready-status">
+                    ● LISTO
+                  </span>
+
+                  <h4>
+                    VISIÓN
+                  </h4>
+
+                  <p>
+                    Uso de cámara para observar el entorno,
+                    identificar objetos y obtener información
+                    sobre lo que NOVA está viendo.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 03 — BÚSQUEDA WEB
+                 ================================================= -->
+
+            <article class="nova-roadmap-item ready right">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  03
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status ready-status">
+                    ● LISTO
+                  </span>
+
+                  <h4>
+                    BÚSQUEDA WEB
+                  </h4>
+
+                  <p>
+                    Capacidad de consultar información actualizada
+                    mediante búsqueda web y utilizarla como contexto.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 04 — MEMORIA
+                 ================================================= -->
+
+            <article class="nova-roadmap-item locked left">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  04
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status locked-status">
+                    ● ?
+                  </span>
+
+                  <h4>
+                    MEMORIA
+                  </h4>
+
+                  <p>
+                    Sistema para conservar información, contexto
+                    y datos relevantes entre diferentes interacciones.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 05 — PERSONALIDAD
+                 ================================================= -->
+
+            <article class="nova-roadmap-item locked right">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  05
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status locked-status">
+                    ● ?
+                  </span>
+
+                  <h4>
+                    PERSONALIDAD
+                  </h4>
+
+                  <p>
+                    Definición del comportamiento, identidad y forma
+                    de interacción característica de NOVA.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 06 — CONTROL
+                 ================================================= -->
+
+            <article class="nova-roadmap-item locked left">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  06
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status locked-status">
+                    ● ?
+                  </span>
+
+                  <h4>
+                    CONTROL
+                  </h4>
+
+                  <p>
+                    Capacidad futura para interactuar con aplicaciones,
+                    dispositivos y diferentes funciones del ordenador.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 07 — INTEGRACIÓN
+                 ================================================= -->
+
+            <article class="nova-roadmap-item locked right">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  07
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status locked-status">
+                    ● ?
+                  </span>
+
+                  <h4>
+                    INTEGRACIÓN
+                  </h4>
+
+                  <p>
+                    Integración de voz, visión, memoria y herramientas
+                    dentro de un único sistema.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 08 — INTERFAZ
+                 ================================================= -->
+
+            <article class="nova-roadmap-item locked left">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  08
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status locked-status">
+                    ● ?
+                  </span>
+
+                  <h4>
+                    INTERFAZ
+                  </h4>
+
+                  <p>
+                    Evolución de la interfaz visual para convertir
+                    a NOVA en una experiencia más completa e interactiva.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 09 — NOVA CORE
+                 ================================================= -->
+
+            <article class="nova-roadmap-item locked right final-node">
+
+              <div class="nova-roadmap-card">
+
+                <div class="nova-roadmap-number">
+                  09
+                </div>
+
+
+                <div class="nova-roadmap-info">
+
+                  <span class="nova-roadmap-status locked-status">
+                    ● ?
+                  </span>
+
+                  <h4>
+                    NOVA CORE
+                  </h4>
+
+                  <p>
+                    El punto donde todas las capacidades convergen
+                    para formar el sistema completo de NOVA.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="nova-node">
+                <span></span>
+              </div>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 NÚCLEO FINAL
+                 ================================================= -->
+
+            <div class="nova-core">
+
+              <div class="nova-core-ring ring-1"></div>
+
+              <div class="nova-core-ring ring-2"></div>
+
+              <div class="nova-core-ring ring-3"></div>
+
+
+              <div class="nova-core-center">
+                N
+              </div>
+
+
+              <span class="nova-core-label">
+                NOVA CORE
+              </span>
+
+            </div>
+
+
+          </div>
+
+
+
+          <!-- =================================================
+               PIE DEL RECORRIDO
+               ================================================= -->
+
+          <div class="nova-roadmap-footer">
+
+            <span>
+              03 DE 09 SISTEMAS ACTIVOS
+            </span>
+
+            <span>
+              SISTEMA EN DESARROLLO
+            </span>
+
+          </div>
+
+
+        </section>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =========================================================
+       FOOTER PRINCIPAL
+       ========================================================= -->
+
+  <footer class="site-footer">
+
+    <div class="footer-container">
+
+
+      <div class="footer-brand">
+
+        <div class="footer-logo">
+
+          <span class="p3d-badge">
+            P3D
+          </span>
+
+          <span>
+            PROYECTOS
+          </span>
+
+        </div>
+
+
+        <nav class="footer-nav">
+
+          <a
+            href="#inicio"
+            data-section="inicio"
+          >
+            INICIO
+          </a>
+
+          <a
+            href="#pedidos3d"
+            data-section="pedidos3d"
+          >
+            PEDIDOS 3D
+          </a>
+
+          <a
+            href="#nova"
+            data-section="nova"
+          >
+            NOVA
+          </a>
+
+        </nav>
+
+
+        <div class="footer-description">
+          PROYECTOS, TECNOLOGÍA Y CREACIÓN.
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © 2026 PROYECTOS
+        </span>
+
+        <span>
+          PEDIDOS 3D • NOVA
+        </span>
+
+      </div>
+
+
+    </div>
+
+  </footer>
+
+
+
+  <!-- =========================================================
+       JAVASCRIPT GENERAL
+       ========================================================= -->
+
+  <script src="./script.js?v=3"></script>
+
+</body>
+</html>
