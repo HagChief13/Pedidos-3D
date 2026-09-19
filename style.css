@@ -1,4 +1,3 @@
-
 /* =========================================================
    VARIABLES Y BASE
    ========================================================= */
@@ -59,7 +58,7 @@ html {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 1;
   opacity: 0.055;
 
   background-image:
@@ -94,7 +93,6 @@ html {
 
 .navbar.scrolled {
   background: rgba(5, 5, 5, 0.75);
-
   backdrop-filter: blur(12px);
 
   border-bottom:
@@ -322,7 +320,6 @@ html {
 
 .home-view {
   background: #050505;
-
   overflow: hidden;
 }
 
@@ -1624,15 +1621,9 @@ html {
   margin-top: 60px;
 }
 
-.footer-min p {
-  margin: 4px 0;
-}
-
 
 /* =========================================================
-   =========================================================
    VISTA 03 — NOVA
-   =========================================================
    ========================================================= */
 
 .nova-view {
@@ -1940,7 +1931,8 @@ html {
 
 /* =========================================================
    DESCENDIENDO AL NÚCLEO
-   SOLO ESTA SECCIÓN USA recorrido.png
+   RECORRIDO.PNG
+   IMAGEN LIMPIA
    ========================================================= */
 
 .nova-descent {
@@ -1948,219 +1940,150 @@ html {
 
   width: 100vw;
 
-  margin-left:
-    calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
 
   min-height: 430px;
-
-  padding: 90px 7vw;
 
   display: flex;
 
   align-items: center;
   justify-content: center;
 
-  gap: 35px;
+  gap: 28px;
 
   overflow: hidden;
 
-  isolation: isolate;
-
-  border-top:
-    1px solid rgba(255, 255, 255, 0.06);
-
-  border-bottom:
-    1px solid rgba(255, 0, 0, 0.18);
-
-  /*
-     IMPORTANTE:
-     recorrido.png SOLO SE USA AQUÍ.
-     La ruta es relativa al archivo CSS.
-  */
-
   background-image:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.32) 48%,
-      rgba(0, 0, 0, 0.88) 100%
-    ),
-    url("./recorrido.png");
-
-  background-position:
-    center center;
+    url("./recorrido.png") !important;
 
   background-repeat:
-    no-repeat;
+    no-repeat !important;
+
+  background-position:
+    center center !important;
 
   background-size:
-    cover;
+    100% auto !important;
 
-  box-shadow:
-    inset 0 90px 100px rgba(0, 0, 0, 0.85),
-    inset 0 -100px 120px rgba(0, 0, 0, 0.95);
+  background-color:
+    #050505 !important;
+
+  filter: none !important;
+
+  -webkit-filter: none !important;
+
+  opacity: 1 !important;
+
+  box-shadow: none !important;
+
+  text-shadow: none !important;
+
+  mix-blend-mode: normal !important;
+
+  isolation: isolate;
+
+  z-index: 5;
 }
 
-
-/* Oscurecimiento lateral y luz roja */
-
-.nova-descent::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: -1;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      ellipse at 50% 50%,
-      rgba(255, 0, 0, 0.18),
-      transparent 34%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.85),
-      transparent 22%,
-      transparent 78%,
-      rgba(0, 0, 0, 0.85)
-    );
-}
-
-
-/* Viñeta */
-
+.nova-descent::before,
 .nova-descent::after {
-  content: "";
+  content: none !important;
 
-  position: absolute;
+  display: none !important;
 
-  inset: 0;
+  position: static !important;
 
-  z-index: -1;
+  inset: auto !important;
 
-  pointer-events: none;
+  width: 0 !important;
+  height: 0 !important;
 
-  background:
-    radial-gradient(
-      ellipse at center,
-      transparent 18%,
-      rgba(0, 0, 0, 0.25) 52%,
-      rgba(0, 0, 0, 0.9) 100%
-    );
+  background: none !important;
+
+  background-image: none !important;
+
+  box-shadow: none !important;
+
+  opacity: 0 !important;
+
+  filter: none !important;
+
+  -webkit-filter: none !important;
 }
-
-
-/* Líneas decorativas */
 
 .nova-descent-line {
-  width: 120px;
+  position: relative;
+
+  z-index: 6;
+
+  width: 110px;
 
   height: 1px;
 
   flex-shrink: 0;
 
   background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 0, 0, 0.9),
-      transparent
-    );
+    var(--nova-red) !important;
 
-  box-shadow:
-    0 0 12px rgba(255, 0, 0, 0.45);
+  box-shadow: none !important;
+
+  filter: none !important;
 }
-
-
-/*
-   SOLO EL TEXTO ORIGINAL.
-   NO SE AGREGA SUBTEXTO.
-*/
 
 .nova-descent > span {
   position: relative;
 
-  z-index: 5;
+  z-index: 6;
 
-  color: #fff;
+  color:
+    #ffffff !important;
 
   font-size:
-    clamp(20px, 3vw, 34px);
+    32px;
 
-  font-weight: 900;
-
-  line-height: 1;
+  font-weight:
+    700;
 
   letter-spacing:
-    clamp(3px, 0.5vw, 7px);
+    4px;
 
-  text-align: center;
+  text-align:
+    center;
 
-  white-space: nowrap;
+  text-shadow: none !important;
 
-  text-shadow:
-    0 0 18px rgba(0, 0, 0, 1),
-    0 0 35px rgba(255, 0, 0, 0.3);
-}
+  filter: none !important;
 
-
-/*
-   IMPORTANTE:
-   El HTML contiene un span.
-   Se elimina cualquier pseudo-elemento
-   que pudiera agregar texto debajo.
-*/
-
-.nova-descent span::after {
-  content: none !important;
+  -webkit-filter: none !important;
 }
 
 
 /* =========================================================
-   ROADMAP
-   SIN recorrido.png
+   ROADMAP / EL CAMINO DE NOVA
+   FONDO DEL TÚNEL DE CRISTALES
    ========================================================= */
 
 .nova-roadmap {
   position: relative;
 
-  width: 100vw;
+  background:
+    #050505;
 
-  margin-left:
-    calc(50% - 50vw);
-
-  padding: 105px 0 160px;
+  padding-bottom: 150px;
 
   overflow: hidden;
 
-  isolation: isolate;
+  filter: none;
 
-  background:
-    radial-gradient(
-      ellipse at 50% 0%,
-      rgba(255, 0, 0, 0.11),
-      transparent 25%
-    ),
-    radial-gradient(
-      ellipse at 50% 55%,
-      rgba(255, 0, 0, 0.035),
-      transparent 38%
-    ),
-    linear-gradient(
-      180deg,
-      #070707 0%,
-      #020202 35%,
-      #050505 100%
-    );
+  -webkit-filter: none;
+
+  isolation: isolate;
 }
 
 
 /* =========================================================
-   TECHO / PAREDES DE CUEVA
+   FONDO DEL TÚNEL
+   100% AUTO / SIN ZOOM
    ========================================================= */
 
 .nova-roadmap::before {
@@ -2170,51 +2093,66 @@ html {
 
   inset: 0;
 
-  z-index: -3;
+  z-index: 0;
 
   pointer-events: none;
 
-  opacity: 0.9;
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.75)
+    ),
+    url("./nova-core2-png.jpeg");
 
-  background:
-    radial-gradient(
-      ellipse at 50% -5%,
-      rgba(255, 255, 255, 0.06),
-      transparent 32%
-    ),
-    radial-gradient(
-      ellipse at 0% 40%,
-      rgba(255, 255, 255, 0.025),
-      transparent 30%
-    ),
-    radial-gradient(
-      ellipse at 100% 60%,
-      rgba(255, 0, 0, 0.025),
-      transparent 30%
-    ),
-    repeating-radial-gradient(
-      ellipse at 50% 0%,
-      transparent 0 95px,
-      rgba(255, 255, 255, 0.012) 96px 98px
-    );
+  background-size:
+    100% auto;
+
+  background-position:
+    center top;
+
+  background-repeat:
+    no-repeat;
+
+  background-attachment:
+    scroll;
+
+  opacity:
+    0.35;
+
+  transform:
+    scale(1);
+
+  transform-origin:
+    center top;
 }
 
+
+/* =========================================================
+   SIN ::AFTER DUPLICADO / SIN SOMBRA ROJA GRANDE
+   ========================================================= */
+
 .nova-roadmap::after {
-  content: "";
+  content: none !important;
+  display: none !important;
 
-  position: absolute;
+  background: none !important;
+  box-shadow: none !important;
+}
 
-  inset: 0;
 
-  z-index: -2;
+/* =========================================================
+   CONTENIDO ROADMAP SOBRE EL FONDO
+   ========================================================= */
 
-  pointer-events: none;
+.nova-roadmap-header,
+.nova-roadmap > *,
+.nova-roadmap .nova-roadmap-header,
+.nova-roadmap .nova-roadmap-track,
+.nova-roadmap .nova-roadmap-card,
+.nova-roadmap .nova-roadmap-node {
+  position: relative;
 
-  box-shadow:
-    inset 0 160px 160px rgba(0, 0, 0, 0.98),
-    inset 0 -200px 200px rgba(0, 0, 0, 1),
-    inset 220px 0 220px rgba(0, 0, 0, 0.88),
-    inset -220px 0 220px rgba(0, 0, 0, 0.88);
+  z-index: 2;
 }
 
 
@@ -2223,14 +2161,9 @@ html {
    ========================================================= */
 
 .nova-roadmap-header {
-  position: relative;
-
-  z-index: 20;
-
   width: min(1100px, 88%);
 
-  margin:
-    0 auto 70px;
+  margin: 0 auto 70px;
 
   display: flex;
 
@@ -2374,11 +2307,6 @@ html {
   isolation: isolate;
 }
 
-
-/* =========================================================
-   SOMBRAS LATERALES
-   ========================================================= */
-
 .nova-mine::before {
   content: "";
 
@@ -2512,11 +2440,6 @@ html {
   opacity: 0.92;
 }
 
-
-/* =========================================================
-   LÍNEAS SECUNDARIAS DEL TÚNEL
-   ========================================================= */
-
 .nova-mine .nova-tunnel-core::after {
   content: "";
 
@@ -2593,6 +2516,37 @@ html {
 
 
 /* =========================================================
+   LÍNEA ÚNICA DEL CAMINO
+   2PX ROJA — CONTINUA
+   ========================================================= */
+
+.nova-mine::after {
+  content: "";
+
+  position: absolute;
+
+  top: 100px;
+  bottom: 100px;
+
+  left: 50%;
+
+  width: 2px;
+
+  background:
+    #ff1a1a;
+
+  box-shadow: none;
+
+  transform:
+    translateX(-50%);
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
    POSICIONES DE TARJETAS
    ========================================================= */
 
@@ -2625,11 +2579,10 @@ html {
     1px solid rgba(255, 255, 255, 0.1);
 
   box-shadow:
-    0 25px 55px rgba(0, 0, 0, 0.85),
-    inset 0 0 35px rgba(255, 255, 255, 0.012);
+    0 10px 30px rgba(0, 0, 0, 0.5);
 
   backdrop-filter:
-    blur(10px);
+    blur(0);
 
   transition:
     transform 0.3s ease,
@@ -2656,6 +2609,7 @@ html {
 
 /* =========================================================
    CONECTORES ENTRE TARJETA Y CAMINO
+   SIN SOMBRA GRANDE
    ========================================================= */
 
 .nova-roadmap-item .nova-roadmap-card::after {
@@ -2670,14 +2624,9 @@ html {
   height: 1px;
 
   background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 0, 0, 0.7)
-    );
+    #ff1a1a;
 
-  box-shadow:
-    0 0 10px rgba(255, 0, 0, 0.3);
+  box-shadow: none;
 
   pointer-events: none;
 }
@@ -2702,8 +2651,7 @@ html {
     rgba(255, 0, 0, 0.5);
 
   box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.9),
-    0 0 35px rgba(255, 0, 0, 0.12);
+    0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .nova-roadmap-item.right:hover .nova-roadmap-card {
@@ -2795,7 +2743,7 @@ html {
 
 
 /* =========================================================
-   NODOS DEL CAMINO
+   NODOS / DIAMANTES
    ========================================================= */
 
 .nova-node {
@@ -2869,6 +2817,9 @@ html {
       rgba(0, 255, 102, 0.055),
       rgba(7, 7, 7, 0.97)
     );
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .nova-roadmap-item.ready .nova-roadmap-number {
@@ -2904,6 +2855,9 @@ html {
 
   border-color:
     rgba(255, 255, 255, 0.075);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .nova-roadmap-item.locked .nova-roadmap-number {
@@ -3033,70 +2987,7 @@ html {
    ========================================================= */
 
 .nova-rock {
-  position: absolute;
-
-  display: block;
-
-  width: 170px;
-  height: 115px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #222,
-      #080808 70%
-    );
-
-  clip-path:
-    polygon(
-      5% 68%,
-      20% 31%,
-      54% 7%,
-      89% 28%,
-      100% 75%,
-      62% 100%,
-      21% 91%
-    );
-
-  opacity: 0.9;
-
-  filter:
-    drop-shadow(
-      0 25px 25px rgba(0, 0, 0, 0.95)
-    );
-
-  z-index: 4;
-}
-
-.rock-1 {
-  left: -65px;
-  top: 340px;
-}
-
-.rock-2 {
-  right: -70px;
-  top: 690px;
-
-  transform:
-    rotate(20deg)
-    scale(0.82);
-}
-
-.rock-3 {
-  left: -55px;
-  top: 1120px;
-
-  transform:
-    rotate(-15deg)
-    scale(1.08);
-}
-
-.rock-4 {
-  right: -55px;
-  top: 1510px;
-
-  transform:
-    rotate(10deg);
+  display: none !important;
 }
 
 
@@ -3465,10 +3356,58 @@ html {
       70px 25px;
 
     gap: 15px;
+
+    background-image:
+      url("./recorrido.png") !important;
+
+    background-size:
+      100% auto !important;
+
+    background-position:
+      center center !important;
+
+    background-repeat:
+      no-repeat !important;
+
+    background-color:
+      #050505 !important;
+
+    filter: none !important;
+
+    -webkit-filter: none !important;
+
+    box-shadow: none !important;
+
+    opacity: 1 !important;
+
+    text-shadow: none !important;
+
+    mix-blend-mode: normal !important;
+
+    z-index: 5;
+  }
+
+  .nova-descent::before,
+  .nova-descent::after {
+    content: none !important;
+
+    display: none !important;
+
+    background: none !important;
+
+    background-image: none !important;
+
+    box-shadow: none !important;
+
+    opacity: 0 !important;
+
+    filter: none !important;
   }
 
   .nova-descent-line {
     width: 45px;
+
+    box-shadow: none !important;
   }
 
   .nova-descent > span {
@@ -3479,6 +3418,8 @@ html {
       clamp(2px, 0.4vw, 5px);
 
     white-space: normal;
+
+    text-shadow: none !important;
   }
 
 
@@ -3489,6 +3430,29 @@ html {
   .nova-roadmap {
     padding:
       75px 0 130px;
+
+    background:
+      #050505;
+  }
+
+  .nova-roadmap::before {
+    background-size:
+      100% auto;
+
+    background-position:
+      center top;
+
+    background-repeat:
+      no-repeat;
+
+    background-attachment:
+      scroll;
+
+    opacity:
+      0.35;
+
+    transform:
+      scale(1);
   }
 
   .nova-roadmap-header {
@@ -3593,6 +3557,9 @@ html {
       17px 16px;
 
     gap: 12px;
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
   .nova-roadmap-item.right .nova-roadmap-card {
@@ -3630,6 +3597,11 @@ html {
 
   .nova-roadmap-item .nova-roadmap-card::after {
     width: 55px;
+
+    background:
+      #ff1a1a;
+
+    box-shadow: none;
   }
 
   .nova-roadmap-item.right .nova-roadmap-card::after {
@@ -3660,7 +3632,7 @@ html {
 
 
   /* =====================================================
-     CRISTALES / ROCAS
+     CRISTALES
      ===================================================== */
 
   .nova-crystal {
@@ -3670,11 +3642,13 @@ html {
       scale(0.75);
   }
 
-  .nova-rock {
-    opacity: 0.35;
 
-    transform:
-      scale(0.65);
+  /* =====================================================
+     ROCAS
+     ===================================================== */
+
+  .nova-rock {
+    display: none !important;
   }
 
 
@@ -3766,16 +3740,66 @@ html {
 
     padding:
       60px 15px;
+
+    background-image:
+      url("./recorrido.png") !important;
+
+    background-size:
+      100% auto !important;
+
+    background-position:
+      center center !important;
+
+    background-repeat:
+      no-repeat !important;
+
+    background-color:
+      #050505 !important;
+
+    filter: none !important;
+
+    -webkit-filter: none !important;
+
+    box-shadow: none !important;
+
+    opacity: 1 !important;
+
+    text-shadow: none !important;
+
+    mix-blend-mode: normal !important;
+
+    z-index: 5;
+  }
+
+  .nova-descent::before,
+  .nova-descent::after {
+    content: none !important;
+
+    display: none !important;
+
+    background: none !important;
+
+    background-image: none !important;
+
+    box-shadow: none !important;
+
+    opacity: 0 !important;
+
+    filter: none !important;
   }
 
   .nova-descent-line {
     width: 25px;
+
+    box-shadow: none !important;
   }
 
   .nova-descent > span {
     font-size: 24px;
 
     letter-spacing: 2px;
+
+    text-shadow: none !important;
   }
 
   .nova-roadmap-header {
@@ -3785,6 +3809,29 @@ html {
 
   .nova-roadmap {
     width: 100vw;
+
+    background:
+      #050505;
+  }
+
+  .nova-roadmap::before {
+    background-size:
+      100% auto;
+
+    background-position:
+      center top;
+
+    background-repeat:
+      no-repeat;
+
+    background-attachment:
+      scroll;
+
+    opacity:
+      0.35;
+
+    transform:
+      scale(1);
   }
 
   .nova-mine {
@@ -3800,6 +3847,9 @@ html {
       15px 12px;
 
     gap: 8px;
+
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
   .nova-roadmap-item.right .nova-roadmap-card {
@@ -3833,6 +3883,11 @@ html {
 
   .nova-roadmap-item .nova-roadmap-card::after {
     width: 40px;
+
+    background:
+      #ff1a1a;
+
+    box-shadow: none;
   }
 
   .nova-roadmap-item.right .nova-roadmap-card::after {
