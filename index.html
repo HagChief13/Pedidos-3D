@@ -10,37 +10,31 @@
   <link rel="icon" type="image/png" href="logo.png?v=2">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-/* ===== SPA AUTH LAMPARA - PRO + FLICKER ===== */
 #spa-auth{ display:none; position:fixed; inset:0; z-index:10000; background:#050505 !important; overflow-y:auto; }
 #spa-auth.show{ display:flex !important; }
 .spa-page{ position:fixed; inset:0; z-index:10000; overflow:auto; }
-
-#spa-auth .spa-back{
-  position:fixed; top:24px; left:24px; z-index:10;
-  background:#1a1a1a; border:1px solid #2a2a2a; color:#fff;
-  padding:10px 18px; border-radius:100px; font-size:13px; font-weight:700; cursor:pointer;
-}
-#spa-auth .spa-back:hover{ background:#FFC107; color:#000; border-color:#FFC107; }
-
+#spa-auth .spa-back{ position:fixed; top:24px; left:24px; z-index:20; background:#1a1a1a; border:1px solid #2a2a2a; color:#fff; padding:10px 18px; border-radius:100px; font-size:13px; font-weight:700; cursor:pointer; }
 .auth-spa{ background:#050505 !important; }
-.lamp-container{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:100%; height:100%; pointer-events:none; z-index:1; display:flex; flex-direction:column; align-items:center; }
-.lamp-wire{ width:1px; height:120px; background:#222; }
+.lamp-container{ position:fixed; top:0; left:50%; transform:translateX(-50%); width:100%; height:100%; pointer-events:none; z-index:1; display:flex; flex-direction:column; align-items:center; }
+.lamp-wire{ width:1px; height:100px; background:#222; }
 .lamp-shade{ width:110px; height:46px; background:radial-gradient(ellipse at center, #222 0%, #111 100%); border:1px solid #2a2a2a; border-radius:0 0 60px 60px; position:relative; }
-.lamp-shade span{ position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:84px; height:12px; background:#FFC107; border-radius:50%; box-shadow:0 0 15px #FFC107,0 0 40px #FFC107,0 0 80px rgba(255,193,7,0.4); }
-.light-cone{ width:700px; height:900px; margin-top:-2px; background:linear-gradient(180deg, rgba(255,193,7,0.22) 0%, rgba(255,193,7,0.08) 25%, transparent 80%); clip-path:polygon(50% 0%, 0% 100%, 100% 100%); }
-.light-glow{ position:absolute; top:140px; left:50%; transform:translateX(-50%); width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(255,193,7,0.15) 0%, transparent 70%); filter:blur(25px); }
-
-.auth-inner{ position:relative; z-index:2; width:100%; max-width:400px; margin:auto; margin-top:160px !important; padding:0 20px 40px; text-align:center; }
-#authTitle{ font-size:42px; font-weight:900; margin:16px 0 10px; }
+.lamp-shade span{ position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:84px; height:12px; background:#FFC107; border-radius:50%; box-shadow:0 0 15px #FFC107,0 0 40px #FFC107,0 0 80px rgba(255,193,7,0.4); transition:.4s; }
+.light-cone{ width:700px; height:900px; margin-top:-2px; background:linear-gradient(180deg, rgba(255,193,7,0.22) 0%, rgba(255,193,7,0.08) 25%, transparent 80%); clip-path:polygon(50% 0%, 0% 100%, 100% 100%); transition:.4s; }
+.light-glow{ position:absolute; top:120px; left:50%; transform:translateX(-50%); width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(255,193,7,0.15) 0%, transparent 70%); filter:blur(25px); transition:.4s; }
+.auth-inner{ position:relative; z-index:2; width:100%; max-width:380px; margin:0 auto; margin-top:150px !important; padding:0 20px 40px; text-align:center; }
+#authTitle{ font-size:42px; font-weight:900; margin:16px 0 10px; color:#fff; }
 #spa-auth .spa-line{ width:60px; height:3px; background:#FFC107; margin:0 auto 24px; border-radius:10px; }
-.auth-tabs{ display:flex; gap:8px; background:#111; padding:6px; border-radius:100px; border:1px solid #222; margin:0 0 24px 0; }
-.auth-tab{ flex:1; padding:12px; background:transparent; border:none; color:#666; border-radius:100px; font-weight:800; font-size:13px; cursor:pointer; transition:.2s; }
+.auth-tabs{ display:flex !important; flex-direction:row !important; gap:8px; background:#111; padding:6px; border-radius:100px; border:1px solid #222; margin:0 0 24px 0; width:100%; }
+.auth-tab{ flex:1; padding:12px; background:transparent; border:none; color:#666; border-radius:100px; font-weight:800; font-size:13px; cursor:pointer; }
 .auth-tab.active{ background:#FFC107; color:#000; }
-.auth-form{ display:none; flex-direction:column; gap:14px; text-align:left; }
-.auth-form.active-form{ display:flex; }
-.auth-form .spa-card{ display:flex; align-items:center; gap:12px; background:#111; border:1px solid #222; border-radius:16px; padding:14px 16px; }
-.auth-form .spa-card input{ background:transparent; border:none; outline:none; color:#fff; width:100%; font-size:14px; }
-
+.auth-form{ display:none; flex-direction:column; gap:14px; text-align:left; width:100%; }
+.auth-form.active-form{ display:flex !important; }
+.auth-form .spa-card{ display:flex; align-items:center; gap:12px; background:#111; border:1px solid #222; border-radius:16px; padding:14px 16px; position:relative; width:100%; box-sizing:border-box; }
+.auth-form .spa-card input{ background:transparent; border:none; outline:none; color:#fff; width:100%; font-size:14px; flex:1; }
+.toggle-pass{ position:absolute; right:12px; top:50%; transform:translateY(-50%); background:#1a1a1a; border:1px solid #2a2a2a; width:32px; height:32px; border-radius:50%; cursor:pointer; }
+.lamp-container.off .light-cone{ opacity:0.02 !important; }
+.lamp-container.off .light-glow{ opacity:0 !important; }
+.lamp-container.off .lamp-shade span{ background:#222 !important; box-shadow:none !important; }
 @keyframes flicker { 0%{opacity:1} 10%{opacity:0.3} 20%{opacity:1} 30%{opacity:0.6} 50%{opacity:1} 70%{opacity:0.4} 100%{opacity:1} }
 .lamp-container.flicker .lamp-shade span, .lamp-container.flicker .light-cone, .lamp-container.flicker .light-glow { animation: flicker 0.55s ease; }
 </style>
@@ -271,8 +265,7 @@
   <div id="spa-privacy" class="spa-page">...</div>
 
   <!-- SPA AUTH VA ANTES DE LOS SCRIPTS -->
-  <div id="spa-auth" class="spa-page auth-spa">
-    <div class="spa-deco"></div>
+   <div id="spa-auth" class="spa-page auth-spa">
     <button class="spa-back">← Volver</button>
     <div class="lamp-container">
       <div class="lamp-wire"></div>
@@ -288,19 +281,30 @@
         <button class="auth-tab active" data-tab="login">Iniciar sesión</button>
         <button class="auth-tab" data-tab="register">Registrarse</button>
       </div>
+
       <form class="auth-form active-form" id="form-login">
         <div class="spa-card"><span>👤</span><input type="email" placeholder="Email" required></div>
-        <div class="spa-card"><span>🔒</span><input type="password" placeholder="Contraseña" required></div>
+        <div class="spa-card">
+          <span>🔒</span>
+          <input type="password" placeholder="Contraseña" required id="pass-login">
+          <button type="button" class="toggle-pass" data-target="pass-login">👁️</button>
+        </div>
         <button type="submit" class="calc-btn" style="width:100%; margin-top:10px;">ENTRAR →</button>
         <p class="auth-hint">¿No tienes cuenta? <b data-switch="register">Regístrate</b></p>
       </form>
+
       <form class="auth-form" id="form-register">
         <div class="spa-card"><span>✦</span><input type="text" placeholder="Nombre" required></div>
         <div class="spa-card"><span>👤</span><input type="email" placeholder="Email" required></div>
-        <div class="spa-card"><span>🔒</span><input type="password" placeholder="Contraseña" required></div>
+        <div class="spa-card">
+          <span>🔒</span>
+          <input type="password" placeholder="Contraseña" required id="pass-reg">
+          <button type="button" class="toggle-pass" data-target="pass-reg">👁️</button>
+        </div>
         <button type="submit" class="calc-btn" style="width:100%; margin-top:10px; background:#fff; color:#000;">CREAR CUENTA →</button>
         <p class="auth-hint">¿Ya tienes cuenta? <b data-switch="login">Inicia sesión</b></p>
       </form>
+
       <p class="spa-foot">Acceso seguro • 2026</p>
     </div>
   </div>
@@ -309,52 +313,45 @@
 
   <script src="./script.js?v=98"></script>
   
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = "https://fjhnbrmrrdmygyazopge.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_S_onTmeswWlPZlFQeK72ww_sM6Wty2G";
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const authSpa = document.getElementById("spa-auth");
 const authTitle = document.getElementById("authTitle");
 const lamp = document.querySelector(".lamp-container");
 const menuAuthBtn = document.querySelector(".menu-auth-link span:last-child");
+const menuToggle = document.getElementById("menuToggle");
+const siteMenu = document.getElementById("siteMenu");
+
+// Menu
+menuToggle?.addEventListener("click", ()=>{
+  const open = siteMenu.classList.toggle("open");
+  siteMenu.classList.toggle("menu-open", open);
+});
 
 function switchTab(tab){
-  if(!lamp) return;
-  lamp.classList.remove("flicker");
-  void lamp.offsetWidth;
-  lamp.classList.add("flicker");
-  setTimeout(()=> lamp.classList.remove("flicker"), 600);
+  if(lamp){ lamp.classList.remove("flicker"); void lamp.offsetWidth; lamp.classList.add("flicker"); setTimeout(()=>lamp.classList.remove("flicker"),600); }
   setTimeout(()=>{
     document.querySelectorAll(".auth-tab").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
     document.getElementById("form-login")?.classList.toggle("active-form", tab==="login");
     document.getElementById("form-register")?.classList.toggle("active-form", tab==="register");
     if(authTitle) authTitle.textContent = tab==="login"? "LOGIN" : "REGISTER";
-  }, 120);
+  },120);
 }
-
-function openAuth(tab="login"){
-  switchTab(tab);
-  authSpa?.classList.add("show");
-  document.body.style.overflow="hidden";
-  document.getElementById("siteMenu")?.classList.remove("menu-open","open");
-  document.getElementById("menuToggle")?.classList.remove("menu-open","open");
-}
-function closeAuth(){
-  authSpa?.classList.remove("show");
-  document.body.style.overflow="";
-}
+function openAuth(tab="login"){ switchTab(tab); authSpa?.classList.add("show"); document.body.style.overflow="hidden"; }
+function closeAuth(){ authSpa?.classList.remove("show"); document.body.style.overflow=""; }
 
 document.getElementById("btnLogin")?.addEventListener("click", (e)=>{
   if(e.currentTarget.dataset.action==="logout") return;
-  e.preventDefault();
-  openAuth("login");
+  e.preventDefault(); openAuth("login");
 });
-// FIX: tu selector estaba mal, por eso el botón volver a veces no cerraba
-document.querySelector("#spa-auth.spa-back")?.addEventListener("click", closeAuth);
-document.querySelectorAll(".auth-tab, [data-switch]").forEach(el=>{
-  el.addEventListener("click", ()=> switchTab(el.dataset.tab || el.dataset.switch));
-});
+// ESTE ERA EL QUE FALLABA - AHORA CON ESPACIO
+document.querySelector("#spa-auth .spa-back")?.addEventListener("click", closeAuth);
+authSpa?.addEventListener("click", e=>{ if(e.target===authSpa) closeAuth(); });
+document.querySelectorAll(".auth-tab, [data-switch]").forEach(el=> el.addEventListener("click", ()=> switchTab(el.dataset.tab || el.dataset.switch)));
 
 function updateMenu(user){
   if(!menuAuthBtn) return;
@@ -371,11 +368,17 @@ document.getElementById("form-login")?.addEventListener("submit", async (e)=>{
   e.preventDefault();
   const email = e.target.querySelector('input[type="email"]').value.trim();
   const password = e.target.querySelector('input[type="password"]').value;
-  const btn = e.target.querySelector("button");
-  btn.textContent = "ENTRANDO...";
+  const btn = e.target.querySelector("button"); btn.textContent="ENTRANDO...";
   const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-  btn.textContent = "ENTRAR →";
-  if(error){ alert("Error: "+error.message); return; }
+  btn.textContent="ENTRAR →";
+  if(error){
+    if(error.message.toLowerCase().includes("confirmed")){
+      alert("Tu cuenta no está confirmada. Ve a Supabase > Authentication > Users > Confirma el email de hag13123@gmail.com");
+    } else {
+      alert("Error: "+error.message);
+    }
+    return;
+  }
   closeAuth(); updateMenu(data.user);
 });
 
@@ -384,27 +387,23 @@ document.getElementById("form-register")?.addEventListener("submit", async (e)=>
   const inputs = e.target.querySelectorAll("input");
   const email = inputs[1].value.trim();
   const password = inputs[2].value;
-  const btn = e.target.querySelector("button");
-  btn.textContent = "CREANDO...";
+  const btn = e.target.querySelector("button"); btn.textContent="CREANDO...";
   const { data, error } = await supabaseClient.auth.signUp({ email, password });
-  btn.textContent = "CREAR CUENTA →";
+  btn.textContent="CREAR CUENTA →";
   if(error){ alert("Error: "+error.message); return; }
-  alert("Cuenta creada, ahora inicia sesión");
+  alert("Cuenta creada. Si tienes confirmación de email activada, ve a tu correo o confirma en Supabase > Users.");
   switchTab("login");
 });
 
 document.getElementById("btnLogin")?.addEventListener("click", async (e)=>{
   if(e.currentTarget.dataset.action==="logout"){
-    e.preventDefault();
-    await supabaseClient.auth.signOut();
-    updateMenu(null);
+    e.preventDefault(); await supabaseClient.auth.signOut(); updateMenu(null);
   }
 });
-
 supabaseClient.auth.getSession().then(({data})=> updateMenu(data.session?.user));
-supabaseClient.auth.onAuthStateChange((_, session)=> updateMenu(session?.user));
+supabaseClient.auth.onAuthStateChange((_, s)=> updateMenu(s?.user));
 
-// ===== CALCULADORA 3D - INTEGRADA AQUI MISMO =====
+// CALCULADORA
 function calcular3D(){
   const g = parseFloat(document.getElementById("calcGramos")?.value)||0;
   const pKg = parseFloat(document.getElementById("calcPrecioKg")?.value)||0;
@@ -413,62 +412,59 @@ function calcular3D(){
   const desg = parseFloat(document.getElementById("calcDesgaste")?.value)||0;
   const margen = parseFloat(document.getElementById("calcMargen")?.value)||0;
   const mano = parseFloat(document.getElementById("calcMano")?.value)||0;
-
-  const cFil = g * (pKg/1000);
-  const cLuz = h * luzH;
-  const cDesg = (cFil + cLuz) * (desg/100);
-  const total = cFil + cLuz + cDesg + mano;
-  const venta = total * (1 + margen/100);
+  const cFil = g * (pKg/1000); const cLuz = h * luzH; const cDesg = (cFil + cLuz) * (desg/100);
+  const total = cFil + cLuz + cDesg + mano; const venta = total * (1 + margen/100);
   const fmt = n => "$" + Math.round(n).toLocaleString("es-CL");
-
-  const set = (id, v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
-  set("resFilamento", fmt(cFil));
-  set("resLuz", fmt(cLuz));
-  set("resDesgaste", fmt(cDesg));
-  set("resMano", fmt(mano));
-  set("resTotal", fmt(total));
-  set("resVenta", fmt(venta));
+  const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
+  set("resFilamento", fmt(cFil)); set("resLuz", fmt(cLuz)); set("resDesgaste", fmt(cDesg)); set("resMano", fmt(mano)); set("resTotal", fmt(total)); set("resVenta", fmt(venta));
 }
+["calcGramos","calcPrecioKg","calcHoras","calcLuz","calcDesgaste","calcMargen","calcMano"].forEach(id=> document.getElementById(id)?.addEventListener("input", calcular3D));
 
-// enganchar inputs
-["calcGramos","calcPrecioKg","calcHoras","calcLuz","calcDesgaste","calcMargen","calcMano"].forEach(id=>{
-  document.getElementById(id)?.addEventListener("input", calcular3D);
-});
-// calcular al entrar a la seccion
-document.querySelectorAll('[data-section="calculadora"]').forEach(el=>{
-  el.addEventListener("click", ()=> setTimeout(calcular3D, 250));
-});
-calcular3D();
-// ===== FIX NAVEGACIÓN - HACE QUE APAREZCA CALCULADORA =====
+// NAVEGACION - FIX CALCULADORA NO APARECE
 function mostrarVista(id){
   document.querySelectorAll(".site-view").forEach(v=> v.classList.remove("active-view"));
-  const target = document.getElementById(id);
-  if(target) target.classList.add("active-view");
-  
+  document.getElementById(id)?.classList.add("active-view");
   document.querySelectorAll(".menu-link[data-section]").forEach(l=> l.classList.remove("active"));
   document.querySelector(`.menu-link[data-section="${id}"]`)?.classList.add("active");
-  
-  document.getElementById("siteMenu")?.classList.remove("menu-open","open");
-  document.getElementById("menuToggle")?.classList.remove("menu-open","open");
-  window.scrollTo(0,0);
-  
-  if(id==="calculadora") setTimeout(calcular3D, 100);
+  siteMenu?.classList.remove("menu-open","open");
+  if(id==="calculadora") setTimeout(calcular3D,100);
 }
-
 document.querySelectorAll("[data-section]").forEach(link=>{
-  link.addEventListener("click", (e)=>{
-    e.preventDefault();
-    const sec = link.dataset.section;
-    if(!sec) return;
-    mostrarVista(sec);
-    history.replaceState(null, "", "#"+sec);
+  link.addEventListener("click", e=>{
+    e.preventDefault(); const sec=link.dataset.section; if(sec){ mostrarVista(sec); history.replaceState(null,"","#"+sec); }
   });
 });
+const h = location.hash.replace("#",""); if(h) mostrarVista(h); else calcular3D();
+// OJITO + LAMPARA - CORREGIDO
+document.querySelectorAll(".toggle-pass").forEach(btn=>{
+  const input = document.getElementById(btn.dataset.target);
+  if(!input) return;
 
-// Si entras con #calculadora en la URL, muéstrala directo
-const hash = location.hash.replace("#","");
-if(hash) mostrarVista(hash);
+  // Estado inicial correcto: oculto
+  input.type = "password";
+  btn.textContent = "👁️";
+  lamp?.classList.remove("off");
+
+  btn.addEventListener("click", ()=>{
+    const isHidden = input.type === "password";
+    
+    if(isHidden){
+      // MOSTRAR -> se ve, ojo cerrado, luz apagada
+      input.type = "text";
+      btn.textContent = "🙈";
+      lamp?.classList.add("off");
+    } else {
+      // OCULTAR -> puntitos, ojo abierto, luz prendida + flicker
+      input.type = "password";
+      btn.textContent = "👁️";
+      lamp?.classList.remove("off");
+      lamp?.classList.remove("flicker");
+      void lamp.offsetWidth;
+      lamp?.classList.add("flicker");
+      setTimeout(()=>lamp?.classList.remove("flicker"),600);
+    }
+  });
+});
 </script>
-
 </body>
 </html>
