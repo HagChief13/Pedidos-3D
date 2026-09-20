@@ -1177,3 +1177,35 @@ document.addEventListener('DOMContentLoaded',function(){
   setInterval(update, 1000);
   update();
 })();
+
+// ===== CALCULADORA LOGICA =====
+function calcUpdate(){
+  const g = parseFloat(document.getElementById('calcGramos')?.value||0);
+  const pKg = parseFloat(document.getElementById('calcPrecioKg')?.value||0);
+  const h = parseFloat(document.getElementById('calcHoras')?.value||0);
+  const luz = parseFloat(document.getElementById('calcLuz')?.value||0);
+  const desg = parseFloat(document.getElementById('calcDesgaste')?.value||0);
+  const margen = parseFloat(document.getElementById('calcMargen')?.value||0);
+  const mano = parseFloat(document.getElementById('calcMano')?.value||0);
+
+  const cFil = (pKg/1000)*g;
+  const cLuz = h*luz;
+  const base = cFil + cLuz + mano;
+  const cDesg = base * (desg/100);
+  const cTotal = base + cDesg;
+  const venta = cTotal * (1 + margen/100);
+
+  const fmt = n => '$' + Math.round(n).toLocaleString('es-CL');
+  if(document.getElementById('resFilamento')){
+    document.getElementById('resFilamento').textContent = fmt(cFil);
+    document.getElementById('resLuz').textContent = fmt(cLuz);
+    document.getElementById('resDesgaste').textContent = fmt(cDesg);
+    document.getElementById('resMano').textContent = fmt(mano);
+    document.getElementById('resTotal').textContent = fmt(cTotal);
+    document.getElementById('resVenta').textContent = fmt(venta);
+  }
+}
+document.addEventListener('input', e=>{
+  if(e.target.id.startsWith('calc')) calcUpdate();
+});
+document.addEventListener('DOMContentLoaded', calcUpdate);

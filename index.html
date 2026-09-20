@@ -6,36 +6,76 @@
   <meta name="description" content="Un espacio dedicado a proyectos, herramientas y tecnología: Pedidos 3D y NOVA.">
   <meta name="theme-color" content="#080808">
   <title>PROYECTOS — Pedidos 3D &amp; NOVA</title>
-  <link rel="stylesheet" href="./style.css?v=5">
+  <link rel="stylesheet" href="./style.css?v=7">
   <link rel="icon" type="image/png" href="logo.png?v=2">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-@media (max-width: 768px){
-  .nova-mine{ height: auto !important; display: flex !important; flex-direction: column !important; align-items: center !important; gap: 20px !important; padding: 20px 16px 40px !important; }
-  .nova-mine .nova-roadmap-item{ position: relative !important; top: auto !important; left: auto !important; right: auto !important; width: 100% !important; max-width: 360px !important; height: auto !important; margin: 0 auto !important; }
-  .nova-mine .nova-roadmap-card{ position: relative !important; top: auto !important; left: auto !important; right: auto !important; transform: none !important; width: 100% !important; max-width: 100% !important; }
-  .nova-mine .nova-svg-line, .nova-mine .nova-node{ display: none !important; }
+/* ===== SPA AUTH LAMPARA - PRO + FLICKER ===== */
+#spa-auth{ display:none; position:fixed; inset:0; z-index:10000; background:#050505 !important; overflow-y:auto; }
+#spa-auth.show{ display:flex !important; }
+.spa-page{ position:fixed; inset:0; z-index:10000; overflow:auto; }
+
+#spa-auth .spa-back{
+  position:fixed; top:24px; left:24px; z-index:10;
+  background:#1a1a1a; border:1px solid #2a2a2a; color:#fff;
+  padding:10px 18px; border-radius:100px; font-size:13px; font-weight:700; cursor:pointer;
 }
-  /* ZOOM LIGHTBOX */
-  #lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; backdrop-filter: blur(8px); }
-  #lightbox.active { display: flex; }
-  #lightbox img { max-width: 95vw; max-height: 90vh; border-radius: 12px; border: 2px solid #FFC107; box-shadow: 0 0 40px rgba(255,193,7,0.3); }
+#spa-auth .spa-back:hover{ background:#FFC107; color:#000; border-color:#FFC107; }
+
+.auth-spa{ background:#050505 !important; }
+.lamp-container{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:100%; height:100%; pointer-events:none; z-index:1; display:flex; flex-direction:column; align-items:center; }
+.lamp-wire{ width:1px; height:120px; background:#222; }
+.lamp-shade{ width:110px; height:46px; background:radial-gradient(ellipse at center, #222 0%, #111 100%); border:1px solid #2a2a2a; border-radius:0 0 60px 60px; position:relative; }
+.lamp-shade span{ position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:84px; height:12px; background:#FFC107; border-radius:50%; box-shadow:0 0 15px #FFC107,0 0 40px #FFC107,0 0 80px rgba(255,193,7,0.4); }
+.light-cone{ width:700px; height:900px; margin-top:-2px; background:linear-gradient(180deg, rgba(255,193,7,0.22) 0%, rgba(255,193,7,0.08) 25%, transparent 80%); clip-path:polygon(50% 0%, 0% 100%, 100% 100%); }
+.light-glow{ position:absolute; top:140px; left:50%; transform:translateX(-50%); width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(255,193,7,0.15) 0%, transparent 70%); filter:blur(25px); }
+
+.auth-inner{ position:relative; z-index:2; width:100%; max-width:400px; margin:auto; margin-top:160px !important; padding:0 20px 40px; text-align:center; }
+#authTitle{ font-size:42px; font-weight:900; margin:16px 0 10px; }
+#spa-auth .spa-line{ width:60px; height:3px; background:#FFC107; margin:0 auto 24px; border-radius:10px; }
+.auth-tabs{ display:flex; gap:8px; background:#111; padding:6px; border-radius:100px; border:1px solid #222; margin:0 0 24px 0; }
+.auth-tab{ flex:1; padding:12px; background:transparent; border:none; color:#666; border-radius:100px; font-weight:800; font-size:13px; cursor:pointer; transition:.2s; }
+.auth-tab.active{ background:#FFC107; color:#000; }
+.auth-form{ display:none; flex-direction:column; gap:14px; text-align:left; }
+.auth-form.active-form{ display:flex; }
+.auth-form .spa-card{ display:flex; align-items:center; gap:12px; background:#111; border:1px solid #222; border-radius:16px; padding:14px 16px; }
+.auth-form .spa-card input{ background:transparent; border:none; outline:none; color:#fff; width:100%; font-size:14px; }
+
+@keyframes flicker { 0%{opacity:1} 10%{opacity:0.3} 20%{opacity:1} 30%{opacity:0.6} 50%{opacity:1} 70%{opacity:0.4} 100%{opacity:1} }
+.lamp-container.flicker .lamp-shade span, .lamp-container.flicker .light-cone, .lamp-container.flicker .light-glow { animation: flicker 0.55s ease; }
 </style>
+
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
   <header class="navbar">
-    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button>
-    <div class="menu-label" aria-hidden="true">MENÚ</div>
-    <nav id="siteMenu" class="site-menu">
-      <div class="menu-header"><span class="menu-kicker">NAVEGACIÓN</span><span class="menu-title">MENÚ</span></div>
-      <div class="menu-links">
-        <a href="#inicio" data-section="inicio" class="menu-link active"><span class="menu-number">01</span><span>INICIO</span></a>
-        <a href="#pedidos3d" data-section="pedidos3d" class="menu-link"><span class="menu-number">02</span><span>PEDIDOS 3D</span></a>
-        <a href="#nova" data-section="nova" class="menu-link"><span class="menu-number">03</span><span>NOVA</span></a>
-      </div>
-      <div class="menu-footer"><span>PROYECTOS • TECNOLOGÍA • CREACIÓN</span><span>2026</span></div>
-    </nav>
-  </header>
+  <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button>
+  <div class="menu-label" aria-hidden="true">MENÚ</div>
+  
+  <nav id="siteMenu" class="site-menu">
+    <div class="menu-header"><span class="menu-kicker">NAVEGACIÓN</span><span class="menu-title">MENÚ</span></div>
+    
+    <div class="menu-links">
+      <a href="#inicio" data-section="inicio" class="menu-link active"><span class="menu-number">01</span><span>INICIO</span></a>
+      <a href="#pedidos3d" data-section="pedidos3d" class="menu-link"><span class="menu-number">02</span><span>PEDIDOS 3D</span></a>
+      <a href="#nova" data-section="nova" class="menu-link"><span class="menu-number">03</span><span>NOVA</span></a>
+      <a href="#calculadora" data-section="calculadora" class="menu-link"><span class="menu-number">04</span><span>CALCULADORA 3D</span></a>
+    </div>
+
+    <!-- SEPARACIÓN GRANDE + UN SOLO BOTÓN -->
+    <div style="flex-grow:1; min-height: 50px;"></div>
+
+    <div class="menu-auth">
+      <div class="menu-auth-divider"><span></span>CUENTA<span></span></div>
+      <a href="#" id="btnLogin" class="menu-link menu-auth-link highlight">
+        <span class="menu-number">↗</span>
+        <span>LOGIN / REGISTER</span>
+      </a>
+    </div>
+
+    <div class="menu-footer"><span>PROYECTOS • TECNOLOGÍA • CREACIÓN</span><span>2026</span></div>
+  </nav>
+</header>
 
   <main id="mainContent">
     <!-- INICIO (igual que tenías) -->
@@ -54,6 +94,7 @@
         <div class="welcome-projects">
           <a href="#pedidos3d" class="welcome-project-card" data-section="pedidos3d"><div class="welcome-card-content"><span class="welcome-card-label">01 — DISPONIBLE</span><h2>PEDIDOS 3D</h2><p>Gestión para impresión 3D</p></div><div class="welcome-card-arrow">→</div></a>
           <a href="#nova" class="welcome-project-card" data-section="nova"><div class="welcome-card-content"><span class="welcome-card-label">02 — EN DESARROLLO</span><h2>NOVA</h2><p>Asistente virtual IA</p></div><div class="welcome-card-arrow">→</div></a>
+          <a href="#calculadora" class="welcome-project-card" data-section="calculadora"><div class="welcome-card-content"><span class="welcome-card-label">03 — ONLINE</span><h2>CALCULADORA 3D</h2><p>Calcula costos al instante</p></div><div class="welcome-card-arrow">→</div></a>
         </div>
       </div>
     </section>
@@ -150,7 +191,20 @@
       <div class="nova-container">
         <div class="nova-eyebrow"><span>PROYECTO 03</span><span class="nova-status">EN DESARROLLO</span></div>
         <div class="nova-content"><div class="nova-logo-area"><div class="nova-symbol">N</div></div><div class="nova-text"><span class="eyebrow">ASISTENTE VIRTUAL</span><h1>NOVA</h1><h2>UNA NUEVA FORMA<br>DE INTERACTUAR.</h2><p>NOVA es un proyecto de asistente virtual en desarrollo, creado para combinar inteligencia artificial, voz, visión y una interfaz propia.</p><p>La idea es construir un sistema capaz de comprender el entorno, interactuar mediante voz, recordar información y convertirse en una herramienta personal.</p><div class="nova-features"><div class="nova-feature"><span>01</span><strong>VOZ Y VISIÓN</strong></div><div class="nova-feature"><span>02</span><strong>INTEGRACIÓN</strong></div><div class="nova-feature"><span>03</span><strong>MEMORIA</strong></div><div class="nova-feature"><span>04</span><strong>CONTROL</strong></div></div><div class="nova-coming-soon">ESTADO DE DESARROLLO: <strong>PRÓXIMAMENTE</strong></div></div></div>
+        <div class="nova-mision-wrap">
+  <span class="tag">PROYECTO INTERNO — OPEN SOURCE</span>
+  <h2>NOVA NO ES UN PRODUCTO.<br>ES MI <span>COMPAÑERA DE TALLER.</span></h2>
+  <p>NOVA nació porque programar todo esto solo es imposible. Necesitaba alguien que me ayudara a investigar a las 3 AM, que revisara mi código y que viera mi pantalla y me dijera "aquí está el error".</p>
+  <p><strong>Nuestra misión es simple:</strong> Construir una inteligencia local, que viva en mi PC sin depender de la nube, que aprenda cómo trabajo y que me permita construir Pedidos 3D y futuros proyectos 10 veces más rápido. No para reemplazarme, sino para potenciarme.</p>
+  <p><strong>Y no será solo mía.</strong> NOVA será <strong>Open Source</strong>. Cualquiera que quiera podrá probar, mejorar, adaptar y llevarla a su propio taller. Quiero que sea una herramienta de makers, para makers. Mi código, tu taller.</p>
+  <div class="nova-obj">
+    <div><b>01</b><span>INVESTIGAR</span><p>Que busque docs, lea foros y me traiga la respuesta sin que yo pierda 2 horas.</p></div>
+    <div><b>02</b><span>PROGRAMAR</span><p>Que vea mi código, encuentre bugs y programe conmigo como un segundo cerebro.</p></div>
+    <div><b>03</b><span>OPEN SOURCE</span><p>Que cualquiera pueda clonarla, mejorarla y adaptarla a su forma de trabajar. Sin candados.</p></div>
+  </div>
+</div>
         <div class="nova-descent"><div class="nova-descent-line"></div><span>DESCENDIENDO AL NÚCLEO</span><div class="nova-descent-line"></div></div>
+
         <div class="nova-journey-intro"><span class="nova-journey-line"></span><span class="nova-journey-line"></span></div>
         <section class="nova-roadmap">
           <div class="nova-roadmap-header"><div><span class="nova-roadmap-kicker">NOVA DEVELOPMENT PATH</span><h3>EL CAMINO DE NOVA</h3><p>Cada módulo representa una parte del sistema. Los componentes activos muestran el estado actual del desarrollo.</p></div><div class="nova-roadmap-progress"><span>PROGRESO</span><strong><b>03</b> / 09</strong><div class="nova-progress-track"><div class="nova-progress-fill" style="width: 33.333%;"></div></div></div></div>
@@ -174,31 +228,184 @@
           <div class="nova-finale"><div class="nova-finale-inner"><div class="nova-finale-tag">// FIN DEL MAPEO</div><h2 class="nova-finale-title">LA MINA SIGUE<br><span>PROFUNDIZANDO</span></h2><p class="nova-finale-desc">NOVA no está terminada. Cada sistema desbloqueado expande su capacidad de pensar, recordar y crear.</p><div class="nova-finale-stats"><div><b>09</b><i>SISTEMAS TOTALES</i></div><div><b>03</b><i>ACTIVOS</i></div><div><b>06</b><i>EN EXCAVACIÓN</i></div></div><div class="nova-finale-bar"><span></span></div></div></div>
         </section>
       </div>
-    </section>
+      
+    
+        </section> <!-- CIERRE NOVA -->
+
+    <!-- CALCULADORA 3D - 04 - FUERA DE NOVA -->
+        <section id="calculadora" class="site-view calculadora-view" data-view="calculadora">
+  <div class="calc-container">
+    <div class="calc-form">
+      <span class="calc-badge">● ONLINE — BETA ABIERTA</span>
+      <h2>CALCULADORA <span>3D</span></h2>
+      <p class="sub">Calcula el costo real de tu impresión.</p>
+      <div class="calc-grid">
+        <div class="calc-input"><label>GRAMOS USADOS (g)</label><input type="number" id="calcGramos" value="100"></div>
+        <div class="calc-input"><label>PRECIO FILAMENTO / KG ($)</label><input type="number" id="calcPrecioKg" value="25000"></div>
+        <div class="calc-input"><label>HORAS DE IMPRESIÓN</label><input type="number" id="calcHoras" value="5"></div>
+        <div class="calc-input"><label>COSTO LUZ / HORA ($)</label><input type="number" id="calcLuz" value="150"></div>
+        <div class="calc-input"><label>% DESGASTE</label><input type="number" id="calcDesgaste" value="10"></div>
+        <div class="calc-input"><label>MARGEN GANANCIA %</label><input type="number" id="calcMargen" value="150"></div>
+      </div>
+      <div class="calc-input"><label>MANO DE OBRA ($)</label><input type="number" id="calcMano" value="2000"></div>
+    </div>
+    <div class="calc-result">
+      <h3>RESUMEN DE COSTO</h3>
+      <div class="calc-line"><span>Filamento</span><b id="resFilamento">$2.500</b></div>
+      <div class="calc-line"><span>Electricidad</span><b id="resLuz">$750</b></div>
+      <div class="calc-line"><span>Desgaste</span><b id="resDesgaste">$325</b></div>
+      <div class="calc-line"><span>Mano de obra</span><b id="resMano">$2.000</b></div>
+      <div class="calc-line total"><span>COSTO TOTAL</span><b id="resTotal">$5.575</b></div>
+      <div class="calc-line ganancia"><span>PRECIO VENTA</span><b id="resVenta">$13.937</b></div>
+      <button class="calc-btn">GUARDAR COMO PEDIDO →</button>
+    </div>
+  </div>
+</section>
+ 
   </main>
+  
 
   <footer class="site-footer"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><div class="footer-logo"><span class="logo-badge">P3D</span><span>PROYECTOS</span></div><p>Proyectos, tecnología y creación.<br>Diseñamos el futuro en 3D.</p></div><div class="footer-col"><h4>NAVEGACIÓN</h4><a href="#inicio">Inicio</a><a href="#pedidos">Pedidos 3D</a><a href="#nova">Nova</a></div><div class="footer-col"><h4>SERVICIOS</h4><a href="#">Impresión 3D</a><a href="#">Diseño a medida</a><a href="#">Prototipado</a><a href="#">Cotizar proyecto</a></div><div class="footer-col legal-simple"><h4>LEGAL</h4><a href="#" id="open-terms">Términos</a><a href="#" id="open-privacy">Privacidad</a><button id="open-cookies" class="link-btn">Cookies</button></div></div><div class="footer-bottom"><span class="footer-shine">© 2026 PROYECTOS</span><span class="footer-extra">MADE IN CHILE • v1.0</span><span class="footer-shine soft">PEDIDOS 3D • NOVA</span></div></div></footer>
   <div id="cookie-banner"><p>Usamos cookies para mejorar tu experiencia. ¿Deseas aceptarlas?</p><div><button id="accept-cookies">Aceptar</button><button id="reject-cookies" class="ghost">Rechazar</button></div></div>
-  <div id="spa-terms" class="spa-page"><div class="spa-deco"></div><div class="spa-inner"><button class="spa-back">← Volver</button><div class="spa-badge">📜 LEGAL</div><h2>Términos de uso</h2><div class="spa-line"></div><div class="spa-card"><span>💡</span><p>Esta app fue creada con fines de <strong>ayudar a organizar y gestionar pedidos de impresión 3D</strong>, facilitando el trabajo de makers y pequeños negocios.</p></div><div class="spa-card"><span>⚠️</span><p><strong>No nos hacemos responsables</strong> en casos de estafa, engaños o conflictos entre usuarios y sus clientes por el uso de la aplicación.</p></div><div class="spa-card"><span>🛠️</span><p>Tampoco nos hacemos responsables por <strong>mala utilización</strong> de la app, pérdida de información por mal manejo o resultados defectuosos.</p></div><p class="spa-foot">Uso bajo tu propia responsabilidad • 2026</p></div></div>
-  <div id="spa-privacy" class="spa-page"><div class="spa-deco"></div><div class="spa-inner"><button class="spa-back">← Volver</button><div class="spa-badge">🔒 PRIVACIDAD</div><h2>Política de privacidad</h2><div class="spa-line"></div><div class="spa-card"><span>👤</span><p>Solo tenemos control sobre los <strong>datos de las cuentas</strong> creadas dentro de la app. No tenemos control sobre datos, archivos o gestiones fuera de ella.</p></div><div class="spa-card"><span>🚫</span><p>No vendemos ni compartimos la información de tu cuenta con terceros.</p></div><div class="spa-card"><span>🗑️</span><p>Puedes eliminar tu cuenta y tus datos en cualquier momento desde la propia aplicación.</p></div><p class="spa-foot">Tu cuenta, tu control • 2026</p></div></div>
+    <div id="spa-terms" class="spa-page">...</div>
+  <div id="spa-privacy" class="spa-page">...</div>
 
-  <!-- LIGHTBOX -->
+  <!-- SPA AUTH VA ANTES DE LOS SCRIPTS -->
+  <div id="spa-auth" class="spa-page auth-spa">
+    <div class="spa-deco"></div>
+    <button class="spa-back">← Volver</button>
+    <div class="lamp-container">
+      <div class="lamp-wire"></div>
+      <div class="lamp-shade"><span></span></div>
+      <div class="light-cone"></div>
+      <div class="light-glow"></div>
+    </div>
+    <div class="spa-inner auth-inner">
+      <div class="spa-badge">● CUENTA</div>
+      <h2 id="authTitle">LOGIN</h2>
+      <div class="spa-line"></div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Iniciar sesión</button>
+        <button class="auth-tab" data-tab="register">Registrarse</button>
+      </div>
+      <form class="auth-form active-form" id="form-login">
+        <div class="spa-card"><span>👤</span><input type="email" placeholder="Email" required></div>
+        <div class="spa-card"><span>🔒</span><input type="password" placeholder="Contraseña" required></div>
+        <button type="submit" class="calc-btn" style="width:100%; margin-top:10px;">ENTRAR →</button>
+        <p class="auth-hint">¿No tienes cuenta? <b data-switch="register">Regístrate</b></p>
+      </form>
+      <form class="auth-form" id="form-register">
+        <div class="spa-card"><span>✦</span><input type="text" placeholder="Nombre" required></div>
+        <div class="spa-card"><span>👤</span><input type="email" placeholder="Email" required></div>
+        <div class="spa-card"><span>🔒</span><input type="password" placeholder="Contraseña" required></div>
+        <button type="submit" class="calc-btn" style="width:100%; margin-top:10px; background:#fff; color:#000;">CREAR CUENTA →</button>
+        <p class="auth-hint">¿Ya tienes cuenta? <b data-switch="login">Inicia sesión</b></p>
+      </form>
+      <p class="spa-foot">Acceso seguro • 2026</p>
+    </div>
+  </div>
+
   <div id="lightbox"><img id="lightbox-img" src=""></div>
-  <script>
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-    document.querySelectorAll('.zoomable').forEach(img => {
-      img.addEventListener('click', () => {
-        lbImg.src = img.src;
-        lb.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-    });
-    lb.addEventListener('click', () => {
-      lb.classList.remove('active');
-      document.body.style.overflow = '';
-    });
-  </script>
-  <script src="./script.js?v=3"></script>
+
+  <script src="./script.js?v=99"></script>
+  <script src="./script.js?v=99"></script>
+<script>
+const SUPABASE_URL = "https://fjhnbrmrrdmygyazopge.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_S_onTmeswWlPZlFQeK72ww_sM6Wty2G"; // la larga de tu captura
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const authSpa = document.getElementById("spa-auth");
+const authTitle = document.getElementById("authTitle");
+const lamp = document.querySelector(".lamp-container");
+const menuAuthBtn = document.querySelector(".menu-auth-link span:last-child");
+
+function switchTab(tab){
+  lamp.classList.remove("flicker");
+  void lamp.offsetWidth;
+  lamp.classList.add("flicker");
+  setTimeout(()=> lamp.classList.remove("flicker"), 600);
+
+  setTimeout(()=>{
+    document.querySelectorAll(".auth-tab").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
+    document.getElementById("form-login")?.classList.toggle("active-form", tab==="login");
+    document.getElementById("form-register")?.classList.toggle("active-form", tab==="register");
+    if(authTitle) authTitle.textContent = tab==="login"? "LOGIN" : "REGISTER";
+  }, 120);
+}
+
+function openAuth(tab="login"){
+  switchTab(tab);
+  authSpa.classList.add("show");
+  document.body.style.overflow="hidden";
+  document.getElementById("siteMenu")?.classList.remove("menu-open","open");
+  document.getElementById("menuToggle")?.classList.remove("menu-open","open");
+}
+function closeAuth(){
+  authSpa.classList.remove("show");
+  document.body.style.overflow="";
+}
+
+// Botones
+document.getElementById("btnLogin")?.addEventListener("click", (e)=>{
+  if(e.currentTarget.dataset.action==="logout") return;
+  e.preventDefault();
+  openAuth("login");
+});
+document.querySelector("#spa-auth.spa-back")?.addEventListener("click", closeAuth);
+document.querySelectorAll(".auth-tab, [data-switch]").forEach(el=>{
+  el.addEventListener("click", ()=> switchTab(el.dataset.tab || el.dataset.switch));
+});
+
+// --- SUPABASE ---
+function updateMenu(user){
+  if(!menuAuthBtn) return;
+  if(user){
+    menuAuthBtn.textContent = user.email.split("@")[0].toUpperCase() + " • SALIR";
+    document.getElementById("btnLogin").dataset.action = "logout";
+  } else {
+    menuAuthBtn.textContent = "LOGIN / REGISTER";
+    document.getElementById("btnLogin").dataset.action = "login";
+  }
+}
+
+document.getElementById("form-login")?.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const email = e.target.querySelector('input[type="email"]').value.trim();
+  const password = e.target.querySelector('input[type="password"]').value;
+  const btn = e.target.querySelector("button");
+  btn.textContent = "ENTRANDO...";
+  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+  btn.textContent = "ENTRAR →";
+  if(error){ alert("Error: "+error.message); return; }
+  alert("¡Bienvenido!");
+  closeAuth(); updateMenu(data.user);
+});
+
+document.getElementById("form-register")?.addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const inputs = e.target.querySelectorAll("input");
+  const email = inputs[1].value.trim();
+  const password = inputs[2].value;
+  const btn = e.target.querySelector("button");
+  btn.textContent = "CREANDO...";
+  const { data, error } = await supabaseClient.auth.signUp({ email, password });
+  btn.textContent = "CREAR CUENTA →";
+  if(error){ alert("Error: "+error.message); return; }
+  alert("Cuenta creada, ahora inicia sesión");
+  switchTab("login");
+});
+
+document.getElementById("btnLogin")?.addEventListener("click", async (e)=>{
+  if(e.currentTarget.dataset.action==="logout"){
+    e.preventDefault();
+    await supabaseClient.auth.signOut();
+    updateMenu(null);
+    alert("Sesión cerrada");
+  }
+});
+
+supabaseClient.auth.getSession().then(({data})=> updateMenu(data.session?.user));
+supabaseClient.auth.onAuthStateChange((_, session)=> updateMenu(session?.user));
+</script>
 </body>
 </html>
