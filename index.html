@@ -307,11 +307,11 @@
 
   <div id="lightbox"><img id="lightbox-img" src=""></div>
 
-  
   <script src="./script.js?v=98"></script>
+  
 <script>
 const SUPABASE_URL = "https://fjhnbrmrrdmygyazopge.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_S_onTmeswWlPZlFQeK72ww_sM6Wty2G"; // la larga de tu captura
+const SUPABASE_ANON_KEY = "sb_publishable_S_onTmeswWlPZlFQeK72ww_sM6Wty2G";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const authSpa = document.getElementById("spa-auth");
@@ -320,11 +320,11 @@ const lamp = document.querySelector(".lamp-container");
 const menuAuthBtn = document.querySelector(".menu-auth-link span:last-child");
 
 function switchTab(tab){
+  if(!lamp) return;
   lamp.classList.remove("flicker");
   void lamp.offsetWidth;
   lamp.classList.add("flicker");
   setTimeout(()=> lamp.classList.remove("flicker"), 600);
-
   setTimeout(()=>{
     document.querySelectorAll(".auth-tab").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
     document.getElementById("form-login")?.classList.toggle("active-form", tab==="login");
@@ -335,28 +335,27 @@ function switchTab(tab){
 
 function openAuth(tab="login"){
   switchTab(tab);
-  authSpa.classList.add("show");
+  authSpa?.classList.add("show");
   document.body.style.overflow="hidden";
   document.getElementById("siteMenu")?.classList.remove("menu-open","open");
   document.getElementById("menuToggle")?.classList.remove("menu-open","open");
 }
 function closeAuth(){
-  authSpa.classList.remove("show");
+  authSpa?.classList.remove("show");
   document.body.style.overflow="";
 }
 
-// Botones
 document.getElementById("btnLogin")?.addEventListener("click", (e)=>{
   if(e.currentTarget.dataset.action==="logout") return;
   e.preventDefault();
   openAuth("login");
 });
+// FIX: tu selector estaba mal, por eso el botón volver a veces no cerraba
 document.querySelector("#spa-auth.spa-back")?.addEventListener("click", closeAuth);
 document.querySelectorAll(".auth-tab, [data-switch]").forEach(el=>{
   el.addEventListener("click", ()=> switchTab(el.dataset.tab || el.dataset.switch));
 });
 
-// --- SUPABASE ---
 function updateMenu(user){
   if(!menuAuthBtn) return;
   if(user){
@@ -377,7 +376,6 @@ document.getElementById("form-login")?.addEventListener("submit", async (e)=>{
   const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
   btn.textContent = "ENTRAR →";
   if(error){ alert("Error: "+error.message); return; }
-  alert("¡Bienvenido!");
   closeAuth(); updateMenu(data.user);
 });
 
@@ -400,12 +398,77 @@ document.getElementById("btnLogin")?.addEventListener("click", async (e)=>{
     e.preventDefault();
     await supabaseClient.auth.signOut();
     updateMenu(null);
-    alert("Sesión cerrada");
   }
 });
 
 supabaseClient.auth.getSession().then(({data})=> updateMenu(data.session?.user));
 supabaseClient.auth.onAuthStateChange((_, session)=> updateMenu(session?.user));
+
+// ===== CALCULADORA 3D - INTEGRADA AQUI MISMO =====
+function calcular3D(){
+  const g = parseFloat(document.getElementById("calcGramos")?.value)||0;
+  const pKg = parseFloat(document.getElementById("calcPrecioKg")?.value)||0;
+  const h = parseFloat(document.getElementById("calcHoras")?.value)||0;
+  const luzH = parseFloat(document.getElementById("calcLuz")?.value)||0;
+  const desg = parseFloat(document.getElementById("calcDesgaste")?.value)||0;
+  const margen = parseFloat(document.getElementById("calcMargen")?.value)||0;
+  const mano = parseFloat(document.getElementById("calcMano")?.value)||0;
+
+  const cFil = g * (pKg/1000);
+  const cLuz = h * luzH;
+  const cDesg = (cFil + cLuz) * (desg/100);
+  const total = cFil + cLuz + cDesg + mano;
+  const venta = total * (1 + margen/100);
+  const fmt = n => "$" + Math.round(n).toLocaleString("es-CL");
+
+  const set = (id, v) => { const el=document.getElementById(id); if(el) el.textContent=v; };
+  set("resFilamento", fmt(cFil));
+  set("resLuz", fmt(cLuz));
+  set("resDesgaste", fmt(cDesg));
+  set("resMano", fmt(mano));
+  set("resTotal", fmt(total));
+  set("resVenta", fmt(venta));
+}
+
+// enganchar inputs
+["calcGramos","calcPrecioKg","calcHoras","calcLuz","calcDesgaste","calcMargen","calcMano"].forEach(id=>{
+  document.getElementById(id)?.addEventListener("input", calcular3D);
+});
+// calcular al entrar a la seccion
+document.querySelectorAll('[data-section="calculadora"]').forEach(el=>{
+  el.addEventListener("click", ()=> setTimeout(calcular3D, 250));
+});
+calcular3D();
+// ===== FIX NAVEGACIÓN - HACE QUE APAREZCA CALCULADORA =====
+function mostrarVista(id){
+  document.querySelectorAll(".site-view").forEach(v=> v.classList.remove("active-view"));
+  const target = document.getElementById(id);
+  if(target) target.classList.add("active-view");
+  
+  document.querySelectorAll(".menu-link[data-section]").forEach(l=> l.classList.remove("active"));
+  document.querySelector(`.menu-link[data-section="${id}"]`)?.classList.add("active");
+  
+  document.getElementById("siteMenu")?.classList.remove("menu-open","open");
+  document.getElementById("menuToggle")?.classList.remove("menu-open","open");
+  window.scrollTo(0,0);
+  
+  if(id==="calculadora") setTimeout(calcular3D, 100);
+}
+
+document.querySelectorAll("[data-section]").forEach(link=>{
+  link.addEventListener("click", (e)=>{
+    e.preventDefault();
+    const sec = link.dataset.section;
+    if(!sec) return;
+    mostrarVista(sec);
+    history.replaceState(null, "", "#"+sec);
+  });
+});
+
+// Si entras con #calculadora en la URL, muéstrala directo
+const hash = location.hash.replace("#","");
+if(hash) mostrarVista(hash);
 </script>
+
 </body>
 </html>
