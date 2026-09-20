@@ -8,7 +8,7 @@
   <title>PROYECTOS — Pedidos 3D &amp; NOVA</title>
   <link rel="stylesheet" href="./style.css?v=7">
   <link rel="icon" type="image/png" href="logo.png?v=2">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <style>
 #spa-auth{ display:none; position:fixed; inset:0; z-index:10000; background:#050505 !important; overflow-y:auto; }
 #spa-auth.show{ display:flex !important; }
@@ -37,6 +37,43 @@
 .lamp-container.off .lamp-shade span{ background:#222 !important; box-shadow:none !important; }
 @keyframes flicker { 0%{opacity:1} 10%{opacity:0.3} 20%{opacity:1} 30%{opacity:0.6} 50%{opacity:1} 70%{opacity:0.4} 100%{opacity:1} }
 .lamp-container.flicker .lamp-shade span, .lamp-container.flicker .light-cone, .lamp-container.flicker .light-glow { animation: flicker 0.55s ease; }
+/* PERGAMINO - SISTEMA */
+.btn-pergamino{background:#FFC107; border:3px solid #000; color:#000; padding:12px 26px; border-radius:100px; font-weight:900; letter-spacing:1px; cursor:pointer; box-shadow:0 5px 0 #000; transition:.15s; margin:20px 0;}
+.btn-pergamino:active{transform:translateY(4px); box-shadow:0 1px 0 #000;}
+.pergamino-container{width:94%; max-width:900px; margin:0 auto; transform-origin:top; transition:all .7s cubic-bezier(0.68,-0.55,0.27,1.55); overflow:hidden;}
+.pergamino-container.cerrado{transform:scaleY(0); opacity:0; max-height:0; pointer-events:none;}
+.pergamino-container.abierto{transform:scaleY(1); opacity:1; max-height:3000px; pointer-events:auto;}
+.pergamino-roll{height:20px; background:linear-gradient(#e6c99a, #8a5a2b); border-radius:12px; border:2px solid #000;}
+.pergamino-body{background:#fdf5e6; border-left:3px solid #000; border-right:3px solid #000; padding:18px; color:#000; text-align:left;}
+.pergamino-header{display:flex; justify-content:space-between; font-weight:900; font-size:12px; border-bottom:2px dashed #000; padding-bottom:10px; margin-bottom:12px;}
+.pergamino-body .tabs{display:flex; gap:8px; margin-bottom:15px;}
+.pergamino-body .tabs button{flex:1; padding:10px; border:2px solid #000; background:#fff; font-weight:800; cursor:pointer; border-radius:8px;}
+.pergamino-body .tabs button.active{background:#000; color:#FFC107;}
+.pergamino-body .tab-content{display:none;}
+.pergamino-body .tab-content.active{display:block;}
+/* =========================================================
+   SUBMENÚ PEDIDOS 3D — PREPARADO PARA FUTURO
+   Por ahora la flecha solo acompaña al enlace.
+   ========================================================= */
+
+.menu-link-parent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.menu-link-parent .menu-link-text {
+  flex: 1;
+}
+
+.menu-link-parent .submenu-arrow {
+  margin-left: auto;
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.65;
+  pointer-events: none;
+  transform: translateY(-1px);
+}
 </style>
 
 </head>
@@ -51,7 +88,11 @@
     
     <div class="menu-links">
       <a href="#inicio" data-section="inicio" class="menu-link active"><span class="menu-number">01</span><span>INICIO</span></a>
-      <a href="#pedidos3d" data-section="pedidos3d" class="menu-link"><span class="menu-number">02</span><span>PEDIDOS 3D</span></a>
+      <a href="#pedidos3d" data-section="pedidos3d" class="menu-link menu-link-parent">
+  <span class="menu-number">02</span>
+  <span class="menu-link-text">PEDIDOS 3D</span>
+  <span class="submenu-arrow" aria-hidden="true">⌄</span>
+</a>
       <a href="#nova" data-section="nova" class="menu-link"><span class="menu-number">03</span><span>NOVA</span></a>
       <a href="#calculadora" data-section="calculadora" class="menu-link"><span class="menu-number">04</span><span>CALCULADORA 3D</span></a>
     </div>
@@ -100,7 +141,10 @@
       <section class="hero pedidos-hero" id="pedidos-inicio">
         <div class="hero-content"><div class="vintage-label">✦ GESTIÓN • IMPRESIÓN 3D • 2026 ✦</div><h1><span>ORGANIZA.</span><strong>PEDIDOS 3D</strong><span>CONTROLA. CRECE.</span></h1><div class="divider"><span></span>◆<span></span></div><p class="hero-subtitle">La herramienta creada para ayudar a negocios de impresión 3D a organizar sus pedidos, controlar sus trabajos y mejorar su eficiencia.</p><div class="hero-buttons"><a href="#pedidos-descarga" class="download-btn"><span class="download-icon">↓</span><span><small>SOFTWARE PARA IMPRESIÓN 3D</small>DESCARGA AQUÍ</span></a><a href="#pedidos-caracteristicas" class="secondary-btn">CONOCER LA APP</a></div><div class="platform">DISPONIBLE PARA PC WINDOWS Y ANDROID</div></div>
         <div class="hero-decoration"><div class="p3d-mockup"><div class="mockup-bar"><span></span><span></span><span></span></div><div class="mockup-title">PEDIDOS 3D — PANEL</div><div class="mockup-row head"><span>PEDIDO</span><span>ESTADO</span></div><div class="mockup-row"><span>#1024 - Groot</span><b class="st-ready">● Listo</b></div><div class="mockup-row"><span>#1025 - Llaveros x20</span><b class="st-prod">● En producción</b></div><div class="mockup-row"><span>#1026 - Pieza motor</span><b class="st-pend">● Pendiente</b></div><div class="mockup-foot">3 PEDIDOS ACTIVOS</div></div></div>
-      </section>
+            </section>
+
+ 
+
       <div class="ornament"><span></span><div>✦</div><span></span></div>
 
       <section class="about section" id="pedidos-nosotros">
@@ -313,7 +357,7 @@
 
   <script src="./script.js?v=98"></script>
   
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const SUPABASE_URL = "https://fjhnbrmrrdmygyazopge.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_S_onTmeswWlPZlFQeK72ww_sM6Wty2G";
@@ -439,32 +483,18 @@ const h = location.hash.replace("#",""); if(h) mostrarVista(h); else calcular3D(
 document.querySelectorAll(".toggle-pass").forEach(btn=>{
   const input = document.getElementById(btn.dataset.target);
   if(!input) return;
-
-  // Estado inicial correcto: oculto
   input.type = "password";
   btn.textContent = "👁️";
   lamp?.classList.remove("off");
-
   btn.addEventListener("click", ()=>{
     const isHidden = input.type === "password";
-    
-    if(isHidden){
-      // MOSTRAR -> se ve, ojo cerrado, luz apagada
-      input.type = "text";
-      btn.textContent = "🙈";
-      lamp?.classList.add("off");
-    } else {
-      // OCULTAR -> puntitos, ojo abierto, luz prendida + flicker
-      input.type = "password";
-      btn.textContent = "👁️";
-      lamp?.classList.remove("off");
-      lamp?.classList.remove("flicker");
-      void lamp.offsetWidth;
-      lamp?.classList.add("flicker");
-      setTimeout(()=>lamp?.classList.remove("flicker"),600);
-    }
+    if(isHidden){ input.type = "text"; btn.textContent = "🙈"; lamp?.classList.add("off"); }
+    else { input.type = "password"; btn.textContent = "👁️"; lamp?.classList.remove("off"); lamp?.classList.remove("flicker"); void lamp.offsetWidth; lamp?.classList.add("flicker"); setTimeout(()=>lamp?.classList.remove("flicker"),600); }
   });
 });
 </script>
+
+
+
 </body>
 </html>
