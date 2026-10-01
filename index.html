@@ -95,6 +95,10 @@
 </a>
       <a href="#nova" data-section="nova" class="menu-link"><span class="menu-number">03</span><span>NOVA</span></a>
       <a href="#calculadora" data-section="calculadora" class="menu-link"><span class="menu-number">04</span><span>CALCULADORA 3D</span></a>
+      <a href="file:///F:/syncdrive/index.html" class="menu-link syncdrive-link">
+    <span class="menu-number">05</span>
+    <span>SYNC DRIVE PRO</span>
+</a>
     </div>
 
     <!-- SEPARACIÓN GRANDE + UN SOLO BOTÓN -->
@@ -130,6 +134,15 @@
           <a href="#pedidos3d" class="welcome-project-card" data-section="pedidos3d"><div class="welcome-card-content"><span class="welcome-card-label">01 — DISPONIBLE</span><h2>PEDIDOS 3D</h2><p>Gestión para impresión 3D</p></div><div class="welcome-card-arrow">→</div></a>
           <a href="#nova" class="welcome-project-card" data-section="nova"><div class="welcome-card-content"><span class="welcome-card-label">02 — EN DESARROLLO</span><h2>NOVA</h2><p>Asistente virtual IA</p></div><div class="welcome-card-arrow">→</div></a>
           <a href="#calculadora" class="welcome-project-card" data-section="calculadora"><div class="welcome-card-content"><span class="welcome-card-label">03 — ONLINE</span><h2>CALCULADORA 3D</h2><p>Calcula costos al instante</p></div><div class="welcome-card-arrow">→</div></a>
+          <a href="file:///F:/syncdrive/index.html" class="welcome-project-card syncdrive-project-card">
+    <div class="welcome-card-content">
+        <span class="welcome-card-label">04 — DISPONIBLE</span>
+        <h2>SYNC DRIVE PRO</h2>
+        <p>Sincroniza y organiza tus archivos</p>
+    </div>
+
+    <div class="welcome-card-arrow">→</div>
+</a>
         </div>
       </div>
     </section>
@@ -299,6 +312,91 @@
     </div>
   </div>
 </section>
+<!-- SYNC DRIVE PRO -->
+<section id="syncdrive" class="site-view syncdrive-view" data-view="syncdrive">
+
+  <div class="syncdrive-container">
+
+    <div class="syncdrive-header">
+      <span class="syncdrive-badge">● HERRAMIENTA ONLINE</span>
+
+      <h2>
+        SYNC DRIVE
+        <span>PRO</span>
+      </h2>
+
+      <p>
+        Gestiona, sincroniza y organiza tus archivos directamente desde el navegador.
+        Selecciona archivos o carpetas y copia su contenido a tu destino.
+      </p>
+    </div>
+
+    <div class="syncdrive-preview">
+
+      <div class="syncdrive-preview-top">
+        <div class="syncdrive-window-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <span>SYNC DRIVE PRO</span>
+      </div>
+
+      <div class="syncdrive-preview-body">
+
+        <div class="syncdrive-feature">
+          <div class="syncdrive-feature-icon">↕</div>
+          <div>
+            <strong>SINCRONIZACIÓN</strong>
+            <p>Sincroniza archivos individuales o carpetas completas.</p>
+          </div>
+        </div>
+
+        <div class="syncdrive-feature">
+          <div class="syncdrive-feature-icon">▣</div>
+          <div>
+            <strong>VISTA PREVIA</strong>
+            <p>Visualiza documentos compatibles directamente desde SyncDrive.</p>
+          </div>
+        </div>
+
+        <div class="syncdrive-feature">
+          <div class="syncdrive-feature-icon">▤</div>
+          <div>
+            <strong>ORGANIZACIÓN</strong>
+            <p>Mantén tus archivos organizados conservando su estructura.</p>
+          </div>
+        </div>
+
+        <div class="syncdrive-feature">
+          <div class="syncdrive-feature-icon">✓</div>
+          <div>
+            <strong>LOCAL</strong>
+            <p>Los archivos se escriben directamente en el destino seleccionado.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="syncdrive-actions">
+
+      <a href="file:///F:/syncdrive/index.html" class="syncdrive-main-button">
+        <span>↗</span>
+        ABRIR SYNC DRIVE PRO
+      </a>
+
+      <span class="syncdrive-note">
+        SIN INSTALACIÓN • DIRECTAMENTE DESDE EL NAVEGADOR
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
  
   </main>
   
@@ -356,6 +454,27 @@
   <div id="lightbox"><img id="lightbox-img" src=""></div>
 
   <script src="./script.js?v=98"></script>
+<script>
+/* =========================================================
+   SYNC DRIVE PRO
+   APP INDEPENDIENTE EN F:\syncdrive
+   ========================================================= */
+
+document.querySelectorAll(
+    ".syncdrive-link, .syncdrive-project-card, .syncdrive-main-button"
+).forEach(link => {
+
+    link.addEventListener("click", function(e) {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        window.location.href = "file:///F:/syncdrive/index.html";
+
+    });
+
+});
+</script>
   
 
 <script>
@@ -473,10 +592,26 @@ function mostrarVista(id){
   siteMenu?.classList.remove("menu-open","open");
   if(id==="calculadora") setTimeout(calcular3D,100);
 }
-document.querySelectorAll("[data-section]").forEach(link=>{
-  link.addEventListener("click", e=>{
-    e.preventDefault(); const sec=link.dataset.section; if(sec){ mostrarVista(sec); history.replaceState(null,"","#"+sec); }
-  });
+document.querySelectorAll("[data-section]").forEach(link => {
+
+    link.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        const sec = link.dataset.section;
+
+        if (!sec) return;
+
+        mostrarVista(sec);
+
+        history.replaceState(
+            null,
+            "",
+            "#" + sec
+        );
+
+    });
+
 });
 const h = location.hash.replace("#",""); if(h) mostrarVista(h); else calcular3D();
 // OJITO + LAMPARA - CORREGIDO
