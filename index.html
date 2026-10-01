@@ -634,7 +634,40 @@ document.querySelectorAll(".toggle-pass").forEach(btn=>{
 });
 </script>
 
+<!-- COOKIES -->
+<div id="cookieBanner" style="display:none; position:fixed; bottom:20px; left:20px; right:20px; max-width:420px; background:#111; border:1px solid #222; padding:18px; z-index:10000; font-family:monospace; font-size:12px; color:#aaa;">
+  <p style="margin:0 0 12px; color:#fff;">USAMOS COOKIES PARA MEJORAR TU EXPERIENCIA. ¿ACEPTAS?</p>
+  <div style="display:flex; gap:10px;">
+    <button id="aceptarCookies" style="flex:1; background:#ff0a0a; color:#000; border:none; padding:10px; font-weight:bold; cursor:pointer;">ACEPTAR</button>
+    <button id="rechazarCookies" style="flex:1; background:transparent; color:#aaa; border:1px solid #333; padding:10px; cursor:pointer;">RECHAZAR</button>
+  </div>
+</div>
 
+<!-- SPLASH TERMINOS Y PRIVACIDAD -->
+<div id="splashLegal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:10001; justify-content:center; align-items:center; padding:20px;">
+  <div style="background:#0a0a0a; border:1px solid #ff0a0a; max-width:600px; width:100%; padding:30px; font-family:monospace;">
+    <h2 style="color:#fff; margin:0 0 10px;">TÉRMINOS Y PRIVACIDAD</h2>
+    <p style="color:#777; font-size:12px; line-height:1.6; max-height:300px; overflow:auto;">
+      Al usar PEDIDOS 3D aceptas el tratamiento de datos para gestionar tus pedidos. No compartimos información con terceros. Puedes solicitar la eliminación de tus datos en cualquier momento. Este es un proyecto independiente.
+    </p>
+    <div style="display:flex; gap:10px; margin-top:20px;">
+      <button id="aceptarLegal" style="flex:1; background:#fffffd; border:none; padding:12px; font-weight:bold; cursor:pointer;">ACEPTAR Y CONTINUAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- MANUAL PEDIDOS 3D -->
+<div id="manualPedidosModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:10002; justify-content:center; align-items:center; padding:20px;">
+  <div style="background:#111; border:1px solid #333; max-width:700px; width:100%; padding:30px; position:relative;">
+    <button id="cerrarManualPedidos" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">×</button>
+    <h2 style="color:#fbff0a; font-size:14px; letter-spacing:3px;">01 — MANUAL</h2>
+    <h3 style="color:#fff; font-size:28px; margin:5px 0 20px;">PEDIDOS 3D</h3>
+    <div style="color:#aaa; font-size:13px; line-height:1.8;">
+      <p>1. Crea un cliente nuevo.<br>2. Agrega las piezas con medidas y material.<br>3. El sistema calcula precio y tiempo automático.<br>4. Envía el presupuesto por WhatsApp.<br>5. Cambia estado a Listo / Entregado.</p>
+      <p style="margin-top:15px; color:#555;">Tip: Usa Ctrl + K para búsqueda rápida.</p>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
