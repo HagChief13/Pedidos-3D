@@ -95,7 +95,7 @@
 </a>
       <a href="#nova" data-section="nova" class="menu-link"><span class="menu-number">03</span><span>NOVA</span></a>
       <a href="#calculadora" data-section="calculadora" class="menu-link"><span class="menu-number">04</span><span>CALCULADORA 3D</span></a>
-      <a href="file:///F:/syncdrive/index.html" class="menu-link syncdrive-link">
+      <a href="./syncdrive/index.html" class="menu-link syncdrive-link">
     <span class="menu-number">05</span>
     <span>SYNC DRIVE PRO</span>
 </a>
@@ -127,14 +127,20 @@
         <div class="home-eyebrow"><span class="home-line"></span><span>PROYECTOS • TECNOLOGÍA • CREACIÓN</span><span class="home-line"></span></div>
         <h1 class="home-title"><span>UN ESPACIO</span><span class="home-title-accent">PARA CREAR.</span></h1>
         <p class="home-description">Este sitio reúne proyectos, herramientas e ideas desarrolladas para convertir conceptos en soluciones reales. Desde la gestión de trabajos de impresión 3D hasta proyectos de inteligencia artificial y tecnología experimental.</p>
-        <div class="dev-timer"><span class="dev-timer-label">TIEMPO PROGRAMANDO HASTA TERMINAR EL PROYECTO</span><strong id="devTimer">5d 3h 00m 00s</strong></div>
-        <button class="btn-unknown" type="button"><span class="btn-unknown-top">?????</span><span class="btn-unknown-sub">// SEÑAL NO DECODIFICADA</span></button>
+        <div class="dev-timer"><span class="dev-timer-label">TIEMPO PROGRAMANDO HASTA TERMINAR EL PROYECTO</span><strong id="devTimer">17d 5h 00m 00s</strong></div>
+        <button class="btn-unknown" type="button">
+    <span class="btn-unknown-top">?????</span>
+    <span class="btn-unknown-sub">
+        <span class="signal-prefix">//</span>
+        <span class="signal-text">SEÑAL NO DECODIFICADA</span>
+    </span>
+</button>
         <div class="home-scroll-indicator"><span class="home-scroll-line"></span><span>EXPLORA LOS PROYECTOS</span><span class="home-scroll-line"></span></div>
         <div class="welcome-projects">
           <a href="#pedidos3d" class="welcome-project-card" data-section="pedidos3d"><div class="welcome-card-content"><span class="welcome-card-label">01 — DISPONIBLE</span><h2>PEDIDOS 3D</h2><p>Gestión para impresión 3D</p></div><div class="welcome-card-arrow">→</div></a>
           <a href="#nova" class="welcome-project-card" data-section="nova"><div class="welcome-card-content"><span class="welcome-card-label">02 — EN DESARROLLO</span><h2>NOVA</h2><p>Asistente virtual IA</p></div><div class="welcome-card-arrow">→</div></a>
           <a href="#calculadora" class="welcome-project-card" data-section="calculadora"><div class="welcome-card-content"><span class="welcome-card-label">03 — ONLINE</span><h2>CALCULADORA 3D</h2><p>Calcula costos al instante</p></div><div class="welcome-card-arrow">→</div></a>
-          <a href="./syncdrive/index.html" class="welcome-project-card syncdrive-project-card">
+          <a href="./syncdrive/" class="welcome-project-card syncdrive-project-card">
     <div class="welcome-card-content">
         <span class="welcome-card-label">04 — DISPONIBLE</span>
         <h2>SYNC DRIVE PRO</h2>
@@ -383,7 +389,7 @@
 
     <div class="syncdrive-actions">
 
-      <a href="./syncdrive/index.html" class="syncdrive-main-button">
+      <a href="./syncdrive/" class="syncdrive-main-button">
         <span>↗</span>
         ABRIR SYNC DRIVE PRO
       </a>
@@ -454,22 +460,21 @@
   <div id="lightbox"><img id="lightbox-img" src=""></div>
 
   <script src="./script.js?v=98"></script>
-<script>
+  <script>
 /* =========================================================
    SYNC DRIVE PRO
-   APP INDEPENDIENTE EN F:\syncdrive
+   NAVEGACIÓN A APP INDEPENDIENTE
    ========================================================= */
 
-document.querySelectorAll(
-    ".syncdrive-link, .syncdrive-project-card, .syncdrive-main-button"
-).forEach(link => {
+document.querySelectorAll(".syncdrive-link, .syncdrive-project-card, .syncdrive-main-button")
+.forEach(link => {
 
     link.addEventListener("click", function(e) {
 
         e.preventDefault();
-        e.stopImmediatePropagation();
+        e.stopPropagation();
 
-        window.location.href = "file:///F:/syncdrive/index.html";
+        window.location.assign("./syncdrive/");
 
     });
 

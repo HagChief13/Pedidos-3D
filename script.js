@@ -51,20 +51,51 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     function openMenu() {
-    if (!siteMenu || !menuToggle) return;
-    siteMenu.classList.add("menu-open");
-    menuToggle.classList.add("menu-open");
-    menuToggle.setAttribute("aria-expanded", "true");
-    menuToggle.setAttribute("aria-label", "Cerrar menú");
-}
 
-function closeMenu() {
-    if (!siteMenu || !menuToggle) return;
-    siteMenu.classList.remove("menu-open");
-    menuToggle.classList.remove("menu-open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Abrir menú");
-}
+        if (!siteMenu || !menuToggle) {
+            return;
+        }
+
+
+        siteMenu.classList.add("open");
+
+        menuToggle.classList.add("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+
+        menuToggle.setAttribute(
+            "aria-label",
+            "Cerrar menú"
+        );
+
+    }
+
+
+    function closeMenu() {
+
+        if (!siteMenu || !menuToggle) {
+            return;
+        }
+
+
+        siteMenu.classList.remove("open");
+
+        menuToggle.classList.remove("active");
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+        menuToggle.setAttribute(
+            "aria-label",
+            "Abrir menú"
+        );
+
+    }
 
 
     function toggleMenu() {
@@ -75,7 +106,7 @@ function closeMenu() {
 
 
         if (
-            siteMenu.classList.contains("menu-open")
+            siteMenu.classList.contains("open")
         ) {
 
             closeMenu();
@@ -195,9 +226,6 @@ function closeMenu() {
             isChangingView ||
             currentView === viewName
         ) {
-        if(viewName === 'nova'){
-  setTimeout(drawNovaLine, 650);
-}
 
             closeMenu();
 
@@ -995,217 +1023,63 @@ function closeMenu() {
     console.log(
         `Sistema iniciado → vista: ${initialView}`
     );
-
+    window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+  document.getElementById('lavaLiquid').style.height = pct + '%';
 });
-function drawNovaLine(){
-  const mine = document.querySelector('.nova-mine');
-  const svg = document.querySelector('.nova-svg-line');
-  const poly = document.getElementById('novaPoly');
-  if(!mine || !svg || !poly) return;
-  const mr = mine.getBoundingClientRect();
-  if(mr.width < 10) {
-    // reintenta en 600ms por si la vista aún está abriendo
-    setTimeout(drawNovaLine, 600);
-    return;
-  }
-  svg.setAttribute('viewBox', `0 0 ${mr.width} ${mr.height}`);
-  svg.style.width = mr.width + 'px';
-  svg.style.height = mr.height + 'px';
-  const pts = [...document.querySelectorAll('.nova-roadmap-item .nova-node')].map(n=>{
-    const r = n.getBoundingClientRect();
-    return `${r.left - mr.left + r.width/2},${r.top - mr.top + r.height/2}`;
-  });
-  poly.setAttribute('points', pts.join(' '));
-}
-window.addEventListener('load', ()=> setTimeout(drawNovaLine, 800));
-window.addEventListener('resize', drawNovaLine);
+    /* =====================================================
+   TEMPORIZADOR DEL PROYECTO
+   CUENTA DESDE EL INICIO REAL
+===================================================== */
 
+const devTimer = document.getElementById("devTimer");
 
-const banner = document.getElementById('cookie-banner');
-if(!localStorage.getItem('cookies-ok')){
-  setTimeout(()=>banner.classList.add('show'), 1200);
-}
-document.getElementById('accept-cookies').onclick = ()=>{
-  localStorage.setItem('cookies-ok','yes');
-  banner.classList.remove('show');
-};
-document.getElementById('reject-cookies').onclick = ()=>{
-  localStorage.setItem('cookies-ok','no');
-  banner.classList.remove('show');
-};
-document.getElementById('open-cookies').onclick = ()=>{
-  banner.classList.add('show');
-};
+if (devTimer) {
 
-function openSpa(id){
-  const el = document.getElementById(id);
-  if(!el) return;
-  el.classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-function closeSpa(){
-  document.querySelectorAll('.spa-page').forEach(p=>p.classList.remove('show'));
-  document.body.style.overflow = '';
-}
+    // Inicio del proyecto
+    const startDate =
+        new Date("2026-09-14T13:00:00-03:00").getTime();
 
-document.getElementById('open-terms')?.addEventListener('click', e=>{
-  e.preventDefault(); openSpa('spa-terms');
-});
-document.getElementById('open-privacy')?.addEventListener('click', e=>{
-  e.preventDefault(); openSpa('spa-privacy');
-});
-document.querySelectorAll('.spa-back').forEach(b=> b.onclick = closeSpa);
+    function updateDevTimer() {
 
-document.addEventListener('DOMContentLoaded',function(){
-  var book=document.getElementById('p3dBook'); if(!book) return;
-  var cover=document.getElementById('bookCover');
+        const now = Date.now();
 
-  var order=[0,1,2,3,4,5,6,7,8];
-  var pagesById={};
-  order.forEach(function(id){
-    var el=book.querySelector('.bpage[data-i="'+id+'"]');
-    if(el){ pagesById[id]=el; el.style.zIndex = 20 - id; }
-  });
-  var stack=[];
-  var animating=false;
+        let difference = now - startDate;
 
-  function flipNext(){
-    if(animating) return;
-    var nextId=order.find(function(id){return stack.indexOf(id)===-1;});
-    if(nextId===undefined || nextId===8) return;
-    var el=pagesById[nextId];
-    stack.push(nextId);
-    el.classList.add('flipped');
-    el.style.zIndex = 1 + nextId;
-  }
-  function flipPrev(){
-    if(animating ||!stack.length) return;
-    var lastId=stack.pop();
-    var el=pagesById[lastId];
-    el.classList.remove('flipped');
-    el.style.zIndex = 20 - lastId;
-  }
-
-  cover.addEventListener('click',function(e){
-    e.stopPropagation();
-    if(!book.classList.contains('open')){
-      book.classList.add('open');
-    } else {
-      book.classList.remove('open');
-      animating=true;
-      var ids=stack.slice().reverse();
-      var i=0;
-      var t=setInterval(function(){
-        if(i>=ids.length){clearInterval(t);animating=false;return;}
-        var id=ids[i];
-        var el=pagesById[id];
-        el.classList.add('flipping-fast');
-        el.classList.remove('flipped');
-        el.style.zIndex=20-id;
-        (function(elm){setTimeout(function(){elm.classList.remove('flipping-fast');},220);})(el);
-        i++;
-      },120);
-      stack=[];
-    }
-  });
-
-  book.addEventListener('click',function(e){
-    if(e.target.closest('.nextB')){e.stopPropagation();flipNext();}
-    if(e.target.closest('.prevB')){e.stopPropagation();flipPrev();}
-  });
-
-  book.querySelectorAll('.idx-btn').forEach(function(btn){
-    btn.addEventListener('click',function(e){
-      e.stopPropagation();
-      if(animating) return;
-      var target=parseInt(btn.dataset.goto,10);
-      animating=true;
-      var timer=setInterval(function(){
-        if(stack.length < target){
-          var nid=order.find(function(id){return stack.indexOf(id)===-1;});
-          if(nid < target){ stack.push(nid); var el=pagesById[nid]; el.classList.add('flipped'); el.style.zIndex=1+nid; }
-          else { clearInterval(timer); animating=false; }
-        } else if(stack.length > target){
-          var lid=stack.pop(); var el2=pagesById[lid]; el2.classList.remove('flipped'); el2.style.zIndex=20-lid;
-        } else {
-          clearInterval(timer); animating=false;
+        if (difference < 0) {
+            difference = 0;
         }
-      },180);
-    });
-  });
 
-  var betaAdd=document.getElementById('betaAdd');
-  if(betaAdd){betaAdd.addEventListener('click',function(e){e.stopPropagation();var inp=document.getElementById('betaInput');var list=document.getElementById('betaList');if(!inp.value.trim())return;var li=document.createElement('li');li.textContent='● '+inp.value;list.appendChild(li);inp.value='';});}
-  var betaAdd2=document.getElementById('betaAdd2');
-  if(betaAdd2){betaAdd2.addEventListener('click',function(e){e.stopPropagation();var inp=document.getElementById('betaInput2');var list=document.getElementById('betaList2');if(!inp.value.trim())return;var li=document.createElement('li');li.textContent='● '+inp.value;list.appendChild(li);inp.value='';});}
-});
+        const totalSeconds =
+            Math.floor(difference / 1000);
 
-(function(){
-  const bg = document.getElementById('homeBg');
-  if(!bg) return;
-  for(let i=0;i<70;i++){
-    const s = document.createElement('span');
-    const size = Math.random()*3+1;
-    s.style.width = size+'px';
-    s.style.height = size+'px';
-    s.style.left = Math.random()*100+'%';
-    s.style.animationDuration = (Math.random()*8+6)+'s';
-    s.style.animationDelay = (Math.random()*8)+'s';
-    if(Math.random()>0.85) s.style.background = 'rgba(255,40,40,.7)';
-    bg.appendChild(s);
-  }
-  console.log('particulas creadas');
-})();
+        const days =
+            Math.floor(
+                totalSeconds / 86400
+            );
 
-(function(){
-  // FECHA FIJA DE INICIO - todos ven lo mismo
-  // Ajusta a tu fecha real de inicio del proyecto
-  const START = new Date('2026-09-14T00:00:00-03:00').getTime();
+        const hours =
+            Math.floor(
+                (totalSeconds % 86400) / 3600
+            );
 
-  const el = document.getElementById('devTimer');
-  if(!el) return;
+        const minutes =
+            Math.floor(
+                (totalSeconds % 3600) / 60
+            );
 
-  function update(){
-    let diff = Math.floor((Date.now() - START) / 1000);
-    if(diff < 0) diff = 0;
-    const d = Math.floor(diff / 86400); diff %= 86400;
-    const h = Math.floor(diff / 3600); diff %= 3600;
-    const m = Math.floor(diff / 60);
-    const s = diff % 60;
-    el.textContent = `${d}d ${h}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
-  }
-  setInterval(update, 1000);
-  update();
-})();
+        const seconds =
+            totalSeconds % 60;
 
-// ===== CALCULADORA LOGICA =====
-function calcUpdate(){
-  const g = parseFloat(document.getElementById('calcGramos')?.value||0);
-  const pKg = parseFloat(document.getElementById('calcPrecioKg')?.value||0);
-  const h = parseFloat(document.getElementById('calcHoras')?.value||0);
-  const luz = parseFloat(document.getElementById('calcLuz')?.value||0);
-  const desg = parseFloat(document.getElementById('calcDesgaste')?.value||0);
-  const margen = parseFloat(document.getElementById('calcMargen')?.value||0);
-  const mano = parseFloat(document.getElementById('calcMano')?.value||0);
+        devTimer.textContent =
+            `${days}d ${hours}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
+    }
 
-  const cFil = (pKg/1000)*g;
-  const cLuz = h*luz;
-  const base = cFil + cLuz + mano;
-  const cDesg = base * (desg/100);
-  const cTotal = base + cDesg;
-  const venta = cTotal * (1 + margen/100);
+    updateDevTimer();
 
-  const fmt = n => '$' + Math.round(n).toLocaleString('es-CL');
-  if(document.getElementById('resFilamento')){
-    document.getElementById('resFilamento').textContent = fmt(cFil);
-    document.getElementById('resLuz').textContent = fmt(cLuz);
-    document.getElementById('resDesgaste').textContent = fmt(cDesg);
-    document.getElementById('resMano').textContent = fmt(mano);
-    document.getElementById('resTotal').textContent = fmt(cTotal);
-    document.getElementById('resVenta').textContent = fmt(venta);
-  }
+    setInterval(updateDevTimer, 1000);
 }
-document.addEventListener('input', e=>{
-  if(e.target.id.startsWith('calc')) calcUpdate();
+
+
 });
-document.addEventListener('DOMContentLoaded', calcUpdate);
