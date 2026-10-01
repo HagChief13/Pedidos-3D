@@ -43,6 +43,261 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentView = null;
 
     let isChangingView = false;
+    /* =====================================================
+   COOKIES / TÉRMINOS / PRIVACIDAD
+===================================================== */
+
+const cookieBanner =
+    document.getElementById("cookieBanner");
+
+const splashLegal =
+    document.getElementById("splashLegal");
+
+const aceptarCookies =
+    document.getElementById("aceptarCookies");
+
+const rechazarCookies =
+    document.getElementById("rechazarCookies");
+
+const aceptarLegal =
+    document.getElementById("aceptarLegal");
+
+const openCookies =
+    document.getElementById("open-cookies");
+
+const openTerms =
+    document.getElementById("open-terms");
+
+const openPrivacy =
+    document.getElementById("open-privacy");
+
+
+/* =====================================================
+   MOSTRAR COOKIES
+===================================================== */
+
+function mostrarCookies() {
+
+    if (!cookieBanner) {
+        return;
+    }
+
+    cookieBanner.style.display = "block";
+}
+
+
+/* =====================================================
+   OCULTAR COOKIES
+===================================================== */
+
+function ocultarCookies() {
+
+    if (!cookieBanner) {
+        return;
+    }
+
+    cookieBanner.style.display = "none";
+}
+
+
+/* =====================================================
+   MOSTRAR LEGAL
+===================================================== */
+
+function mostrarLegal(tipo = "legal") {
+
+    if (!splashLegal) {
+        return;
+    }
+
+    const titulo =
+        splashLegal.querySelector("h2");
+
+    const texto =
+        splashLegal.querySelector("p");
+
+    if (tipo === "terminos") {
+
+        if (titulo) {
+            titulo.textContent = "TÉRMINOS DE USO";
+        }
+
+        if (texto) {
+            texto.textContent =
+                "Al utilizar PEDIDOS 3D y los servicios disponibles en este sitio, aceptas utilizar la plataforma de forma responsable. Las funciones, aplicaciones y herramientas pueden encontrarse en desarrollo y estar sujetas a cambios. Este es un proyecto independiente.";
+        }
+
+    } else if (tipo === "privacidad") {
+
+        if (titulo) {
+            titulo.textContent = "POLÍTICA DE PRIVACIDAD";
+        }
+
+        if (texto) {
+            texto.textContent =
+                "La información proporcionada para utilizar determinadas funciones del sitio se utiliza únicamente para ofrecer y gestionar dichas funciones. No compartimos información personal con terceros salvo cuando sea necesario para prestar un servicio solicitado. Puedes solicitar la eliminación de tus datos cuando corresponda.";
+        }
+
+    } else {
+
+        if (titulo) {
+            titulo.textContent = "TÉRMINOS Y PRIVACIDAD";
+        }
+
+    }
+
+    splashLegal.style.display = "flex";
+}
+
+
+/* =====================================================
+   OCULTAR LEGAL
+===================================================== */
+
+function ocultarLegal() {
+
+    if (!splashLegal) {
+        return;
+    }
+
+    splashLegal.style.display = "none";
+}
+
+
+/* =====================================================
+   MOSTRAR COOKIES AL ABRIR LA PÁGINA
+===================================================== */
+
+if (!localStorage.getItem("cookiesAceptadas")) {
+
+    setTimeout(() => {
+
+        mostrarCookies();
+
+    }, 700);
+
+}
+
+
+/* =====================================================
+   ACEPTAR COOKIES
+===================================================== */
+
+aceptarCookies?.addEventListener(
+    "click",
+    () => {
+
+        localStorage.setItem(
+            "cookiesAceptadas",
+            "true"
+        );
+
+        ocultarCookies();
+
+    }
+);
+
+
+/* =====================================================
+   RECHAZAR COOKIES
+===================================================== */
+
+rechazarCookies?.addEventListener(
+    "click",
+    () => {
+
+        ocultarCookies();
+
+    }
+);
+
+
+/* =====================================================
+   BOTÓN COOKIES DEL FOOTER
+===================================================== */
+
+openCookies?.addEventListener(
+    "click",
+    (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        mostrarCookies();
+
+    }
+);
+
+
+/* =====================================================
+   BOTÓN TÉRMINOS DEL FOOTER
+===================================================== */
+
+openTerms?.addEventListener(
+    "click",
+    (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        mostrarLegal("terminos");
+
+    }
+);
+
+
+/* =====================================================
+   BOTÓN PRIVACIDAD DEL FOOTER
+===================================================== */
+
+openPrivacy?.addEventListener(
+    "click",
+    (event) => {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        mostrarLegal("privacidad");
+
+    }
+);
+
+
+/* =====================================================
+   ACEPTAR TÉRMINOS / CERRAR LEGAL
+===================================================== */
+
+aceptarLegal?.addEventListener(
+    "click",
+    () => {
+
+        localStorage.setItem(
+            "legalAceptado",
+            "true"
+        );
+
+        ocultarLegal();
+
+    }
+);
+
+
+/* =====================================================
+   CERRAR LEGAL HACIENDO CLICK FUERA
+===================================================== */
+
+splashLegal?.addEventListener(
+    "click",
+    (event) => {
+
+        if (event.target === splashLegal) {
+
+            ocultarLegal();
+
+        }
+
+    }
+);
 
 
 
