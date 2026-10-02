@@ -1,191 +1,82 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-
     /* =====================================================
        REFERENCIAS PRINCIPALES
     ===================================================== */
 
-    const menuToggle =
-        document.getElementById("menuToggle");
+    const menuToggle = document.getElementById("menuToggle");
+    const siteMenu = document.getElementById("siteMenu");
+    const navbar = document.querySelector(".navbar");
 
+    const views = document.querySelectorAll(".site-view");
 
-    const siteMenu =
-        document.getElementById("siteMenu");
+    const menuLinks = document.querySelectorAll(
+        "#siteMenu a[data-section]"
+    );
 
-
-    const navbar =
-        document.querySelector(".navbar");
-
-
-    const views =
-        document.querySelectorAll(".site-view");
-
-
-    const menuLinks =
-        document.querySelectorAll(
-            "#siteMenu a[data-section]"
-        );
-
-
-    const sectionLinks =
-        document.querySelectorAll(
-            "[data-section]"
-        );
-
+    const sectionLinks = document.querySelectorAll(
+        "[data-section]"
+    );
 
     const validViews = [
         "inicio",
         "pedidos3d",
-        "nova"
+        "nova",
+        "calculadora",
+        "syncdrive"
     ];
 
-
     let currentView = null;
-
     let isChangingView = false;
+
+
     /* =====================================================
-   COOKIES / TÉRMINOS / PRIVACIDAD
-===================================================== */
+       COOKIES / TÉRMINOS / PRIVACIDAD
+    ===================================================== */
 
-const cookieBanner =
-    document.getElementById("cookieBanner");
+    const cookieBanner = document.getElementById("cookieBanner");
+    const splashLegal = document.getElementById("splashLegal");
 
-const splashLegal =
-    document.getElementById("splashLegal");
+    const aceptarCookies = document.getElementById("aceptarCookies");
+    const rechazarCookies = document.getElementById("rechazarCookies");
 
-const aceptarCookies =
-    document.getElementById("aceptarCookies");
+    const aceptarLegal = document.getElementById("aceptarLegal");
 
-const rechazarCookies =
-    document.getElementById("rechazarCookies");
-
-const aceptarLegal =
-    document.getElementById("aceptarLegal");
-
-const openCookies =
-    document.getElementById("open-cookies");
-
-const openTerms =
-    document.getElementById("open-terms");
-
-const openPrivacy =
-    document.getElementById("open-privacy");
+    const openCookies = document.getElementById("open-cookies");
+    const openTerms = document.getElementById("open-terms");
+    const openPrivacy = document.getElementById("open-privacy");
 
 
-/* =====================================================
-   MOSTRAR COOKIES
-===================================================== */
+    /* =====================================================
+       COOKIES
+    ===================================================== */
 
-function mostrarCookies() {
+    function mostrarCookies() {
 
-    if (!cookieBanner) {
-        return;
+        if (!cookieBanner) return;
+
+        cookieBanner.style.display = "block";
     }
 
-    cookieBanner.style.display = "block";
-}
 
+    function ocultarCookies() {
 
-/* =====================================================
-   OCULTAR COOKIES
-===================================================== */
+        if (!cookieBanner) return;
 
-function ocultarCookies() {
-
-    if (!cookieBanner) {
-        return;
+        cookieBanner.style.display = "none";
     }
 
-    cookieBanner.style.display = "none";
-}
 
+    if (!localStorage.getItem("cookiesAceptadas")) {
 
-/* =====================================================
-   MOSTRAR LEGAL
-===================================================== */
-
-function mostrarLegal(tipo = "legal") {
-
-    if (!splashLegal) {
-        return;
-    }
-
-    const titulo =
-        splashLegal.querySelector("h2");
-
-    const texto =
-        splashLegal.querySelector("p");
-
-    if (tipo === "terminos") {
-
-        if (titulo) {
-            titulo.textContent = "TÉRMINOS DE USO";
-        }
-
-        if (texto) {
-            texto.textContent =
-                "Al utilizar PEDIDOS 3D y los servicios disponibles en este sitio, aceptas utilizar la plataforma de forma responsable. Las funciones, aplicaciones y herramientas pueden encontrarse en desarrollo y estar sujetas a cambios. Este es un proyecto independiente.";
-        }
-
-    } else if (tipo === "privacidad") {
-
-        if (titulo) {
-            titulo.textContent = "POLÍTICA DE PRIVACIDAD";
-        }
-
-        if (texto) {
-            texto.textContent =
-                "La información proporcionada para utilizar determinadas funciones del sitio se utiliza únicamente para ofrecer y gestionar dichas funciones. No compartimos información personal con terceros salvo cuando sea necesario para prestar un servicio solicitado. Puedes solicitar la eliminación de tus datos cuando corresponda.";
-        }
-
-    } else {
-
-        if (titulo) {
-            titulo.textContent = "TÉRMINOS Y PRIVACIDAD";
-        }
+        setTimeout(() => {
+            mostrarCookies();
+        }, 700);
 
     }
 
-    splashLegal.style.display = "flex";
-}
 
-
-/* =====================================================
-   OCULTAR LEGAL
-===================================================== */
-
-function ocultarLegal() {
-
-    if (!splashLegal) {
-        return;
-    }
-
-    splashLegal.style.display = "none";
-}
-
-
-/* =====================================================
-   MOSTRAR COOKIES AL ABRIR LA PÁGINA
-===================================================== */
-
-if (!localStorage.getItem("cookiesAceptadas")) {
-
-    setTimeout(() => {
-
-        mostrarCookies();
-
-    }, 700);
-
-}
-
-
-/* =====================================================
-   ACEPTAR COOKIES
-===================================================== */
-
-aceptarCookies?.addEventListener(
-    "click",
-    () => {
+    aceptarCookies?.addEventListener("click", () => {
 
         localStorage.setItem(
             "cookiesAceptadas",
@@ -194,82 +85,100 @@ aceptarCookies?.addEventListener(
 
         ocultarCookies();
 
-    }
-);
+    });
 
 
-/* =====================================================
-   RECHAZAR COOKIES
-===================================================== */
-
-rechazarCookies?.addEventListener(
-    "click",
-    () => {
+    rechazarCookies?.addEventListener("click", () => {
 
         ocultarCookies();
 
-    }
-);
+    });
 
 
-/* =====================================================
-   BOTÓN COOKIES DEL FOOTER
-===================================================== */
-
-openCookies?.addEventListener(
-    "click",
-    (event) => {
+    openCookies?.addEventListener("click", (event) => {
 
         event.preventDefault();
         event.stopPropagation();
 
         mostrarCookies();
 
+    });
+
+
+    /* =====================================================
+       TÉRMINOS / PRIVACIDAD
+    ===================================================== */
+
+    function mostrarLegal(tipo = "legal") {
+
+        if (!splashLegal) return;
+
+        const titulo = splashLegal.querySelector("h2");
+        const texto = splashLegal.querySelector("p");
+
+        if (tipo === "terminos") {
+
+            if (titulo) {
+                titulo.textContent = "TÉRMINOS DE USO";
+            }
+
+            if (texto) {
+                texto.textContent =
+                    "Al utilizar PEDIDOS 3D y los servicios disponibles en este sitio, aceptas utilizar la plataforma de forma responsable. Las funciones, aplicaciones y herramientas pueden encontrarse en desarrollo y estar sujetas a cambios. Este es un proyecto independiente.";
+            }
+
+        } else if (tipo === "privacidad") {
+
+            if (titulo) {
+                titulo.textContent = "POLÍTICA DE PRIVACIDAD";
+            }
+
+            if (texto) {
+                texto.textContent =
+                    "La información proporcionada para utilizar determinadas funciones del sitio se utiliza únicamente para ofrecer y gestionar dichas funciones. No compartimos información personal con terceros salvo cuando sea necesario para prestar un servicio solicitado. Puedes solicitar la eliminación de tus datos cuando corresponda.";
+            }
+
+        } else {
+
+            if (titulo) {
+                titulo.textContent = "TÉRMINOS Y PRIVACIDAD";
+            }
+
+        }
+
+        splashLegal.style.display = "flex";
     }
-);
 
 
-/* =====================================================
-   BOTÓN TÉRMINOS DEL FOOTER
-===================================================== */
+    function ocultarLegal() {
 
-openTerms?.addEventListener(
-    "click",
-    (event) => {
+        if (!splashLegal) return;
+
+        splashLegal.style.display = "none";
+    }
+
+
+    openTerms?.addEventListener("click", (event) => {
 
         event.preventDefault();
         event.stopPropagation();
 
         mostrarLegal("terminos");
 
-    }
-);
+    });
 
 
-/* =====================================================
-   BOTÓN PRIVACIDAD DEL FOOTER
-===================================================== */
-
-openPrivacy?.addEventListener(
-    "click",
-    (event) => {
+    openPrivacy?.addEventListener("click", (event) => {
 
         event.preventDefault();
         event.stopPropagation();
 
         mostrarLegal("privacidad");
 
-    }
-);
+    });
 
 
-/* =====================================================
-   ACEPTAR TÉRMINOS / CERRAR LEGAL
-===================================================== */
-
-aceptarLegal?.addEventListener(
-    "click",
-    () => {
+    aceptarLegal?.addEventListener("click", () => {
 
         localStorage.setItem(
             "legalAceptado",
@@ -278,27 +187,16 @@ aceptarLegal?.addEventListener(
 
         ocultarLegal();
 
-    }
-);
+    });
 
 
-/* =====================================================
-   CERRAR LEGAL HACIENDO CLICK FUERA
-===================================================== */
-
-splashLegal?.addEventListener(
-    "click",
-    (event) => {
+    splashLegal?.addEventListener("click", (event) => {
 
         if (event.target === splashLegal) {
-
             ocultarLegal();
-
         }
 
-    }
-);
-
+    });
 
 
     /* =====================================================
@@ -307,13 +205,9 @@ splashLegal?.addEventListener(
 
     function openMenu() {
 
-        if (!siteMenu || !menuToggle) {
-            return;
-        }
-
+        if (!siteMenu || !menuToggle) return;
 
         siteMenu.classList.add("open");
-
         menuToggle.classList.add("active");
 
         menuToggle.setAttribute(
@@ -325,19 +219,14 @@ splashLegal?.addEventListener(
             "aria-label",
             "Cerrar menú"
         );
-
     }
 
 
     function closeMenu() {
 
-        if (!siteMenu || !menuToggle) {
-            return;
-        }
-
+        if (!siteMenu || !menuToggle) return;
 
         siteMenu.classList.remove("open");
-
         menuToggle.classList.remove("active");
 
         menuToggle.setAttribute(
@@ -349,131 +238,76 @@ splashLegal?.addEventListener(
             "aria-label",
             "Abrir menú"
         );
-
     }
 
 
     function toggleMenu() {
 
-        if (!siteMenu) {
-            return;
-        }
+        if (!siteMenu) return;
 
-
-        if (
-            siteMenu.classList.contains("open")
-        ) {
-
+        if (siteMenu.classList.contains("open")) {
             closeMenu();
-
         } else {
-
             openMenu();
-
         }
-
     }
 
 
-    if (menuToggle) {
+    menuToggle?.addEventListener("click", (event) => {
 
-        menuToggle.addEventListener(
-            "click",
-            (event) => {
+        event.stopPropagation();
 
-                event.stopPropagation();
+        toggleMenu();
 
-                toggleMenu();
-
-            }
-        );
-
-    }
-
+    });
 
 
     /* =====================================================
        CERRAR MENÚ AL HACER CLICK FUERA
     ===================================================== */
 
-    document.addEventListener(
-        "click",
-        (event) => {
+    document.addEventListener("click", (event) => {
 
-            if (!siteMenu) {
-                return;
-            }
+        if (!siteMenu) return;
 
+        const clickedMenu =
+            siteMenu.contains(event.target);
 
-            const clickedMenu =
-                siteMenu.contains(
-                    event.target
-                );
+        const clickedButton =
+            menuToggle &&
+            menuToggle.contains(event.target);
 
-
-            const clickedButton =
-                menuToggle &&
-                menuToggle.contains(
-                    event.target
-                );
-
-
-            if (
-                !clickedMenu &&
-                !clickedButton
-            ) {
-
-                closeMenu();
-
-            }
-
+        if (!clickedMenu && !clickedButton) {
+            closeMenu();
         }
-    );
 
+    });
 
 
     /* =====================================================
-       CERRAR CON ESC
+       ESC
     ===================================================== */
 
-    document.addEventListener(
-        "keydown",
-        (event) => {
+    document.addEventListener("keydown", (event) => {
 
-            if (
-                event.key === "Escape"
-            ) {
+        if (event.key === "Escape") {
 
-                closeMenu();
-
-            }
+            closeMenu();
+            ocultarLegal();
 
         }
-    );
 
+    });
 
 
     /* =====================================================
-       CAMBIO REAL DE VISTA
-       
-       Inicio
-       Pedidos 3D
-       Nova
+       CAMBIO DE VISTAS
     ===================================================== */
 
-    function changeView(
-        viewName,
-        updateHistory = true
-    ) {
+    function changeView(viewName, updateHistory = true) {
 
-        if (
-            !validViews.includes(
-                viewName
-            )
-        ) {
-
+        if (!validViews.includes(viewName)) {
             viewName = "inicio";
-
         }
 
 
@@ -485,14 +319,11 @@ splashLegal?.addEventListener(
             closeMenu();
 
             return;
-
         }
 
 
         const targetView =
-            document.getElementById(
-                viewName
-            );
+            document.getElementById(viewName);
 
 
         if (!targetView) {
@@ -502,15 +333,12 @@ splashLegal?.addEventListener(
             );
 
             return;
-
         }
 
 
         isChangingView = true;
 
-
         closeMenu();
-
 
 
         /* =================================================
@@ -523,7 +351,10 @@ splashLegal?.addEventListener(
             );
 
 
-        if (previousView) {
+        if (
+            previousView &&
+            previousView !== targetView
+        ) {
 
             previousView.classList.add(
                 "view-exit"
@@ -532,61 +363,38 @@ splashLegal?.addEventListener(
         }
 
 
-
         /* =================================================
-           PREPARAR NUEVA VISTA
+           LIMPIAR VISTAS
         ================================================= */
 
-        views.forEach(
-            (view) => {
+        views.forEach((view) => {
 
-                view.classList.remove(
-                    "active-view"
-                );
+            view.classList.remove("active-view");
+            view.classList.remove("view-enter");
 
-                view.classList.remove(
-                    "view-enter"
-                );
-
-                view.classList.remove(
-                    "view-exit"
-                );
-
-            }
-        );
-
-
-        targetView.classList.add(
-            "active-view"
-        );
-
-
-        targetView.classList.add(
-            "view-enter"
-        );
-
+        });
 
 
         /* =================================================
-           ACTUALIZAR MENÚ ACTIVO
+           ACTIVAR NUEVA VISTA
         ================================================= */
 
-        menuLinks.forEach(
-            (link) => {
-
-                const isActive =
-                    link.dataset.section ===
-                    viewName;
+        targetView.classList.add("active-view");
+        targetView.classList.add("view-enter");
 
 
-                link.classList.toggle(
-                    "active",
-                    isActive
-                );
+        /* =================================================
+           MENÚ ACTIVO
+        ================================================= */
 
-            }
-        );
+        menuLinks.forEach((link) => {
 
+            link.classList.toggle(
+                "active",
+                link.dataset.section === viewName
+            );
+
+        });
 
 
         /* =================================================
@@ -597,7 +405,6 @@ splashLegal?.addEventListener(
 
             const newUrl =
                 `${window.location.pathname}#${viewName}`;
-
 
             window.history.pushState(
                 {
@@ -610,9 +417,8 @@ splashLegal?.addEventListener(
         }
 
 
-
         /* =================================================
-           VOLVER ARRIBA
+           SCROLL ARRIBA
         ================================================= */
 
         window.scrollTo({
@@ -621,127 +427,92 @@ splashLegal?.addEventListener(
         });
 
 
-
         /* =================================================
-           INICIAR ANIMACIONES DE LA VISTA
+           ANIMACIÓN DE ENTRADA
         ================================================= */
 
-        requestAnimationFrame(
-            () => {
+        requestAnimationFrame(() => {
 
-                requestAnimationFrame(
-                    () => {
+            requestAnimationFrame(() => {
 
-                        targetView.classList.add(
-                            "view-visible"
-                        );
-
-                    }
+                targetView.classList.add(
+                    "view-visible"
                 );
 
-            }
-        );
+            });
 
+        });
 
 
         /* =================================================
            ANIMACIONES INTERNAS
         ================================================= */
 
-        initializeViewAnimations(
-            targetView
-        );
-
+        initializeViewAnimations(targetView);
 
 
         /* =================================================
-           TERMINAR TRANSICIÓN
+           FINALIZAR TRANSICIÓN
         ================================================= */
 
-        setTimeout(
-            () => {
+        setTimeout(() => {
 
-                views.forEach(
-                    (view) => {
+            views.forEach((view) => {
 
-                        view.classList.remove(
-                            "view-exit"
-                        );
-
-                        view.classList.remove(
-                            "view-enter"
-                        );
-
-                    }
+                view.classList.remove(
+                    "view-exit"
                 );
 
+                view.classList.remove(
+                    "view-enter"
+                );
 
-                isChangingView = false;
+            });
 
-            },
-            550
-        );
+            isChangingView = false;
+
+        }, 550);
 
 
-        currentView =
-            viewName;
-
+        currentView = viewName;
 
         console.log(
             `Vista activa → ${viewName}`
         );
-
     }
 
 
-
     /* =====================================================
-       EVENTOS DE LOS ENLACES DEL MENÚ
+       ENLACES DE SECCIONES
     ===================================================== */
 
-    sectionLinks.forEach(
-        (link) => {
+    sectionLinks.forEach((link) => {
 
-            link.addEventListener(
-                "click",
-                (event) => {
+        link.addEventListener("click", (event) => {
 
-                    const viewName =
-                        link.dataset.section;
+            const viewName =
+                link.dataset.section;
 
 
-                    if (
-                        !validViews.includes(
-                            viewName
-                        )
-                    ) {
-
-                        return;
-
-                    }
+            if (!validViews.includes(viewName)) {
+                return;
+            }
 
 
-                    event.preventDefault();
+            event.preventDefault();
 
-
-                    changeView(
-                        viewName,
-                        true
-                    );
-
-                }
+            changeView(
+                viewName,
+                true
             );
 
-        }
-    );
+        });
 
+    });
 
 
     /* =====================================================
-       BOTONES INTERNOS DE PEDIDOS 3D
-       
-       Estos NO cambian de vista.
-       Solo navegan dentro de Pedidos 3D.
+       ENLACES INTERNOS DE PEDIDOS 3D
     ===================================================== */
 
     const internalLinks =
@@ -750,53 +521,39 @@ splashLegal?.addEventListener(
         );
 
 
-    internalLinks.forEach(
-        (link) => {
+    internalLinks.forEach((link) => {
 
-            link.addEventListener(
-                "click",
-                (event) => {
+        link.addEventListener("click", (event) => {
 
-                    const targetId =
-                        link.getAttribute(
-                            "href"
-                        );
+            const targetId =
+                link.getAttribute("href");
 
 
-                    const target =
-                        document.querySelector(
-                            targetId
-                        );
+            const target =
+                document.querySelector(targetId);
 
 
-                    if (!target) {
-                        return;
-                    }
+            if (!target) return;
 
 
-                    event.preventDefault();
+            event.preventDefault();
 
 
-                    target.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
 
-                }
-            );
+        });
 
-        }
-    );
-
+    });
 
 
     /* =====================================================
        ANIMACIONES DE CONTENIDO
     ===================================================== */
 
-    function initializeViewAnimations(
-        container = document
-    ) {
+    function initializeViewAnimations(container = document) {
 
         const animatedElements =
             container.querySelectorAll(
@@ -804,52 +561,32 @@ splashLegal?.addEventListener(
             );
 
 
-        if (
-            !animatedElements.length
-        ) {
-
+        if (!animatedElements.length) {
             return;
-
         }
 
 
-        /*
-         * Si IntersectionObserver existe,
-         * esperamos a que los elementos entren
-         * en pantalla.
-         */
-
-        if (
-            "IntersectionObserver" in window
-        ) {
+        if ("IntersectionObserver" in window) {
 
             const observer =
                 new IntersectionObserver(
-                    (
-                        entries,
-                        observerInstance
-                    ) => {
+                    (entries, observerInstance) => {
 
-                        entries.forEach(
-                            (entry) => {
+                        entries.forEach((entry) => {
 
-                                if (
-                                    entry.isIntersecting
-                                ) {
+                            if (entry.isIntersecting) {
 
-                                    entry.target.classList.add(
-                                        "visible"
-                                    );
+                                entry.target.classList.add(
+                                    "visible"
+                                );
 
-
-                                    observerInstance.unobserve(
-                                        entry.target
-                                    );
-
-                                }
+                                observerInstance.unobserve(
+                                    entry.target
+                                );
 
                             }
-                        );
+
+                        });
 
                     },
                     {
@@ -858,44 +595,29 @@ splashLegal?.addEventListener(
                 );
 
 
-            animatedElements.forEach(
-                (element) => {
+            animatedElements.forEach((element) => {
 
-                    /*
-                     * Eliminamos el estado anterior
-                     * para que la animación pueda
-                     * repetirse cuando volvamos a
-                     * la vista.
-                     */
+                element.classList.remove(
+                    "visible"
+                );
 
-                    element.classList.remove(
-                        "visible"
-                    );
+                observer.observe(element);
 
-
-                    observer.observe(
-                        element
-                    );
-
-                }
-            );
+            });
 
         } else {
 
-            animatedElements.forEach(
-                (element) => {
+            animatedElements.forEach((element) => {
 
-                    element.classList.add(
-                        "visible"
-                    );
+                element.classList.add(
+                    "visible"
+                );
 
-                }
-            );
+            });
 
         }
 
     }
-
 
 
     /* =====================================================
@@ -904,26 +626,23 @@ splashLegal?.addEventListener(
 
     if (navbar) {
 
-        const updateNavbar =
-            () => {
+        const updateNavbar = () => {
 
-                if (
-                    window.scrollY > 40
-                ) {
+            if (window.scrollY > 40) {
 
-                    navbar.classList.add(
-                        "scrolled"
-                    );
+                navbar.classList.add(
+                    "scrolled"
+                );
 
-                } else {
+            } else {
 
-                    navbar.classList.remove(
-                        "scrolled"
-                    );
+                navbar.classList.remove(
+                    "scrolled"
+                );
 
-                }
+            }
 
-            };
+        };
 
 
         updateNavbar();
@@ -940,21 +659,15 @@ splashLegal?.addEventListener(
     }
 
 
-
     /* =====================================================
        DETECCIÓN DEL SISTEMA OPERATIVO
     ===================================================== */
 
     const windowsCard =
-        document.getElementById(
-            "card-windows"
-        );
-
+        document.getElementById("card-windows");
 
     const androidCard =
-        document.getElementById(
-            "card-android"
-        );
+        document.getElementById("card-android");
 
 
     const userAgent =
@@ -964,71 +677,42 @@ splashLegal?.addEventListener(
         "";
 
 
-    let operatingSystem =
-        "unknown";
+    let operatingSystem = "unknown";
 
 
-    if (
-        /android/i.test(
-            userAgent
-        )
+    if (/android/i.test(userAgent)) {
+
+        operatingSystem = "android";
+
+    } else if (
+        /Win32|Win64|Windows|WinCE/i.test(userAgent)
     ) {
 
-        operatingSystem =
-            "android";
+        operatingSystem = "windows";
 
-    }
-
-    else if (
-        /Win32|Win64|Windows|WinCE/i.test(
-            userAgent
-        )
+    } else if (
+        /iPhone|iPad|iPod/i.test(userAgent)
     ) {
 
-        operatingSystem =
-            "windows";
+        operatingSystem = "ios";
 
-    }
-
-    else if (
-        /iPhone|iPad|iPod/i.test(
-            userAgent
-        )
+    } else if (
+        /Macintosh|Mac OS X/i.test(userAgent)
     ) {
 
-        operatingSystem =
-            "ios";
+        operatingSystem = "mac";
 
-    }
-
-    else if (
-        /Macintosh|Mac OS X/i.test(
-            userAgent
-        )
+    } else if (
+        /Linux/i.test(userAgent)
     ) {
 
-        operatingSystem =
-            "mac";
+        operatingSystem = "linux";
 
     }
-
-    else if (
-        /Linux/i.test(
-            userAgent
-        )
-    ) {
-
-        operatingSystem =
-            "linux";
-
-    }
-
 
 
     /* =====================================================
        RESALTAR PLATAFORMA
-       
-       Esto NO descarga nada.
     ===================================================== */
 
     if (
@@ -1040,15 +724,11 @@ splashLegal?.addEventListener(
             "recomendado"
         );
 
-
         console.log(
             "Pedidos 3D → Windows detectado"
         );
 
-    }
-
-
-    else if (
+    } else if (
         operatingSystem === "android" &&
         androidCard
     ) {
@@ -1057,13 +737,11 @@ splashLegal?.addEventListener(
             "recomendado"
         );
 
-
         console.log(
             "Pedidos 3D → Android detectado"
         );
 
     }
-
 
 
     /* =====================================================
@@ -1076,50 +754,35 @@ splashLegal?.addEventListener(
         );
 
 
-    comingSoonButtons.forEach(
-        (button) => {
+    comingSoonButtons.forEach((button) => {
 
-            button.addEventListener(
-                "click",
-                (event) => {
+        button.addEventListener(
+            "click",
+            (event) => {
 
-                    /*
-                     * Evitamos cualquier navegación
-                     * accidental.
-                     */
-
-                    if (
-                        button.tagName === "A"
-                    ) {
-
-                        event.preventDefault();
-
-                    }
-
-
-                    const platform =
-                        button.dataset.download ||
-                        button.dataset.platform ||
-                        "general";
-
-
-                    console.log(
-                        `Pedidos 3D → ${platform} → próximamente`
-                    );
-
+                if (button.tagName === "A") {
+                    event.preventDefault();
                 }
-            );
 
-        }
-    );
 
+                const platform =
+                    button.dataset.download ||
+                    button.dataset.platform ||
+                    "general";
+
+
+                console.log(
+                    `Pedidos 3D → ${platform} → próximamente`
+                );
+
+            }
+        );
+
+    });
 
 
     /* =====================================================
        BOTONES DE DESCARGA ANTIGUOS
-       
-       Protección por si todavía existe
-       alguna clase del HTML anterior.
     ===================================================== */
 
     const oldDownloadButtons =
@@ -1128,38 +791,26 @@ splashLegal?.addEventListener(
         );
 
 
-    oldDownloadButtons.forEach(
-        (button) => {
+    oldDownloadButtons.forEach((button) => {
 
-            button.addEventListener(
-                "click",
-                (event) => {
+        button.addEventListener(
+            "click",
+            (event) => {
 
-                    event.preventDefault();
+                event.preventDefault();
 
+                console.log(
+                    "Esta descarga estará disponible próximamente."
+                );
 
-                    console.log(
-                        "Esta descarga estará disponible próximamente."
-                    );
+            }
+        );
 
-                }
-            );
-
-        }
-    );
-
+    });
 
 
     /* =====================================================
        HISTORIAL DEL NAVEGADOR
-       
-       Permite usar:
-       
-       #inicio
-       #pedidos3d
-       #nova
-       
-       y también los botones Atrás / Adelante.
     ===================================================== */
 
     window.addEventListener(
@@ -1171,26 +822,33 @@ splashLegal?.addEventListener(
                     .replace("#", "");
 
 
-            if (
-                !validViews.includes(
-                    viewName
-                )
-            ) {
+            if (!validViews.includes(viewName)) {
 
-                viewName =
-                    "inicio";
+                viewName = "inicio";
 
             }
 
+
+            /*
+             * Permitimos el cambio aunque currentView
+             * coincida, porque viene del navegador.
+             */
+
+            const previousChangingState =
+                isChangingView;
+
+            isChangingView = false;
 
             changeView(
                 viewName,
                 false
             );
 
+            isChangingView =
+                previousChangingState;
+
         }
     );
-
 
 
     /* =====================================================
@@ -1202,42 +860,36 @@ splashLegal?.addEventListener(
             .replace("#", "");
 
 
-    if (
-        !validViews.includes(
-            initialView
-        )
-    ) {
+    if (!validViews.includes(initialView)) {
 
-        initialView =
-            "inicio";
+        initialView = "inicio";
 
     }
 
 
-    /*
-     * Mostramos inicialmente la vista
-     * sin animación de cambio.
-     */
+    views.forEach((view) => {
 
-    views.forEach(
-        (view) => {
+        view.classList.remove(
+            "active-view"
+        );
 
-            view.classList.remove(
-                "active-view"
-            );
+        view.classList.remove(
+            "view-visible"
+        );
 
-            view.classList.remove(
-                "view-visible"
-            );
+        view.classList.remove(
+            "view-enter"
+        );
 
-        }
-    );
+        view.classList.remove(
+            "view-exit"
+        );
+
+    });
 
 
     const initialElement =
-        document.getElementById(
-            initialView
-        );
+        document.getElementById(initialView);
 
 
     if (initialElement) {
@@ -1253,21 +905,17 @@ splashLegal?.addEventListener(
     }
 
 
-    menuLinks.forEach(
-        (link) => {
+    menuLinks.forEach((link) => {
 
-            link.classList.toggle(
-                "active",
-                link.dataset.section ===
-                initialView
-            );
+        link.classList.toggle(
+            "active",
+            link.dataset.section === initialView
+        );
 
-        }
-    );
+    });
 
 
-    currentView =
-        initialView;
+    currentView = initialView;
 
 
     initializeViewAnimations(
@@ -1278,63 +926,334 @@ splashLegal?.addEventListener(
     console.log(
         `Sistema iniciado → vista: ${initialView}`
     );
-    window.addEventListener('scroll', () => {
-  const h = document.documentElement;
-  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
-  document.getElementById('lavaLiquid').style.height = pct + '%';
-});
+
+
     /* =====================================================
-   TEMPORIZADOR DEL PROYECTO
-   CUENTA DESDE EL INICIO REAL
-===================================================== */
+       BARRA LAVA / PROGRESO DE SCROLL
+    ===================================================== */
 
-const devTimer = document.getElementById("devTimer");
+    const lavaLiquid =
+        document.getElementById("lavaLiquid");
 
-if (devTimer) {
 
-    // Inicio del proyecto
-    const startDate =
-        new Date("2026-09-14T13:00:00-03:00").getTime();
+    function updateLava() {
 
-    function updateDevTimer() {
+        if (!lavaLiquid) return;
 
-        const now = Date.now();
 
-        let difference = now - startDate;
+        const documentHeight =
+            document.documentElement.scrollHeight;
 
-        if (difference < 0) {
-            difference = 0;
+        const viewportHeight =
+            document.documentElement.clientHeight;
+
+
+        const maxScroll =
+            documentHeight - viewportHeight;
+
+
+        if (maxScroll <= 0) {
+
+            lavaLiquid.style.height = "0%";
+
+            return;
+
         }
 
-        const totalSeconds =
-            Math.floor(difference / 1000);
 
-        const days =
-            Math.floor(
-                totalSeconds / 86400
-            );
+        const scrollTop =
+            window.scrollY ||
+            document.documentElement.scrollTop ||
+            0;
 
-        const hours =
-            Math.floor(
-                (totalSeconds % 86400) / 3600
-            );
 
-        const minutes =
-            Math.floor(
-                (totalSeconds % 3600) / 60
-            );
+        const percentage =
+            (scrollTop / maxScroll) * 100;
 
-        const seconds =
-            totalSeconds % 60;
 
-        devTimer.textContent =
-            `${days}d ${hours}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
+        lavaLiquid.style.height =
+            `${Math.min(100, Math.max(0, percentage))}%`;
+
     }
 
-    updateDevTimer();
 
-    setInterval(updateDevTimer, 1000);
-}
+    updateLava();
 
+
+    window.addEventListener(
+        "scroll",
+        updateLava,
+        {
+            passive: true
+        }
+    );
+
+
+    window.addEventListener(
+        "resize",
+        updateLava
+    );
+
+
+    /* =====================================================
+       TEMPORIZADOR DEL PROYECTO
+       CUENTA DESDE EL INICIO REAL
+    ===================================================== */
+
+    const devTimer =
+        document.getElementById("devTimer");
+
+
+    if (devTimer) {
+
+        const startDate =
+            new Date(
+                "2026-09-14T13:00:00-03:00"
+            ).getTime();
+
+
+        function updateDevTimer() {
+
+            const now =
+                Date.now();
+
+
+            let difference =
+                now - startDate;
+
+
+            if (difference < 0) {
+                difference = 0;
+            }
+
+
+            const totalSeconds =
+                Math.floor(
+                    difference / 1000
+                );
+
+
+            const days =
+                Math.floor(
+                    totalSeconds / 86400
+                );
+
+
+            const hours =
+                Math.floor(
+                    (totalSeconds % 86400) / 3600
+                );
+
+
+            const minutes =
+                Math.floor(
+                    (totalSeconds % 3600) / 60
+                );
+
+
+            const seconds =
+                totalSeconds % 60;
+
+
+            devTimer.textContent =
+                `${days}d ${hours}h ${String(minutes).padStart(2, "0")}m ${String(seconds).padStart(2, "0")}s`;
+
+        }
+
+
+        updateDevTimer();
+
+
+        setInterval(
+            updateDevTimer,
+            1000
+        );
+
+    }
+
+
+        /* =====================================================
+       MANUAL RÁPIDO — PEDIDOS 3D
+       ABRIR / CERRAR / NAVEGACIÓN
+    ===================================================== */
+
+    const p3dBook = document.getElementById("p3dBook");
+    const bookCover = document.getElementById("bookCover");
+
+    if (p3dBook && bookCover) {
+
+        const pages = Array.from(
+            p3dBook.querySelectorAll(".bpage")
+        );
+
+        let currentPage = 0;
+
+
+        /* =================================================
+           ABRIR / CERRAR
+        ================================================= */
+
+        function toggleBook() {
+
+            const isOpen =
+                p3dBook.classList.toggle("open");
+
+            console.log(
+                isOpen
+                    ? "Manual → abierto"
+                    : "Manual → cerrado"
+            );
+
+        }
+
+
+        /* =================================================
+           TAPA COMPLETA
+        ================================================= */
+
+        bookCover.addEventListener(
+            "click",
+            (event) => {
+
+                event.preventDefault();
+                event.stopImmediatePropagation();
+
+                toggleBook();
+
+            },
+            true
+        );
+
+
+        /* =================================================
+           NAVEGACIÓN DE PÁGINAS
+        ================================================= */
+
+        function mostrarPagina(index) {
+
+            if (!pages.length) {
+                return;
+            }
+
+            index = Math.max(
+                0,
+                Math.min(
+                    index,
+                    pages.length - 1
+                )
+            );
+
+            currentPage = index;
+
+            pages.forEach((page, i) => {
+
+                page.classList.toggle(
+                    "active",
+                    i === currentPage
+                );
+
+            });
+
+        }
+
+
+        /* =================================================
+           BOTONES DEL LIBRO
+        ================================================= */
+
+        p3dBook.addEventListener(
+            "click",
+            (event) => {
+
+                const nextButton =
+                    event.target.closest(".nextB");
+
+                const prevButton =
+                    event.target.closest(".prevB");
+
+                const indexButton =
+                    event.target.closest(".idx-btn");
+
+
+                /* SIGUIENTE */
+
+                if (nextButton) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    mostrarPagina(
+                        currentPage + 1
+                    );
+
+                    return;
+                }
+
+
+                /* ANTERIOR */
+
+                if (prevButton) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    mostrarPagina(
+                        currentPage - 1
+                    );
+
+                    return;
+                }
+
+
+                /* ÍNDICE */
+
+                if (indexButton) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const destino =
+                        Number(
+                            indexButton.dataset.goto
+                        );
+
+                    const pagina =
+                        pages.findIndex(
+                            (page) =>
+                                Number(
+                                    page.dataset.i
+                                ) === destino
+                        );
+
+                    if (pagina !== -1) {
+
+                        mostrarPagina(
+                            pagina
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+
+        /* =================================================
+           INICIO
+        ================================================= */
+
+        mostrarPagina(0);
+
+    }
+
+
+    /* =====================================================
+       INICIALIZACIÓN FINAL
+    ===================================================== */
+
+    console.log(
+        "✓ JavaScript cargado correctamente"
+    );
 
 });
