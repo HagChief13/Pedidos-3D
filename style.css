@@ -45,6 +45,9 @@ body {
     sans-serif;
   overflow-x: hidden;
 }
+body {
+  padding-top: 78px;
+}
 
 html {
   scroll-behavior: smooth;
@@ -73,6 +76,7 @@ html {
 
 .navbar {
   position: fixed;
+
   top: 0;
   left: 0;
 
@@ -85,11 +89,29 @@ html {
   padding: 0 32px;
 
   z-index: 10000;
+
   pointer-events: none;
+
+  /* TOPBAR SIEMPRE VISIBLE */
+  background: #080808;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  box-sizing: border-box;
 
   transition:
     background 0.3s ease,
     border-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(5, 5, 5, 0.92);
+
+  backdrop-filter: blur(12px);
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.10);
 }
 
 .navbar.scrolled {
@@ -307,16 +329,79 @@ html {
    VISTAS Y VISTA 01 — INICIO
    ========================================================= */
 
+/* =========================================================
+   TRANSICIÓN ENTRE VISTAS
+   ========================================================= */
+
 .site-view {
   display: none;
-
   min-height: 100vh;
-
   position: relative;
+
+  opacity: 0;
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
 }
 
 .site-view.active-view {
   display: block;
+
+  animation:
+    viewEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes viewEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   TRANSICIÓN AL CAMBIAR DE PESTAÑA
+   ========================================================= */
+
+.site-view.view-exit {
+  animation:
+    viewExit 0.20s ease both;
+}
+
+@keyframes viewExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+
+/* =========================================================
+   RESPETAR REDUCCIÓN DE MOVIMIENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .site-view,
+  .site-view.active-view,
+  .site-view.view-exit {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+
 }
 
 .home-view {
@@ -3345,7 +3430,7 @@ html {
 .book-scene{perspective:2000px;display:flex;justify-content:center;align-items:flex-start;margin-top:40px;min-height:480px;width:100%}
 .book{position:relative;width:620px;max-width:92vw;height:420px;transform-style:preserve-3d;flex-shrink:0}
 .book-cover{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a1a,#0d0d0d);border:1px solid #ff2a2a;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transform-origin:left center;transition:transform .9s ease;z-index:30;cursor:pointer;backface-visibility:visible}
-.book.open.book-cover{transform:rotateY(-180deg);z-index:1;cursor:pointer}
+.book.open .book-cover{transform:rotateY(-180deg);z-index:1;cursor:pointer}
 .cover-p3d{font-size:64px;font-weight:900;color:#ff2a2a;letter-spacing:2px}
 .cover-title{color:#fff;font-size:22px;letter-spacing:3px;text-align:center;line-height:1.3}
 .cover-click{color:#888;font-size:11px;letter-spacing:2px;margin-top:20px}
@@ -3353,6 +3438,24 @@ html {
 .bpage .page-inner{position:absolute;inset:0;background:#f5f0e6;border-radius:12px;padding:28px 28px 70px;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,.08);overflow:hidden;color:#222;text-align:left}
 .bpage.flipped{transform:rotateY(-180deg);pointer-events:none}
 .bpage.flipping-fast{transition:transform .18s ease}
+.bpage{
+    position:absolute;
+    inset:0;
+    transform-origin:left center;
+    transition:transform .45s ease;
+    transform-style:preserve-3d;
+    visibility:hidden;
+    opacity:0;
+    pointer-events:none;
+    z-index:0;
+}
+
+.bpage.active{
+    visibility:visible;
+    opacity:1;
+    pointer-events:auto;
+    z-index:20;
+}
 .book-nav{position:absolute;bottom:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:center;z-index:5}
 .book-nav button{background:#111;color:#fff;border:none;padding:9px 16px;border-radius:20px;cursor:pointer;font-size:12px}
 .book-nav button:active{transform:scale(.96)}
@@ -4549,4 +4652,963 @@ html {
 
     text-shadow:
         0 0 12px rgba(212, 160, 23, 0.22);
+}
+/* =========================================================
+   SYNC DRIVE PRO
+   SISTEMA / SPLASH / WORKSPACE
+   ========================================================= */
+
+.syncdrive-view {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(212, 160, 23, 0.08),
+            transparent 40%
+        ),
+        #080808;
+    color: #f4efe6;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   FONDO
+   ========================================================= */
+
+.syncdrive-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sync-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.14;
+
+    background-image:
+        linear-gradient(
+            rgba(212, 160, 23, 0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(212, 160, 23, 0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 85%
+        );
+}
+
+.sync-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.12;
+}
+
+.sync-glow-1 {
+    top: -220px;
+    left: 10%;
+    background: #d4a017;
+}
+
+.sync-glow-2 {
+    right: -220px;
+    bottom: -180px;
+    background: #8b5e18;
+}
+
+.sync-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #d4a017;
+    border-radius: 50%;
+    box-shadow:
+        0 0 10px rgba(212,160,23,.8);
+    opacity: .5;
+}
+
+.sync-particle.p1 {
+    top: 18%;
+    left: 15%;
+}
+
+.sync-particle.p2 {
+    top: 32%;
+    right: 17%;
+}
+
+.sync-particle.p3 {
+    top: 68%;
+    left: 8%;
+}
+
+.sync-particle.p4 {
+    top: 78%;
+    right: 25%;
+}
+
+.sync-particle.p5 {
+    top: 48%;
+    left: 78%;
+}
+
+
+/* =========================================================
+   SPLASH
+   ========================================================= */
+
+.sync-splash {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 40px 6vw 30px;
+    animation: syncFadeIn .7s ease;
+}
+
+@keyframes syncFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sync-splash-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1250px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.sync-brand-mark {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sync-mark-core {
+    position: relative;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d4a017;
+    color: #d4a017;
+    font-family: "Orbitron", sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.sync-mark-ring {
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(212,160,23,.25);
+    transform: rotate(45deg);
+}
+
+.sync-system-status,
+.sync-live-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(244,239,230,.5);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.sync-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #d4a017;
+    box-shadow:
+        0 0 8px rgba(212,160,23,.8);
+    animation: syncPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes syncPulse {
+    0%,100% {
+        opacity: .45;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   SPLASH CONTENT
+   ========================================================= */
+
+.sync-splash-content {
+    width: min(900px, 100%);
+    margin: auto;
+    text-align: center;
+}
+
+.sync-kicker {
+    display: inline-block;
+    color: #d4a017;
+    font-family: "Orbitron", sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.sync-splash h1 {
+    margin: 0;
+    color: #f4efe6;
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(48px, 9vw, 105px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    line-height: .9;
+}
+
+.sync-splash h1 span {
+    color: #d4a017;
+    text-shadow:
+        0 0 25px rgba(212,160,23,.18);
+}
+
+.sync-pro-line {
+    width: min(440px, 80%);
+    margin: 22px auto 24px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sync-pro-line span {
+    flex: 1;
+    height: 1px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(212,160,23,.5)
+        );
+}
+
+.sync-pro-line span:last-child {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(212,160,23,.5),
+            transparent
+        );
+}
+
+.sync-pro-line strong {
+    color: #d4a017;
+    font-family: "Orbitron", sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+}
+
+.sync-splash-description {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: rgba(244,239,230,.5);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   TERMINAL
+   ========================================================= */
+
+.sync-terminal {
+    width: min(650px, 100%);
+    margin: 0 auto 30px;
+    text-align: left;
+    background: rgba(10,10,10,.8);
+    border: 1px solid rgba(212,160,23,.2);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35),
+        inset 0 1px 0 rgba(255,255,255,.02);
+}
+
+.sync-terminal-head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    color: rgba(244,239,230,.35);
+    font-family: "Orbitron", sans-serif;
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+.sync-terminal-body {
+    padding: 15px;
+    display: grid;
+    gap: 9px;
+    color: rgba(244,239,230,.48);
+    font-family: monospace;
+    font-size: 10px;
+}
+
+.sync-terminal-body div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.terminal-symbol {
+    color: #d4a017;
+}
+
+.sync-terminal-body b {
+    margin-left: auto;
+    color: #d4a017;
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   START BUTTON
+   ========================================================= */
+
+.sync-start-button {
+    position: relative;
+    width: min(420px, 100%);
+    min-height: 66px;
+    margin: 0 auto;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #d4a017;
+    background:
+        linear-gradient(
+            135deg,
+            #d4a017,
+            #b98a12
+        );
+    color: #080808;
+    cursor: pointer;
+    font-family: "Orbitron", sans-serif;
+    font-weight: 900;
+    text-align: left;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.sync-start-button:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 15px 40px rgba(212,160,23,.18);
+}
+
+.sync-start-button:active {
+    transform: translateY(0);
+}
+
+.sync-start-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #080808;
+    color: #d4a017;
+    font-size: 18px;
+}
+
+.sync-start-button span:nth-child(2) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.sync-start-button small {
+    font-size: 7px;
+    letter-spacing: 2px;
+    opacity: .55;
+}
+
+.sync-start-button strong {
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   SPLASH META
+   ========================================================= */
+
+.sync-splash-meta {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 22px;
+}
+
+.sync-splash-meta span {
+    color: rgba(244,239,230,.3);
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.sync-splash-meta i {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #d4a017;
+}
+
+
+/* =========================================================
+   SPLASH FOOTER
+   ========================================================= */
+
+.sync-splash-footer {
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(244,239,230,.2);
+    font-family: monospace;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.sync-main {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    padding: 110px 30px 80px;
+    box-sizing: border-box;
+    animation: syncMainIn .6s ease;
+}
+
+@keyframes syncMainIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sync-main-container {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+}
+
+.sync-main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+.sync-main-header h2 {
+    margin: 0;
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(32px, 5vw, 58px);
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+.sync-main-header h2 span {
+    color: #d4a017;
+}
+
+.sync-main-header p {
+    max-width: 600px;
+    margin: 15px 0 0;
+    color: rgba(244,239,230,.48);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.sync-live-status {
+    padding: 12px 15px;
+    border: 1px solid rgba(212,160,23,.2);
+    background: rgba(212,160,23,.035);
+}
+
+.sync-live-status div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sync-live-status strong {
+    color: #d4a017;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.sync-live-status small {
+    color: rgba(244,239,230,.3);
+    font-size: 7px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   STATUS PANEL
+   ========================================================= */
+
+.sync-status-panel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.sync-status-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+}
+
+.sync-status-icon {
+    color: #d4a017;
+    font-size: 20px;
+}
+
+.sync-status-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sync-status-item small {
+    color: rgba(244,239,230,.3);
+    font-size: 7px;
+    letter-spacing: 1.5px;
+}
+
+.sync-status-item strong {
+    color: rgba(244,239,230,.8);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   WORKSPACE
+   ========================================================= */
+
+.sync-workspace {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 20px;
+}
+
+
+/* =========================================================
+   LAUNCH CARD
+   ========================================================= */
+
+.sync-launch-card {
+    position: relative;
+    min-height: 420px;
+    padding: 38px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31,27,20,.96),
+            rgba(10,10,10,.98)
+        );
+    border: 1px solid rgba(212,160,23,.25);
+    overflow: hidden;
+}
+
+.sync-card-corner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background: #d4a017;
+    box-shadow:
+        0 0 20px rgba(212,160,23,.35);
+}
+
+.sync-card-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(212,160,23,.3);
+    color: #d4a017;
+    font-size: 28px;
+    background: rgba(212,160,23,.04);
+}
+
+.sync-card-label {
+    color: #d4a017;
+    font-family: "Orbitron", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.sync-launch-card h3 {
+    margin: 12px 0 18px;
+    font-family: "Orbitron", sans-serif;
+    font-size: clamp(28px, 4vw, 45px);
+    line-height: 1;
+    letter-spacing: 1px;
+}
+
+.sync-launch-card p {
+    max-width: 530px;
+    margin: 0 0 28px;
+    color: rgba(244,239,230,.48);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.sync-open-button {
+    width: fit-content;
+    min-height: 48px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #d4a017;
+    background: transparent;
+    color: #d4a017;
+    font-family: "Orbitron", sans-serif;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.sync-open-button:hover {
+    background: #d4a017;
+    color: #080808;
+}
+
+.sync-open-button strong {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   FEATURE CARDS
+   ========================================================= */
+
+.sync-feature-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.sync-feature-card {
+    position: relative;
+    padding: 25px 20px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease;
+}
+
+.sync-feature-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212,160,23,.35);
+    background: rgba(212,160,23,.035);
+}
+
+.sync-feature-number {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    color: rgba(212,160,23,.35);
+    font-family: "Orbitron", sans-serif;
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.sync-feature-icon {
+    color: #d4a017;
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.sync-feature-card h4 {
+    margin: 0 0 8px;
+    color: rgba(244,239,230,.9);
+    font-family: "Orbitron", sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.sync-feature-card p {
+    margin: 0;
+    color: rgba(244,239,230,.38);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+
+/* =========================================================
+   BOTTOM
+   ========================================================= */
+
+.sync-bottom-info {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,.06);
+    display: flex;
+    justify-content: space-between;
+    color: rgba(244,239,230,.25);
+    font-family: monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.sync-bottom-info i {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: 6px;
+    background: #d4a017;
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .sync-main-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sync-status-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sync-workspace {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .sync-splash {
+        padding: 25px 18px;
+    }
+
+    .sync-splash h1 {
+        font-size: 48px;
+        letter-spacing: 2px;
+    }
+
+    .sync-terminal-body {
+        font-size: 8px;
+    }
+
+    .sync-status-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .sync-feature-column {
+        grid-template-columns: 1fr;
+    }
+
+    .sync-launch-card {
+        min-height: 390px;
+        padding: 28px 22px;
+    }
+
+    .sync-main {
+        padding: 90px 16px 50px;
+    }
+
+    .sync-bottom-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .sync-splash-footer {
+        font-size: 7px;
+    }
+
+}
+/* =========================================================
+   SYNCDRIVE PRO
+   APP AISLADA
+   ========================================================= */
+
+.syncdrive-view {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+}
+
+.syncdrive-container {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#syncDriveFrame {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    outline: 0;
+
+    background: #080808;
+}
+/* =====================================================
+   MANUAL P3D — TAPA CLICKEABLE
+===================================================== */
+
+#p3dBook {
+    position: relative;
+}
+
+#bookCover {
+    position: absolute;
+    z-index: 9999;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+#bookCover .cover-p3d,
+#bookCover .cover-title,
+#bookCover .cover-click {
+    pointer-events: none;
+}
+/* =========================================================
+   CUENTA — MENÚ
+   ========================================================= */
+
+.menu-auth{
+  width:100%;
+  margin-top:auto;
+  padding-top:20px;
+}
+
+.menu-auth-divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  margin-bottom:12px;
+  color:#666;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.menu-auth-divider span{
+  flex:1;
+  height:1px;
+  background:#252525;
+}
+
+.menu-auth-link{
+  width:100%;
+  box-sizing:border-box;
+  text-decoration:none;
+}
+
+.menu-auth-link.highlight{
+  border:1px solid #FFC107;
+  background:rgba(255,193,7,.04);
+  color:#fff;
+  transition:.2s ease;
+}
+
+.menu-auth-link.highlight:hover{
+  background:#FFC107;
+  color:#000;
+  border-color:#FFC107;
+}
+
+.menu-auth-link .menu-number{
+  color:#FFC107;
+  font-weight:900;
+}
+
+.menu-auth-link.highlight:hover .menu-number{
+  color:#000;
 }
