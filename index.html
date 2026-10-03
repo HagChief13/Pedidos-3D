@@ -1,623 +1,2247 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang=es>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Un espacio dedicado a proyectos, herramientas y tecnología: Pedidos 3D y NOVA.">
-  <meta name="theme-color" content="#080808">
+  <meta charset=UTF-8>
+  <meta name=viewport content="width=device-width, initial-scale=1.0">
+  <meta name=description content="Un espacio dedicado a proyectos, herramientas y tecnología: Pedidos 3D y NOVA.">
+  <meta name=theme-color content=#080808>
   <title>PROYECTOS — Pedidos 3D &amp; NOVA</title>
-  <link rel="stylesheet" href="./style.css?v=7">
-  <link rel="icon" type="image/png" href="logo.png?v=2">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <link rel=stylesheet href="./style.css?v=8">
+  <link rel=icon type=image/png href="logo.png?v=2">
+  <script src=https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js></script>
   <style>
-#spa-auth{ display:none; position:fixed; inset:0; z-index:10000; background:#050505 !important; overflow-y:auto; }
-#spa-auth.show{ display:flex !important; }
-.spa-page{ position:fixed; inset:0; z-index:10000; overflow:auto; }
-#spa-auth .spa-back{ position:fixed; top:24px; left:24px; z-index:20; background:#1a1a1a; border:1px solid #2a2a2a; color:#fff; padding:10px 18px; border-radius:100px; font-size:13px; font-weight:700; cursor:pointer; }
-.auth-spa{ background:#050505 !important; }
-.lamp-container{ position:fixed; top:0; left:50%; transform:translateX(-50%); width:100%; height:100%; pointer-events:none; z-index:1; display:flex; flex-direction:column; align-items:center; }
-.lamp-wire{ width:1px; height:100px; background:#222; }
-.lamp-shade{ width:110px; height:46px; background:radial-gradient(ellipse at center, #222 0%, #111 100%); border:1px solid #2a2a2a; border-radius:0 0 60px 60px; position:relative; }
-.lamp-shade span{ position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:84px; height:12px; background:#FFC107; border-radius:50%; box-shadow:0 0 15px #FFC107,0 0 40px #FFC107,0 0 80px rgba(255,193,7,0.4); transition:.4s; }
-.light-cone{ width:700px; height:900px; margin-top:-2px; background:linear-gradient(180deg, rgba(255,193,7,0.22) 0%, rgba(255,193,7,0.08) 25%, transparent 80%); clip-path:polygon(50% 0%, 0% 100%, 100% 100%); transition:.4s; }
-.light-glow{ position:absolute; top:120px; left:50%; transform:translateX(-50%); width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(255,193,7,0.15) 0%, transparent 70%); filter:blur(25px); transition:.4s; }
-.auth-inner{ position:relative; z-index:2; width:100%; max-width:380px; margin:0 auto; margin-top:150px !important; padding:0 20px 40px; text-align:center; }
-#authTitle{ font-size:42px; font-weight:900; margin:16px 0 10px; color:#fff; }
-#spa-auth .spa-line{ width:60px; height:3px; background:#FFC107; margin:0 auto 24px; border-radius:10px; }
-.auth-tabs{ display:flex !important; flex-direction:row !important; gap:8px; background:#111; padding:6px; border-radius:100px; border:1px solid #222; margin:0 0 24px 0; width:100%; }
-.auth-tab{ flex:1; padding:12px; background:transparent; border:none; color:#666; border-radius:100px; font-weight:800; font-size:13px; cursor:pointer; }
-.auth-tab.active{ background:#FFC107; color:#000; }
-.auth-form{ display:none; flex-direction:column; gap:14px; text-align:left; width:100%; }
-.auth-form.active-form{ display:flex !important; }
-.auth-form .spa-card{ display:flex; align-items:center; gap:12px; background:#111; border:1px solid #222; border-radius:16px; padding:14px 16px; position:relative; width:100%; box-sizing:border-box; }
-.auth-form .spa-card input{ background:transparent; border:none; outline:none; color:#fff; width:100%; font-size:14px; flex:1; }
-.toggle-pass{ position:absolute; right:12px; top:50%; transform:translateY(-50%); background:#1a1a1a; border:1px solid #2a2a2a; width:32px; height:32px; border-radius:50%; cursor:pointer; }
-.lamp-container.off .light-cone{ opacity:0.02 !important; }
-.lamp-container.off .light-glow{ opacity:0 !important; }
-.lamp-container.off .lamp-shade span{ background:#222 !important; box-shadow:none !important; }
-@keyframes flicker { 0%{opacity:1} 10%{opacity:0.3} 20%{opacity:1} 30%{opacity:0.6} 50%{opacity:1} 70%{opacity:0.4} 100%{opacity:1} }
-.lamp-container.flicker .lamp-shade span, .lamp-container.flicker .light-cone, .lamp-container.flicker .light-glow { animation: flicker 0.55s ease; }
-/* PERGAMINO - SISTEMA */
-.btn-pergamino{background:#FFC107; border:3px solid #000; color:#000; padding:12px 26px; border-radius:100px; font-weight:900; letter-spacing:1px; cursor:pointer; box-shadow:0 5px 0 #000; transition:.15s; margin:20px 0;}
-.btn-pergamino:active{transform:translateY(4px); box-shadow:0 1px 0 #000;}
-.pergamino-container{width:94%; max-width:900px; margin:0 auto; transform-origin:top; transition:all .7s cubic-bezier(0.68,-0.55,0.27,1.55); overflow:hidden;}
-.pergamino-container.cerrado{transform:scaleY(0); opacity:0; max-height:0; pointer-events:none;}
-.pergamino-container.abierto{transform:scaleY(1); opacity:1; max-height:3000px; pointer-events:auto;}
-.pergamino-roll{height:20px; background:linear-gradient(#e6c99a, #8a5a2b); border-radius:12px; border:2px solid #000;}
-.pergamino-body{background:#fdf5e6; border-left:3px solid #000; border-right:3px solid #000; padding:18px; color:#000; text-align:left;}
-.pergamino-header{display:flex; justify-content:space-between; font-weight:900; font-size:12px; border-bottom:2px dashed #000; padding-bottom:10px; margin-bottom:12px;}
-.pergamino-body .tabs{display:flex; gap:8px; margin-bottom:15px;}
-.pergamino-body .tabs button{flex:1; padding:10px; border:2px solid #000; background:#fff; font-weight:800; cursor:pointer; border-radius:8px;}
-.pergamino-body .tabs button.active{background:#000; color:#FFC107;}
-.pergamino-body .tab-content{display:none;}
-.pergamino-body .tab-content.active{display:block;}
-/* =========================================================
-   SUBMENÚ PEDIDOS 3D — PREPARADO PARA FUTURO
-   Por ahora la flecha solo acompaña al enlace.
-   ========================================================= */
+    #spa-auth {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: #050505 !important;
+      overflow-y: auto;
+    }
 
-.menu-link-parent {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
+    #spa-auth.show {
+      display: flex !important;
+    }
 
-.menu-link-parent .menu-link-text {
-  flex: 1;
-}
+    .spa-page {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      overflow: auto;
+    }
 
-.menu-link-parent .submenu-arrow {
-  margin-left: auto;
-  font-size: 16px;
-  line-height: 1;
-  opacity: 0.65;
-  pointer-events: none;
-  transform: translateY(-1px);
-}
-</style>
+    #spa-auth .spa-back {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      z-index: 20;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
+    .auth-spa {
+      background: #050505 !important;
+    }
+
+    .lamp-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lamp-wire {
+      width: 1px;
+      height: 100px;
+      background: #222;
+    }
+
+    .lamp-shade {
+      width: 110px;
+      height: 46px;
+      background: radial-gradient(ellipse at center, #222 0%, #111 100%);
+      border: 1px solid #2a2a2a;
+      border-radius: 0 0 60px 60px;
+      position: relative;
+    }
+
+    .lamp-shade span {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 84px;
+      height: 12px;
+      background: #FFC107;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #FFC107, 0 0 40px #FFC107, 0 0 80px rgba(255, 193, 7, .4);
+      transition: .4s;
+    }
+
+    .light-cone {
+      width: 700px;
+      height: 900px;
+      margin-top: -2px;
+      background: linear-gradient(180deg, rgba(255, 193, 7, .22) 0%, rgba(255, 193, 7, .08) 25%, transparent 80%);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transition: .4s;
+    }
+
+    .light-glow {
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 193, 7, .15) 0%, transparent 70%);
+      filter: blur(25px);
+      transition: .4s;
+    }
+
+    .auth-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto;
+      margin-top: 150px !important;
+      padding: 0 20px 40px;
+      text-align: center;
+    }
+
+    #authTitle {
+      font-size: 42px;
+      font-weight: 900;
+      margin: 16px 0 10px;
+      color: #fff;
+    }
+
+    #spa-auth .spa-line {
+      width: 60px;
+      height: 3px;
+      background: #FFC107;
+      margin: 0 auto 24px;
+      border-radius: 10px;
+    }
+
+    .auth-tabs {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 8px;
+      background: #111;
+      padding: 6px;
+      border-radius: 100px;
+      border: 1px solid #222;
+      margin: 0 0 24px;
+      width: 100%;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      color: #666;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .auth-tab.active {
+      background: #FFC107;
+      color: #000;
+    }
+
+    .auth-form {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .auth-form.active-form {
+      display: flex !important;
+    }
+
+    .auth-form .spa-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: 14px 16px;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .auth-form .spa-card input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      width: 100%;
+      font-size: 14px;
+      flex: 1;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .lamp-container.off .light-cone {
+      opacity: .02 !important;
+    }
+
+    .lamp-container.off .light-glow {
+      opacity: 0 !important;
+    }
+
+    .lamp-container.off .lamp-shade span {
+      background: #222 !important;
+      box-shadow: none !important;
+    }
+
+    @keyframes flicker {
+      0% {
+        opacity: 1
+      }
+
+      10% {
+        opacity: .3
+      }
+
+      20% {
+        opacity: 1
+      }
+
+      30% {
+        opacity: .6
+      }
+
+      50% {
+        opacity: 1
+      }
+
+      70% {
+        opacity: .4
+      }
+
+      100% {
+        opacity: 1
+      }
+    }
+
+    .lamp-container.flicker .lamp-shade span,
+    .lamp-container.flicker .light-cone,
+    .lamp-container.flicker .light-glow {
+      animation: flicker .55s ease;
+    }
+
+    .btn-pergamino {
+      background: #FFC107;
+      border: 3px solid #000;
+      color: #000;
+      padding: 12px 26px;
+      border-radius: 100px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 5px 0 #000;
+      transition: .15s;
+      margin: 20px 0;
+    }
+
+    .btn-pergamino:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 #000;
+    }
+
+    .pergamino-container {
+      width: 94%;
+      max-width: 900px;
+      margin: 0 auto;
+      transform-origin: top;
+      transition: all .7s cubic-bezier(.68, -.55, .27, 1.55);
+      overflow: hidden;
+    }
+
+    .pergamino-container.cerrado {
+      transform: scaleY(0);
+      opacity: 0;
+      max-height: 0;
+      pointer-events: none;
+    }
+
+    .pergamino-container.abierto {
+      transform: scaleY(1);
+      opacity: 1;
+      max-height: 3000px;
+      pointer-events: auto;
+    }
+
+    .pergamino-roll {
+      height: 20px;
+      background: linear-gradient(#e6c99a, #8a5a2b);
+      border-radius: 12px;
+      border: 2px solid #000;
+    }
+
+    .pergamino-body {
+      background: #fdf5e6;
+      border-left: 3px solid #000;
+      border-right: 3px solid #000;
+      padding: 18px;
+      color: #000;
+      text-align: left;
+    }
+
+    .pergamino-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 900;
+      font-size: 12px;
+      border-bottom: 2px dashed #000;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pergamino-body .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .pergamino-body .tabs button {
+      flex: 1;
+      padding: 10px;
+      border: 2px solid #000;
+      background: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .pergamino-body .tabs button.active {
+      background: #000;
+      color: #FFC107;
+    }
+
+    .pergamino-body .tab-content {
+      display: none;
+    }
+
+    .pergamino-body .tab-content.active {
+      display: block;
+    }
+
+    .menu-link-parent {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .menu-link-parent .menu-link-text {
+      flex: 1;
+    }
+
+    .menu-link-parent .submenu-arrow {
+      margin-left: auto;
+      font-size: 16px;
+      line-height: 1;
+      opacity: .65;
+      pointer-events: none;
+      transform: translateY(-1px);
+    }
+  </style>
 </head>
+
 <body>
-  <div class="noise" aria-hidden="true"></div>
-  <header class="navbar">
-  <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="siteMenu"><span></span><span></span><span></span></button>
-  <div class="menu-label" aria-hidden="true">MENÚ</div>
-  
-  <nav id="siteMenu" class="site-menu">
-    <div class="menu-header"><span class="menu-kicker">NAVEGACIÓN</span><span class="menu-title">MENÚ</span></div>
-    
-    <div class="menu-links">
-      <a href="#inicio" data-section="inicio" class="menu-link active"><span class="menu-number">01</span><span>INICIO</span></a>
-      <a href="#pedidos3d" data-section="pedidos3d" class="menu-link menu-link-parent">
-  <span class="menu-number">02</span>
-  <span class="menu-link-text">PEDIDOS 3D</span>
-  <span class="submenu-arrow" aria-hidden="true">⌄</span>
-</a>
-      <a href="#nova" data-section="nova" class="menu-link"><span class="menu-number">03</span><span>NOVA</span></a>
-      <a href="#calculadora" data-section="calculadora" class="menu-link"><span class="menu-number">04</span><span>CALCULADORA 3D</span></a>
-      <a href="https://hagchief13.github.io/SyncDrive-Pro/"
-   class="menu-link syncdrive-link">
-    <span class="menu-number">05</span>
-    <span>SYNC DRIVE PRO</span>
-</a>
-    </div>
-
-    <!-- SEPARACIÓN GRANDE + UN SOLO BOTÓN -->
-    <div style="flex-grow:1; min-height: 50px;"></div>
-
-    <div class="menu-auth">
-      <div class="menu-auth-divider"><span></span>CUENTA<span></span></div>
-      <a href="#" id="btnLogin" class="menu-link menu-auth-link highlight">
-        <span class="menu-number">↗</span>
-        <span>LOGIN / REGISTER</span>
-      </a>
-    </div>
-
-    <div class="menu-footer"><span>PROYECTOS • TECNOLOGÍA • CREACIÓN</span><span>2026</span></div>
-  </nav>
-</header>
-
-  <main id="mainContent">
-    <!-- INICIO (igual que tenías) -->
-    <section id="inicio" class="site-view home-view active-view" data-view="inicio">
-      <div class="home-bg" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="home-light home-light-red" aria-hidden="true"></div>
-      <div class="home-light home-light-white" aria-hidden="true"></div>
-      <div class="home-light home-light-red-secondary" aria-hidden="true"></div>
-      <div class="home-container">
-        <div class="home-eyebrow"><span class="home-line"></span><span>PROYECTOS • TECNOLOGÍA • CREACIÓN</span><span class="home-line"></span></div>
-        <h1 class="home-title"><span>UN ESPACIO</span><span class="home-title-accent">PARA CREAR.</span></h1>
-        <p class="home-description">Este sitio reúne proyectos, herramientas e ideas desarrolladas para convertir conceptos en soluciones reales. Desde la gestión de trabajos de impresión 3D hasta proyectos de inteligencia artificial y tecnología experimental.</p>
-        <div class="dev-timer"><span class="dev-timer-label">TIEMPO PROGRAMANDO HASTA TERMINAR EL PROYECTO</span><strong id="devTimer">17d 5h 00m 00s</strong></div>
-        <button class="btn-unknown" type="button">
-    <span class="btn-unknown-top">?????</span>
-    <span class="btn-unknown-sub">
-        <span class="signal-prefix">//</span>
-        <span class="signal-text">SEÑAL NO DECODIFICADA</span>
-    </span>
-</button>
-        <div class="home-scroll-indicator"><span class="home-scroll-line"></span><span>EXPLORA LOS PROYECTOS</span><span class="home-scroll-line"></span></div>
-        <div class="welcome-projects">
-          <a href="#pedidos3d" class="welcome-project-card" data-section="pedidos3d"><div class="welcome-card-content"><span class="welcome-card-label">01 — DISPONIBLE</span><h2>PEDIDOS 3D</h2><p>Gestión para impresión 3D</p></div><div class="welcome-card-arrow">→</div></a>
-          <a href="#nova" class="welcome-project-card" data-section="nova"><div class="welcome-card-content"><span class="welcome-card-label">02 — EN DESARROLLO</span><h2>NOVA</h2><p>Asistente virtual IA</p></div><div class="welcome-card-arrow">→</div></a>
-          <a href="#calculadora" class="welcome-project-card" data-section="calculadora"><div class="welcome-card-content"><span class="welcome-card-label">03 — ONLINE</span><h2>CALCULADORA 3D</h2><p>Calcula costos al instante</p></div><div class="welcome-card-arrow">→</div></a>
-          <a href="https://hagchief13.github.io/SyncDrive-Pro/"
-   class="welcome-project-card syncdrive-project-card">
-
-    <div class="welcome-card-content">
-        <span class="welcome-card-label">04 — DISPONIBLE</span>
-        <h2>SYNC DRIVE PRO</h2>
-        <p>Sincroniza y organiza tus archivos</p>
-    </div>
-
-    <div class="welcome-card-arrow">→</div>
-
-</a>
-        </div>
+  <div class=noise aria-hidden=true></div>
+  <header class=navbar><button class=menu-toggle id=menuToggle type=button aria-label="Abrir menú" aria-expanded=false
+      aria-controls=siteMenu><span></span><span></span><span></span></button>
+    <div class=menu-label aria-hidden=true>MENÚ</div>
+    <nav id=siteMenu class=site-menu>
+      <div class=menu-header><span class=menu-kicker>NAVEGACIÓN</span><span class=menu-title>MENÚ</span></div>
+      <div class=menu-links><a href=#inicio data-section=inicio class="menu-link active"><span
+            class=menu-number>01</span><span>INICIO</span></a><a href=#pedidos3d data-section=pedidos3d
+          class="menu-link menu-link-parent"><span class=menu-number>02</span><span class=menu-link-text>PEDIDOS
+            3D</span><span class=submenu-arrow aria-hidden=true>⌄</span></a><a href=#nova data-section=nova
+          class=menu-link><span class=menu-number>03</span><span>NOVA</span></a><a href=#calculadora
+          data-section=calculadora class=menu-link><span class=menu-number>04</span><span>CALCULADORA 3D</span></a><a
+          href=https://hagchief13.github.io/SyncDrive-Pro/ class="menu-link syncdrive-link"><span
+            class=menu-number>05</span><span>SYNC DRIVE PRO</span></a></div>
+      <div style=flex-grow:1;min-height:50px;></div>
+      <div class=menu-auth>
+        <div class=menu-auth-divider><span></span>CUENTA<span></span></div><a href=# id=btnLogin
+          class="menu-link menu-auth-link highlight"><span class=menu-number>↗</span><span>LOGIN / REGISTER</span></a>
       </div>
-    </section>
-
-    <!-- PEDIDOS 3D -->
-    <section id="pedidos3d" class="site-view pedidos-view" data-view="pedidos3d">
-      <div class="p3d-local-nav"><a href="#inicio" data-section="inicio" class="p3d-local-logo"><div class="p3d-badge">P3D</div><span>PEDIDOS 3D</span></a><nav class="p3d-local-links"><a href="#pedidos-inicio">INICIO</a><a href="#pedidos-nosotros">SOBRE NOSOTROS</a><a href="#pedidos-caracteristicas">CARACTERÍSTICAS</a><a href="#pedidos-descarga">DESCARGA</a></nav><a href="#pedidos-descarga" class="p3d-local-download">DESCARGAR</a></div>
-
-      <section class="hero pedidos-hero" id="pedidos-inicio">
-        <div class="hero-content"><div class="vintage-label">✦ GESTIÓN • IMPRESIÓN 3D • 2026 ✦</div><h1><span>ORGANIZA.</span><strong>PEDIDOS 3D</strong><span>CONTROLA. CRECE.</span></h1><div class="divider"><span></span>◆<span></span></div><p class="hero-subtitle">La herramienta creada para ayudar a negocios de impresión 3D a organizar sus pedidos, controlar sus trabajos y mejorar su eficiencia.</p><div class="hero-buttons"><a href="#pedidos-descarga" class="download-btn"><span class="download-icon">↓</span><span><small>SOFTWARE PARA IMPRESIÓN 3D</small>DESCARGA AQUÍ</span></a><a href="#pedidos-caracteristicas" class="secondary-btn">CONOCER LA APP</a></div><div class="platform">DISPONIBLE PARA PC WINDOWS Y ANDROID</div></div>
-        <div class="hero-decoration"><div class="p3d-mockup"><div class="mockup-bar"><span></span><span></span><span></span></div><div class="mockup-title">PEDIDOS 3D — PANEL</div><div class="mockup-row head"><span>PEDIDO</span><span>ESTADO</span></div><div class="mockup-row"><span>#1024 - Groot</span><b class="st-ready">● Listo</b></div><div class="mockup-row"><span>#1025 - Llaveros x20</span><b class="st-prod">● En producción</b></div><div class="mockup-row"><span>#1026 - Pieza motor</span><b class="st-pend">● Pendiente</b></div><div class="mockup-foot">3 PEDIDOS ACTIVOS</div></div></div>
-            </section>
-
- 
-
-      <div class="ornament"><span></span><div>✦</div><span></span></div>
-
-      <section class="about section" id="pedidos-nosotros">
-        <div class="section-heading"><span class="section-number">01</span><div><p class="eyebrow">SOBRE NOSOTROS</p><h2>LA HERRAMIENTA QUE TU TRABAJO NECESITA</h2></div></div>
-        <div class="about-grid"><div class="about-text"><p>Pedidos 3D nació para resolver un problema común en el sector de la fabricación aditiva: la falta de una herramienta sencilla, directa y enfocada en la gestión real de pedidos.</p><p>Nuestra aplicación permite organizar tus pedidos en un solo lugar, ayudándote a mantener una visión clara de lo que tienes pendiente, lo que está en producción y lo que ya está listo.</p><div class="quote"><span>“</span>TU NEGOCIO.<br>TU PRODUCCIÓN.<br>TU CONTROL.</div></div><div class="about-stamp"><div class="stamp-inner"><span>DISEÑADO PARA</span><strong>P3D</strong><small>IMPRESIÓN 3D</small><span>2026</span></div></div></div>
-      </section>
-
-      <!-- TU LIBRO TUTORIAL (igual) -->
-      <section class="book-tutorial-section" id="pedidos-tutorial">
-        <p class="eyebrow">TUTORIAL INTERACTIVO</p><h2>CÓMO FUNCIONA</h2><p class="book-hint">Haz click en la tapa para abrir / cerrar</p>
-        <div class="book-scene"><div class="book" id="p3dBook">
-          <div class="bpage" data-i="8"><div class="page-inner"><h3>8. Beta filamentos</h3><div class="beta-mini"><input id="betaInput2" placeholder="Ej: PLA Rojo"><button id="betaAdd2">Agregar</button><ul id="betaList2"></ul></div><div class="book-nav"><button class="prevB">← Anterior</button><span>8 / 8</span></div></div></div>
-          <div class="bpage" data-i="7"><div class="page-inner"><h3>7. Control de stock</h3><p>Registra rollos, peso y color. Te avisa cuando queda poco.</p><div class="demo-box">PLA Negro: <b>320g</b> restantes<br><small>⚠️ Stock bajo</small></div><div class="book-nav"><button class="prevB">← Anterior</button><span>7 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
-          <div class="bpage" data-i="6"><div class="page-inner"><h3>6. Tipos de filamento</h3><p>PLA, PETG, ASA, TPU. Cada uno con temperatura ideal.</p><div class="demo-box">PLA: 200°C | PETG: 240°C | ASA: 250°C</div><div class="book-nav"><button class="prevB">← Anterior</button><span>6 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
-          <div class="bpage" data-i="5"><div class="page-inner"><h3>5. Filamentos</h3><p>Gestiona tus materiales y asigna a cada pedido.</p><div class="demo-box">Material: <b>PETG Azul</b></div><div class="book-nav"><button class="prevB">← Anterior</button><span>5 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
-          <div class="bpage" data-i="4"><div class="page-inner"><h3>4. Pruébalo aquí</h3><div class="beta-mini"><input id="betaInput" placeholder="Ej: Llavero Pikachu"><button id="betaAdd">Agregar</button><ul id="betaList"></ul></div><div class="book-nav"><button class="prevB">← Anterior</button><span>4 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
-          <div class="bpage" data-i="3"><div class="page-inner"><h3>3. Calcula y entrega</h3><p>Usa la <b>Calculadora 3D</b> para costos.</p><div class="demo-box">Costo: $4.200 → Precio: $15.000</div><div class="book-nav"><button class="prevB">← Anterior</button><span>3 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
-          <div class="bpage" data-i="2"><div class="page-inner"><h3>2. Asigna material</h3><p>Elige material y pon <b>En producción</b>.</p><div class="demo-box">Material: <b>PLA Negro</b></div><div class="book-nav"><button class="prevB">← Anterior</button><span>2 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
-          <div class="bpage" data-i="1"><div class="page-inner"><h3>1. Registra el pedido</h3><p>Ve a <b>Pedidos 3D</b> → <b>+ Nuevo</b>.</p><div class="demo-box">Cliente: Juan | Pieza: Groot | $15.000</div><div class="book-nav"><button class="prevB">← Índice</button><span>1 / 8</span><button class="nextB">Siguiente →</button></div></div></div>
-          <div class="bpage" data-i="0"><div class="page-inner index-page"><h3>ÍNDICE</h3><button class="idx-btn" data-goto="1"><b>1 - 4</b><span>Pedidos: registrar, producir, entregar + beta</span><i>→</i></button><button class="idx-btn" data-goto="5"><b>5 - 8</b><span>Filamentos: tipos, stock y control</span><i>→</i></button><div class="book-nav"><span>Índice</span><button class="nextB">Empezar →</button></div></div></div>
-          <div class="book-cover" id="bookCover"><div class="cover-p3d">P3D</div><div class="cover-title">MANUAL<br>RÁPIDO</div><div class="cover-click">PROXIMAMENTE</div></div>
-        </div></div>
-      </section>
-
-      <section class="features section" id="pedidos-caracteristicas">
-        <div class="section-heading centered"><span class="section-number">02</span><div><p class="eyebrow">TODO EN UN SOLO LUGAR</p><h2>CARACTERÍSTICAS PRINCIPALES</h2></div></div>
-        <div class="features-grid">
-          <article class="feature-card"><div class="feature-number">01</div><div class="feature-icon">📋</div><h3>GESTIÓN DE PEDIDOS</h3><p>Registra y organiza tus pedidos de impresión 3D para mantener toda la información importante en un solo lugar.</p></article>
-          <article class="feature-card featured"><div class="feature-number">02</div><div class="feature-icon">◆</div><h3>CONTROL DE PRODUCCIÓN</h3><p>Visualiza fácilmente qué pedidos están pendientes, en producción o listos para entregar.</p></article>
-          <article class="feature-card"><div class="feature-number">03</div><div class="feature-icon">🧵</div><h3>GESTIÓN DE MATERIALES</h3><p>Registra materiales como PLA, PETG y ASA, además del color utilizado en cada pedido.</p></article>
-          <article class="feature-card"><div class="feature-number">04</div><div class="feature-icon">$</div><h3>CONTROL DE PRECIOS</h3><p>Lleva un mejor control del valor de tus trabajos y de la información económica asociada a ellos.</p></article>
-          <article class="feature-card"><div class="feature-number">05</div><div class="feature-icon">⚙</div><h3>CALCULADORA 3D</h3><p>Calcula costes de impresión considerando materiales, tiempo, electricidad, desgaste y otros factores.</p></article>
-          <article class="feature-card"><div class="feature-number">06</div><div class="feature-icon">📱</div><h3>MULTIPLATAFORMA</h3><p>Utiliza Pedidos 3D en tu ordenador o dispositivo móvil según las necesidades de tu taller.</p></article>
-        </div>
-      </section>
-
-      <!-- DESCARGA FINAL LIMPIA CON ZOOM -->
-      <section class="download-section section" id="pedidos-descarga">
-        <style>
-          .wrap-3d { max-width: 1050px; margin: 0 auto; padding: 0 20px; }
-          .grid-requisitos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 30px 0 70px 0; }
-          .grid-pasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 50px; }
-          .box-dark { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 14px; padding: 20px; text-align: left; }
-          .box-dark.gold { border-color: #FFC10766; }
-          .kicker { color: #FFC107; font-weight: 900; font-size: 11px; letter-spacing: 1px; margin-bottom: 6px; }
-          .box-dark p { font-size: 12px; color: #999; line-height: 1.4; margin: 0; }
-          #tit-pasos { text-align: center; color: #FFC107; font-size: 28px; font-weight: 900; margin: 0 0 8px 0; }
-          #sub-pasos { text-align: center; color: #666; font-size: 13px; margin: 0 0 30px 0; }
-          .card-paso { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 14px; padding: 16px; text-align: left; transition: .2s; }
-          .card-paso:hover { border-color: #FFC10755; transform: translateY(-3px); }
-          .card-paso:last-child { border-color: #FFC107; }
-          .head-paso { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-          .num { background: #FFC107; color: #000; font-weight: 900; min-width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-          .card-paso h4 { margin: 0; font-size: 13px; color: #fff; }
-          .card-paso p { font-size: 11.5px; color: #888; margin: 0; line-height: 1.3; min-height: 32px; }
-          .card-paso img { width: 100%; border-radius: 8px; margin-top: 12px; border: 1px solid #2a2a2a; display: block; cursor: zoom-in; transition: .2s; }
-          .card-paso img:hover { border-color: #FFC107; transform: scale(1.02); }
-          .tag { display: inline-block; margin-top: 10px; background: #FFC10722; color: #FFC107; font-size: 9px; font-weight: 800; padding: 5px 10px; border-radius: 20px; }
-          @media(max-width: 900px){ .grid-requisitos{ grid-template-columns: 1fr; } .grid-pasos{ grid-template-columns: repeat(2, 1fr); } }
-          @media(max-width: 520px){ .grid-pasos{ grid-template-columns: 1fr; } }
-        </style>
-        <div class="wrap-3d">
-          <div style="text-align:center;"><div class="download-badge">✦ DESCARGA ✦</div><p class="eyebrow">OBTÉN LA APLICACIÓN</p><h2>LISTO PARA ORGANIZAR<br><span>NUESTRA APP?</span></h2><div class="divider"><span></span>◆<span></span></div><p class="download-description" style="max-width:600px; margin: 0 auto;">Descargar Pedidos 3D es sencillo. Nuestra aplicación se distribuye mediante GitHub Releases, donde encontrarás las versiones disponibles.</p></div>
-          <div class="grid-requisitos"><div class="box-dark gold"><div class="kicker">01 &nbsp; REVISA LOS REQUISITOS</div><p>Asegúrate de contar con Windows 10/11 o Android 8.0+</p></div><div class="box-dark gold"><div class="kicker">02 &nbsp; VE A GITHUB RELEASES</div><p>Serás dirigido a la página oficial de versiones de Pedidos 3D.</p></div><div class="box-dark gold"><div class="kicker">03 &nbsp; DESCARGA LA VERSIÓN</div><p>Selecciona el archivo correspondiente y comienza a utilizar Pedidos 3D.</p></div></div>
-          <h2 id="tit-pasos">INSTALACIÓN EN 4 PASOS</h2>
-          <p id="sub-pasos">Click en la imagen para agrandar — el aviso de Windows es normal</p>
-          <div class="grid-pasos">
-            <div class="card-paso"><div class="head-paso"><div class="num">1</div><h4>Descarga el .exe</h4></div><p>Arriba a la derecha en Chrome aparece la descarga.</p><img src="paso1.png" class="zoomable"><span class="tag">CLICK EN EL ARCHIVO</span></div>
-            <div class="card-paso"><div class="head-paso"><div class="num">2</div><h4>Windows protege</h4></div><p>Ventana azul es normal, no es virus.</p><img src="paso2.png" class="zoomable"><span class="tag">CLICK EN MÁS INFORMACIÓN</span></div>
-            <div class="card-paso"><div class="head-paso"><div class="num">3</div><h4>Ejecutar igual</h4></div><p>Ahora sí te deja instalarlo.</p><img src="paso3.png" class="zoomable"><span class="tag">EJECUTAR DE TODAS FORMAS</span></div>
-            <div class="card-paso"><div class="head-paso"><div class="num" style="background:#fff;">✓</div><h4>¡Listo!</h4></div><p>Se abre directo y puedes crear tu pedido.</p><img src="paso4.png" class="zoomable"><span class="tag" style="background:#FFC107;color:#000;">+ NUEVO PEDIDO</span></div>
+      <div class=menu-footer><span>PROYECTOS • TECNOLOGÍA • CREACIÓN</span><span>2026</span></div>
+    </nav>
+  </header>
+  <main id=mainContent>
+    <section id=inicio class="site-view home-view active-view" data-view=inicio>
+      <div class=home-bg aria-hidden=true><span></span><span></span><span></span></div>
+      <div class="home-light home-light-red" aria-hidden=true></div>
+      <div class="home-light home-light-white" aria-hidden=true></div>
+      <div class="home-light home-light-red-secondary" aria-hidden=true></div>
+      <div class=home-container>
+        <div class=home-eyebrow><span class=home-line></span><span>PROYECTOS • TECNOLOGÍA • CREACIÓN</span><span
+            class=home-line></span></div>
+        <h1 class=home-title><span>UN ESPACIO</span><span class=home-title-accent>PARA CREAR.</span></h1>
+        <p class=home-description> Este sitio reúne proyectos, herramientas e ideas desarrolladas para convertir
+          conceptos en soluciones reales. Desde la gestión de trabajos de impresión 3D hasta proyectos de inteligencia
+          artificial y tecnología experimental. </p>
+        <div class=dev-timer><span class=dev-timer-label> TIEMPO PROGRAMANDO HASTA TERMINAR EL PROYECTO </span><strong
+            id=devTimer>17d 5h 00m 00s</strong></div><button class=btn-unknown type=button><span
+            class=btn-unknown-top>?????</span><span class=btn-unknown-sub><span class=signal-prefix>//</span><span
+              class=signal-text>SEÑAL NO DECODIFICADA</span></span></button>
+        <div class=home-scroll-indicator><span class=home-scroll-line></span><span>EXPLORA LOS PROYECTOS</span><span
+            class=home-scroll-line></span></div>
+        <div class=welcome-projects><a href=#pedidos3d class=welcome-project-card data-section=pedidos3d>
+            <div class=welcome-card-content><span class=welcome-card-label>01 — DISPONIBLE</span>
+              <h2>PEDIDOS 3D</h2>
+              <p>Gestión para impresión 3D</p>
+            </div>
+            <div class=welcome-card-arrow>→</div>
+          </a><a href=#nova class=welcome-project-card data-section=nova>
+            <div class=welcome-card-content><span class=welcome-card-label>02 — EN DESARROLLO</span>
+              <h2>NOVA</h2>
+              <p>Asistente virtual IA</p>
+            </div>
+            <div class=welcome-card-arrow>→</div>
+          </a><a href=#calculadora class=welcome-project-card data-section=calculadora>
+            <div class=welcome-card-content><span class=welcome-card-label>03 — ONLINE</span>
+              <h2>CALCULADORA 3D</h2>
+              <p>Calcula costos al instante</p>
+            </div>
+            <div class=welcome-card-arrow>→</div>
+          </a><a href=https://hagchief13.github.io/SyncDrive-Pro/ class="welcome-project-card syncdrive-project-card">
+            <div class=welcome-card-content><span class=welcome-card-label>04 — DISPONIBLE</span>
+              <h2>SYNC DRIVE PRO</h2>
+              <p>Sincroniza y organiza tus archivos</p>
+            </div>
+            <div class=welcome-card-arrow>→</div>
+          </a></div>
+        <section class=home-news id=novedades>
+          <div class=home-news-heading>
+            <div><span class=home-news-kicker>ACTUALIZACIONES</span>
+              <h2>ÚLTIMAS NOVEDADES</h2>
+            </div><span class=home-news-live>● SISTEMA ACTIVO</span>
           </div>
-          <div class="big-download">
-    <span>✦</span> PRÓXIMAMENTE
-</div></div>
-          <div class="platform-download-area" id="descarga">
-  <div class="platform-download-heading">
-    <p class="eyebrow">PRÓXIMAMENTE</p>
-    <h3>DESCARGA DIRECTA</h3>
-    <p>Las versiones para cada plataforma estarán disponibles próximamente.</p>
-  </div>
-
-  <div class="download-platforms">
-
-    <article class="download-card recommended" id="card-windows" data-platform="windows">
-      <div class="recommended-badge">PRÓXIMAMENTE</div>
-      <div class="platform-icon">PC</div>
-      <h3>PC WINDOWS</h3>
-      <p class="platform-version">Windows 10 / 11</p>
-      <p class="platform-size">64 bits</p>
-      <div class="download-platform-btn">PRÓXIMAMENTE</div>
-    </article>
-
-    <article class="download-card" id="card-android" data-platform="android">
-      <div class="recommended-badge">PRÓXIMAMENTE</div>
-      <div class="platform-icon">APK</div>
-      <h3>ANDROID</h3>
-      <p class="platform-version">Android 8.0+</p>
-      <p class="platform-size">APK</p>
-      <div class="download-platform-btn">PRÓXIMAMENTE</div>
-    </article>
-
-  </div>
-
-  <p class="download-help">Las descargas estarán disponibles próximamente.</p>
-
-  <footer class="footer-min">
-    <p>© 2026 NOVA - Todos los derechos reservados</p>
-    <p>Desarrollado por HagChief | Pedidos 3D &amp; NOVA</p>
-  </footer>
-</div>
-        </div>
-      </section>
-    </section>
-
-    <!-- NOVA (igual) -->
-    <section id="nova" class="site-view nova-view" data-view="nova">
-      <div class="nova-light nova-light-red" aria-hidden="true"></div><div class="nova-light nova-light-white" aria-hidden="true"></div>
-      <div class="nova-container">
-        <div class="nova-eyebrow"><span>PROYECTO 03</span><span class="nova-status">EN DESARROLLO</span></div>
-        <div class="nova-content"><div class="nova-logo-area"><div class="nova-symbol">N</div></div><div class="nova-text"><span class="eyebrow">ASISTENTE VIRTUAL</span><h1>NOVA</h1><h2>UNA NUEVA FORMA<br>DE INTERACTUAR.</h2><p>NOVA es un proyecto de asistente virtual en desarrollo, creado para combinar inteligencia artificial, voz, visión y una interfaz propia.</p><p>La idea es construir un sistema capaz de comprender el entorno, interactuar mediante voz, recordar información y convertirse en una herramienta personal.</p><div class="nova-features"><div class="nova-feature"><span>01</span><strong>VOZ Y VISIÓN</strong></div><div class="nova-feature"><span>02</span><strong>INTEGRACIÓN</strong></div><div class="nova-feature"><span>03</span><strong>MEMORIA</strong></div><div class="nova-feature"><span>04</span><strong>CONTROL</strong></div></div><div class="nova-coming-soon">ESTADO DE DESARROLLO: <strong>PRÓXIMAMENTE</strong></div></div></div>
-        <div class="nova-mision-wrap">
-  <span class="tag">PROYECTO INTERNO — OPEN SOURCE</span>
-  <h2>NOVA NO ES UN PRODUCTO.<br>ES MI <span>COMPAÑERA DE TALLER.</span></h2>
-  <p>NOVA nació porque programar todo esto solo es imposible. Necesitaba alguien que me ayudara a investigar a las 3 AM, que revisara mi código y que viera mi pantalla y me dijera "aquí está el error".</p>
-  <p><strong>Nuestra misión es simple:</strong> Construir una inteligencia local, que viva en mi PC sin depender de la nube, que aprenda cómo trabajo y que me permita construir Pedidos 3D y futuros proyectos 10 veces más rápido. No para reemplazarme, sino para potenciarme.</p>
-  <p><strong>Y no será solo mía.</strong> NOVA será <strong>Open Source</strong>. Cualquiera que quiera podrá probar, mejorar, adaptar y llevarla a su propio taller. Quiero que sea una herramienta de makers, para makers. Mi código, tu taller.</p>
-  <div class="nova-obj">
-    <div><b>01</b><span>INVESTIGAR</span><p>Que busque docs, lea foros y me traiga la respuesta sin que yo pierda 2 horas.</p></div>
-    <div><b>02</b><span>PROGRAMAR</span><p>Que vea mi código, encuentre bugs y programe conmigo como un segundo cerebro.</p></div>
-    <div><b>03</b><span>OPEN SOURCE</span><p>Que cualquiera pueda clonarla, mejorarla y adaptarla a su forma de trabajar. Sin candados.</p></div>
-  </div>
-</div>
-        <div class="nova-descent"><div class="nova-descent-line"></div><span>DESCENDIENDO AL NÚCLEO</span><div class="nova-descent-line"></div></div>
-
-        <div class="nova-journey-intro"><span class="nova-journey-line"></span><span class="nova-journey-line"></span></div>
-        <section class="nova-roadmap">
-          <div class="nova-roadmap-header"><div><span class="nova-roadmap-kicker">NOVA DEVELOPMENT PATH</span><h3>EL CAMINO DE NOVA</h3><p>Cada módulo representa una parte del sistema. Los componentes activos muestran el estado actual del desarrollo.</p></div><div class="nova-roadmap-progress"><span>PROGRESO</span><strong><b>03</b> / 09</strong><div class="nova-progress-track"><div class="nova-progress-fill" style="width: 33.333%;"></div></div></div></div>
-          <div class="nova-mine">
-            <svg class="nova-svg-line" preserveAspectRatio="none"><polyline id="novaPoly" fill="none" stroke="#ff1010" stroke-width="3" style="filter:drop-shadow(0 0 6px rgba(255,16,16,.9))"/></svg>
-            <div class="nova-tunnel-glow"></div><div class="nova-tunnel-core"></div>
-            <span class="nova-crystal crystal-1" aria-hidden="true"></span><span class="nova-crystal crystal-2" aria-hidden="true"></span><span class="nova-crystal crystal-3" aria-hidden="true"></span><span class="nova-crystal crystal-4" aria-hidden="true"></span><span class="nova-crystal crystal-5" aria-hidden="true"></span><span class="nova-crystal crystal-6" aria-hidden="true"></span><span class="nova-crystal crystal-7" aria-hidden="true"></span><span class="nova-crystal crystal-8" aria-hidden="true"></span>
-            <span class="nova-rock rock-1" aria-hidden="true"></span><span class="nova-rock rock-2" aria-hidden="true"></span><span class="nova-rock rock-3" aria-hidden="true"></span><span class="nova-rock rock-4" aria-hidden="true"></span>
-            <article class="nova-roadmap-item ready right"><div class="nova-roadmap-card"><div class="nova-roadmap-number">01</div><div class="nova-roadmap-info"><span class="nova-roadmap-status ready-status">● LISTO</span><h4>VOZ</h4><p>Sistema de interacción mediante voz para recibir instrucciones y responder de forma natural.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item ready left"><div class="nova-roadmap-card"><div class="nova-roadmap-number">02</div><div class="nova-roadmap-info"><span class="nova-roadmap-status ready-status">● LISTO</span><h4>VISIÓN</h4><p>Uso de cámara para observar el entorno, identificar objetos y obtener información sobre lo que NOVA está viendo.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item ready right"><div class="nova-roadmap-card"><div class="nova-roadmap-number">03</div><div class="nova-roadmap-info"><span class="nova-roadmap-status ready-status">● LISTO</span><h4>BÚSQUEDA WEB</h4><p>Capacidad de consultar información actualizada mediante búsqueda web y utilizarla como contexto.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item locked left"><div class="nova-roadmap-card"><div class="nova-roadmap-number">04</div><div class="nova-roadmap-info"><span class="nova-roadmap-status locked-status">● ?</span><h4>MEMORIA</h4><p>Sistema para conservar información, contexto y datos relevantes entre diferentes interacciones.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item locked right"><div class="nova-roadmap-card"><div class="nova-roadmap-number">05</div><div class="nova-roadmap-info"><span class="nova-roadmap-status locked-status">● ?</span><h4>PERSONALIDAD</h4><p>Definición del comportamiento, identidad y forma de interacción característica de NOVA.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item locked left"><div class="nova-roadmap-card"><div class="nova-roadmap-number">06</div><div class="nova-roadmap-info"><span class="nova-roadmap-status locked-status">● ?</span><h4>CONTROL</h4><p>Capacidad futura para interactuar con aplicaciones, dispositivos y diferentes funciones del ordenador.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item locked right"><div class="nova-roadmap-card"><div class="nova-roadmap-number">07</div><div class="nova-roadmap-info"><span class="nova-roadmap-status locked-status">● ?</span><h4>INTEGRACIÓN</h4><p>Integración de voz, visión, memoria y herramientas dentro de un único sistema.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item locked left"><div class="nova-roadmap-card"><div class="nova-roadmap-number">08</div><div class="nova-roadmap-info"><span class="nova-roadmap-status locked-status">● ?</span><h4>INTERFAZ</h4><p>Evolución de la interfaz visual para convertir a NOVA en una experiencia más completa e interactiva.</p></div></div><div class="nova-node"><span></span></div></article>
-            <article class="nova-roadmap-item locked right final-node"><div class="nova-roadmap-card"><div class="nova-roadmap-number">09</div><div class="nova-roadmap-info"><span class="nova-roadmap-status locked-status">● ?</span><h4>NOVA CORE</h4><p>El punto donde todas las capacidades convergen para formar el sistema completo de NOVA.</p></div></div><div class="nova-node"><span></span></div></article>
-            <div class="nova-core"><div class="nova-core-ring ring-1"></div><div class="nova-core-ring ring-2"></div><div class="nova-core-ring ring-3"></div><div class="nova-core-center">N</div><span class="nova-core-label"></span></div>
+          <div class=home-news-list>
+            <article class=home-news-item>
+              <div class=home-news-date><strong>01</strong><span>OCT<br>2026</span></div>
+              <div class=home-news-body><span class="home-news-tag cuenta">CUENTA</span>
+                <h3>Nueva interfaz de cuenta</h3>
+                <p> El sitio ahora cuenta con un panel de usuario para consultar la sesión activa y acceder rápidamente
+                  a los servicios. </p>
+              </div><span class=home-news-status>NUEVO</span>
+            </article>
+            <article class=home-news-item>
+              <div class=home-news-date><strong>02</strong><span>OCT<br>2026</span></div>
+              <div class=home-news-body><span class="home-news-tag sync">SYNC DRIVE PRO</span>
+                <h3>Integración con cuentas en desarrollo</h3>
+                <p> SyncDrive Pro se prepara para utilizar la misma sesión de usuario del sitio principal. </p>
+              </div><span class=home-news-status>EN DESARROLLO</span>
+            </article>
+            <article class=home-news-item>
+              <div class=home-news-date><strong>03</strong><span>OCT<br>2026</span></div>
+              <div class=home-news-body><span class="home-news-tag pedidos">PEDIDOS 3D</span>
+                <h3>Descargas próximamente</h3>
+                <p> Las versiones para Windows y Android continúan en preparación para su próxima publicación. </p>
+              </div><span class=home-news-status>PRÓXIMAMENTE</span>
+            </article>
+            <article class=home-news-item>
+              <div class=home-news-date><strong>04</strong><span>OCT<br>2026</span></div>
+              <div class=home-news-body><span class="home-news-tag nova">NOVA</span>
+                <h3>El desarrollo continúa</h3>
+                <p> NOVA continúa avanzando en sus sistemas de voz, visión, memoria y búsqueda web. </p>
+              </div><span class=home-news-status>EN DESARROLLO</span>
+            </article>
           </div>
-          <div class="nova-roadmap-footer"><span>03 DE 09 SISTEMAS ACTIVOS</span><span>SISTEMA EN DESARROLLO</span></div>
-          <div class="nova-finale"><div class="nova-finale-inner"><div class="nova-finale-tag">// FIN DEL MAPEO</div><h2 class="nova-finale-title">LA MINA SIGUE<br><span>PROFUNDIZANDO</span></h2><p class="nova-finale-desc">NOVA no está terminada. Cada sistema desbloqueado expande su capacidad de pensar, recordar y crear.</p><div class="nova-finale-stats"><div><b>09</b><i>SISTEMAS TOTALES</i></div><div><b>03</b><i>ACTIVOS</i></div><div><b>06</b><i>EN EXCAVACIÓN</i></div></div><div class="nova-finale-bar"><span></span></div></div></div>
         </section>
       </div>
-      
-    
-        </section> <!-- CIERRE NOVA -->
-
-    <!-- CALCULADORA 3D - 04 - FUERA DE NOVA -->
-        <section id="calculadora" class="site-view calculadora-view" data-view="calculadora">
-  <div class="calc-container">
-    <div class="calc-form">
-      <span class="calc-badge">● ONLINE — BETA ABIERTA</span>
-      <h2>CALCULADORA <span>3D</span></h2>
-      <p class="sub">Calcula el costo real de tu impresión.</p>
-      <div class="calc-grid">
-        <div class="calc-input"><label>GRAMOS USADOS (g)</label><input type="number" id="calcGramos" value="100"></div>
-        <div class="calc-input"><label>PRECIO FILAMENTO / KG ($)</label><input type="number" id="calcPrecioKg" value="25000"></div>
-        <div class="calc-input"><label>HORAS DE IMPRESIÓN</label><input type="number" id="calcHoras" value="5"></div>
-        <div class="calc-input"><label>COSTO LUZ / HORA ($)</label><input type="number" id="calcLuz" value="150"></div>
-        <div class="calc-input"><label>% DESGASTE</label><input type="number" id="calcDesgaste" value="10"></div>
-        <div class="calc-input"><label>MARGEN GANANCIA %</label><input type="number" id="calcMargen" value="150"></div>
+    </section>
+    <section id=pedidos3d class="site-view pedidos-view" data-view=pedidos3d>
+      <div class=p3d-local-nav><a href=#inicio data-section=inicio class=p3d-local-logo>
+          <div class=p3d-badge>P3D</div><span>PEDIDOS 3D</span>
+        </a>
+        <nav class=p3d-local-links><a href=#pedidos-inicio>INICIO</a><a href=#pedidos-nosotros>SOBRE NOSOTROS</a><a
+            href=#pedidos-caracteristicas>CARACTERÍSTICAS</a><a href=#pedidos-descarga>DESCARGA</a></nav><a
+          href=#pedidos-descarga class=p3d-local-download> DESCARGAR </a>
       </div>
-      <div class="calc-input"><label>MANO DE OBRA ($)</label><input type="number" id="calcMano" value="2000"></div>
-    </div>
-    <div class="calc-result">
-      <h3>RESUMEN DE COSTO</h3>
-      <div class="calc-line"><span>Filamento</span><b id="resFilamento">$2.500</b></div>
-      <div class="calc-line"><span>Electricidad</span><b id="resLuz">$750</b></div>
-      <div class="calc-line"><span>Desgaste</span><b id="resDesgaste">$325</b></div>
-      <div class="calc-line"><span>Mano de obra</span><b id="resMano">$2.000</b></div>
-      <div class="calc-line total"><span>COSTO TOTAL</span><b id="resTotal">$5.575</b></div>
-      <div class="calc-line ganancia"><span>PRECIO VENTA</span><b id="resVenta">$13.937</b></div>
-      <button class="calc-btn">GUARDAR COMO PEDIDO →</button>
-    </div>
-  </div>
-</section>
-<!-- =========================================================
-     SYNC DRIVE PRO
-     ========================================================= -->
+      <section class="hero pedidos-hero" id=pedidos-inicio>
+        <div class=hero-content>
+          <div class=vintage-label> ✦ GESTIÓN • IMPRESIÓN 3D • 2026 ✦ </div>
+          <h1><span>ORGANIZA.</span><strong>PEDIDOS 3D</strong><span>CONTROLA. CRECE.</span></h1>
+          <div class=divider><span></span>◆<span></span></div>
+          <p class=hero-subtitle> La herramienta creada para ayudar a negocios de impresión 3D a organizar sus pedidos,
+            controlar sus trabajos y mejorar su eficiencia. </p>
+          <div class=hero-buttons><a href=#pedidos-descarga class=download-btn><span
+                class=download-icon>↓</span><span><small>SOFTWARE PARA IMPRESIÓN 3D</small> DESCARGA AQUÍ </span></a><a
+              href=#pedidos-caracteristicas class=secondary-btn> CONOCER LA APP </a></div>
+          <div class=platform> DISPONIBLE PARA PC WINDOWS Y ANDROID </div>
+        </div>
+        <div class=hero-decoration>
+          <div class=p3d-mockup>
+            <div class=mockup-bar><span></span><span></span><span></span></div>
+            <div class=mockup-title> PEDIDOS 3D — PANEL </div>
+            <div class="mockup-row head"><span>PEDIDO</span><span>ESTADO</span></div>
+            <div class=mockup-row><span>#1024 - Groot</span><b class=st-ready>● Listo</b></div>
+            <div class=mockup-row><span>#1025 - Llaveros x20</span><b class=st-prod>● En producción</b></div>
+            <div class=mockup-row><span>#1026 - Pieza motor</span><b class=st-pend>● Pendiente</b></div>
+            <div class=mockup-foot> 3 PEDIDOS ACTIVOS </div>
+          </div>
+        </div>
+      </section>
+      <div class=ornament><span></span>
+        <div>✦</div><span></span>
+      </div>
+      <section class="about section" id=pedidos-nosotros>
+        <div class=section-heading><span class=section-number>01</span>
+          <div>
+            <p class=eyebrow>SOBRE NOSOTROS</p>
+            <h2>LA HERRAMIENTA QUE TU TRABAJO NECESITA</h2>
+          </div>
+        </div>
+        <div class=about-grid>
+          <div class=about-text>
+            <p> Pedidos 3D nació para resolver un problema común en el sector de la fabricación aditiva: la falta de una
+              herramienta sencilla, directa y enfocada en la gestión real de pedidos. </p>
+            <p> Nuestra aplicación permite organizar tus pedidos en un solo lugar, ayudándote a mantener una visión
+              clara de lo que tienes pendiente, lo que está en producción y lo que ya está listo. </p>
+            <div class=quote><span>“</span> TU NEGOCIO.<br> TU PRODUCCIÓN.<br> TU CONTROL. </div>
+          </div>
+          <div class=about-stamp>
+            <div class=stamp-inner><span>DISEÑADO PARA</span><strong>P3D</strong><small>IMPRESIÓN
+                3D</small><span>2026</span></div>
+          </div>
+        </div>
+      </section>
+      <section class=book-tutorial-section id=pedidos-tutorial>
+        <p class=eyebrow>TUTORIAL INTERACTIVO</p>
+        <h2>CÓMO FUNCIONA</h2>
+        <p class=book-hint> Haz click en la tapa para abrir / cerrar </p>
+        <div class=book-scene>
+          <div class=book id=p3dBook>
+            <div class=bpage data-i=8>
+              <div class=page-inner>
+                <h3>8. Beta filamentos</h3>
+                <div class=beta-mini><input id=betaInput2 placeholder="Ej: PLA Rojo"><button
+                    id=betaAdd2>Agregar</button>
+                  <ul id=betaList2></ul>
+                </div>
+                <div class=book-nav><button class=prevB>← Anterior</button><span>8 / 8</span></div>
+              </div>
+            </div>
+            <div class=bpage data-i=7>
+              <div class=page-inner>
+                <h3>7. Control de stock</h3>
+                <p> Registra rollos, peso y color. Te avisa cuando queda poco. </p>
+                <div class=demo-box> PLA Negro: <b>320g</b> restantes<br><small>⚠️ Stock bajo</small></div>
+                <div class=book-nav><button class=prevB>← Anterior</button><span>7 / 8</span><button
+                    class=nextB>Siguiente →</button></div>
+              </div>
+            </div>
+            <div class=bpage data-i=6>
+              <div class=page-inner>
+                <h3>6. Tipos de filamento</h3>
+                <p> PLA, PETG, ASA, TPU. Cada uno con temperatura ideal. </p>
+                <div class=demo-box> PLA: 200°C | PETG: 240°C | ASA: 250°C </div>
+                <div class=book-nav><button class=prevB>← Anterior</button><span>6 / 8</span><button
+                    class=nextB>Siguiente →</button></div>
+              </div>
+            </div>
+            <div class=bpage data-i=5>
+              <div class=page-inner>
+                <h3>5. Filamentos</h3>
+                <p> Gestiona tus materiales y asigna a cada pedido. </p>
+                <div class=demo-box> Material: <b>PETG Azul</b></div>
+                <div class=book-nav><button class=prevB>← Anterior</button><span>5 / 8</span><button
+                    class=nextB>Siguiente →</button></div>
+              </div>
+            </div>
+            <div class=bpage data-i=4>
+              <div class=page-inner>
+                <h3>4. Pruébalo aquí</h3>
+                <div class=beta-mini><input id=betaInput placeholder="Ej: Llavero Pikachu"><button
+                    id=betaAdd>Agregar</button>
+                  <ul id=betaList></ul>
+                </div>
+                <div class=book-nav><button class=prevB>← Anterior</button><span>4 / 8</span><button
+                    class=nextB>Siguiente →</button></div>
+              </div>
+            </div>
+            <div class=bpage data-i=3>
+              <div class=page-inner>
+                <h3>3. Calcula y entrega</h3>
+                <p> Usa la <b>Calculadora 3D</b> para costos. </p>
+                <div class=demo-box> Costo: $4.200 → Precio: $15.000 </div>
+                <div class=book-nav><button class=prevB>← Anterior</button><span>3 / 8</span><button
+                    class=nextB>Siguiente →</button></div>
+              </div>
+            </div>
+            <div class=bpage data-i=2>
+              <div class=page-inner>
+                <h3>2. Asigna material</h3>
+                <p> Elige material y pon <b>En producción</b>. </p>
+                <div class=demo-box> Material: <b>PLA Negro</b></div>
+                <div class=book-nav><button class=prevB>← Anterior</button><span>2 / 8</span><button
+                    class=nextB>Siguiente →</button></div>
+              </div>
+            </div>
+            <div class=bpage data-i=1>
+              <div class=page-inner>
+                <h3>1. Registra el pedido</h3>
+                <p> Ve a <b>Pedidos 3D</b> → <b>+ Nuevo</b>. </p>
+                <div class=demo-box> Cliente: Juan | Pieza: Groot | $15.000 </div>
+                <div class=book-nav><button class=prevB>← Índice</button><span>1 / 8</span><button class=nextB>Siguiente
+                    →</button></div>
+              </div>
+            </div>
+            <div class=bpage data-i=0>
+              <div class="page-inner index-page">
+                <h3>ÍNDICE</h3><button class=idx-btn data-goto=1><b>1 - 4</b><span>Pedidos: registrar, producir,
+                    entregar + beta</span><i>→</i></button><button class=idx-btn data-goto=5><b>5 -
+                    8</b><span>Filamentos: tipos, stock y control</span><i>→</i></button>
+                <div class=book-nav><span>Índice</span><button class=nextB>Empezar →</button></div>
+              </div>
+            </div>
+            <div class=book-cover id=bookCover>
+              <div class=cover-p3d>P3D</div>
+              <div class=cover-title> MANUAL<br> RÁPIDO </div>
+              <div class=cover-click> PROXIMAMENTE </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="features section" id=pedidos-caracteristicas>
+        <div class="section-heading centered"><span class=section-number>02</span>
+          <div>
+            <p class=eyebrow>TODO EN UN SOLO LUGAR</p>
+            <h2>CARACTERÍSTICAS PRINCIPALES</h2>
+          </div>
+        </div>
+        <div class=features-grid>
+          <article class=feature-card>
+            <div class=feature-number>01</div>
+            <div class=feature-icon>📋</div>
+            <h3>GESTIÓN DE PEDIDOS</h3>
+            <p> Registra y organiza tus pedidos de impresión 3D para mantener toda la información importante en un solo
+              lugar. </p>
+          </article>
+          <article class="feature-card featured">
+            <div class=feature-number>02</div>
+            <div class=feature-icon>◆</div>
+            <h3>CONTROL DE PRODUCCIÓN</h3>
+            <p> Visualiza fácilmente qué pedidos están pendientes, en producción o listos para entregar. </p>
+          </article>
+          <article class=feature-card>
+            <div class=feature-number>03</div>
+            <div class=feature-icon>🧵</div>
+            <h3>GESTIÓN DE MATERIALES</h3>
+            <p> Registra materiales como PLA, PETG y ASA, además del color utilizado en cada pedido. </p>
+          </article>
+          <article class=feature-card>
+            <div class=feature-number>04</div>
+            <div class=feature-icon>$</div>
+            <h3>CONTROL DE PRECIOS</h3>
+            <p> Lleva un mejor control del valor de tus trabajos y de la información económica asociada a ellos. </p>
+          </article>
+          <article class=feature-card>
+            <div class=feature-number>05</div>
+            <div class=feature-icon>⚙</div>
+            <h3>CALCULADORA 3D</h3>
+            <p> Calcula costes de impresión considerando materiales, tiempo, electricidad, desgaste y otros factores.
+            </p>
+          </article>
+          <article class=feature-card>
+            <div class=feature-number>06</div>
+            <div class=feature-icon>📱</div>
+            <h3>MULTIPLATAFORMA</h3>
+            <p> Utiliza Pedidos 3D en tu ordenador o dispositivo móvil según las necesidades de tu taller. </p>
+          </article>
+        </div>
+      </section>
+      <section class="download-section section" id=pedidos-descarga>
+        <style>
+          .wrap-3d {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 20px;
+          }
 
-<section id="syncdrive" class="site-view syncdrive-view" data-view="syncdrive">
+          .grid-requisitos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 30px 0 70px 0;
+          }
 
-    <div class="syncdrive-container">
+          .grid-pasos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 50px;
+          }
 
-        <iframe
-            id="syncDriveFrame"
-            src="./syncdrive/index.html"
-            title="SyncDrive Pro"
-            loading="lazy"
-        ></iframe>
+          .box-dark {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: left;
+          }
 
-    </div>
+          .box-dark.gold {
+            border-color: #FFC10766;
+          }
 
-</section>
-  <footer class="site-footer"><div class="footer-inner"><div class="footer-top"><div class="footer-brand"><div class="footer-logo"><span class="logo-badge">P3D</span><span>PROYECTOS</span></div><p>Proyectos, tecnología y creación.<br>Diseñamos el futuro en 3D.</p></div><div class="footer-col"><h4>NAVEGACIÓN</h4><a href="#inicio">Inicio</a><a href="#pedidos">Pedidos 3D</a><a href="#nova">Nova</a></div><div class="footer-col"><h4>SERVICIOS</h4><a href="#">Impresión 3D</a><a href="#">Diseño a medida</a><a href="#">Prototipado</a><a href="#">Cotizar proyecto</a></div><div class="footer-col legal-simple"><h4>LEGAL</h4><a href="#" id="open-terms">Términos</a><a href="#" id="open-privacy">Privacidad</a><button id="open-cookies" class="link-btn">Cookies</button></div></div><div class="footer-bottom"><span class="footer-shine">© 2026 PROYECTOS</span><span class="footer-extra">MADE IN CHILE • v1.0</span><span class="footer-shine soft">PEDIDOS 3D • NOVA</span></div></div></footer>
-  <div id="cookie-banner"><p>Usamos cookies para mejorar tu experiencia. ¿Deseas aceptarlas?</p><div><button id="accept-cookies">Aceptar</button><button id="reject-cookies" class="ghost">Rechazar</button></div></div>
-    <div id="spa-terms" class="spa-page">...</div>
-  <div id="spa-privacy" class="spa-page">...</div>
+          .kicker {
+            color: #FFC107;
+            font-weight: 900;
+            font-size: 11px;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+          }
 
-  <!-- SPA AUTH VA ANTES DE LOS SCRIPTS -->
-   <div id="spa-auth" class="spa-page auth-spa">
-    <button class="spa-back">← Volver</button>
-    <div class="lamp-container">
-      <div class="lamp-wire"></div>
-      <div class="lamp-shade"><span></span></div>
-      <div class="light-cone"></div>
-      <div class="light-glow"></div>
+          .box-dark p {
+            font-size: 12px;
+            color: #999;
+            line-height: 1.4;
+            margin: 0;
+          }
+
+          #tit-pasos {
+            text-align: center;
+            color: #FFC107;
+            font-size: 28px;
+            font-weight: 900;
+            margin: 0 0 8px 0;
+          }
+
+          #sub-pasos {
+            text-align: center;
+            color: #666;
+            font-size: 13px;
+            margin: 0 0 30px 0;
+          }
+
+          .card-paso {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 14px;
+            padding: 16px;
+            text-align: left;
+            transition: .2s;
+          }
+
+          .card-paso:hover {
+            border-color: #FFC10755;
+            transform: translateY(-3px);
+          }
+
+          .card-paso:last-child {
+            border-color: #FFC107;
+          }
+
+          .head-paso {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+          }
+
+          .num {
+            background: #FFC107;
+            color: #000;
+            font-weight: 900;
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+          }
+
+          .card-paso h4 {
+            margin: 0;
+            font-size: 13px;
+            color: #fff;
+          }
+
+          .card-paso p {
+            font-size: 11.5px;
+            color: #888;
+            margin: 0;
+            line-height: 1.3;
+            min-height: 32px;
+          }
+
+          .card-paso img {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 12px;
+            border: 1px solid #2a2a2a;
+            display: block;
+            cursor: zoom-in;
+            transition: .2s;
+          }
+
+          .card-paso img:hover {
+            border-color: #FFC107;
+            transform: scale(1.02);
+          }
+
+          .tag {
+            display: inline-block;
+            margin-top: 10px;
+            background: #FFC10722;
+            color: #FFC107;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 5px 10px;
+            border-radius: 20px;
+          }
+
+          @media(max-width: 900px) {
+            .grid-requisitos {
+              grid-template-columns: 1fr;
+            }
+
+            .grid-pasos {
+              grid-template-columns: repeat(2, 1fr);
+            }
+          }
+
+          @media(max-width: 520px) {
+            .grid-pasos {
+              grid-template-columns: 1fr;
+            }
+          }
+        </style>
+        <div class=wrap-3d>
+          <div style=text-align:center;>
+            <div class=download-badge>✦ DESCARGA ✦</div>
+            <p class=eyebrow>OBTÉN LA APLICACIÓN</p>
+            <h2>LISTO PARA ORGANIZAR<br><span>NUESTRA APP?</span></h2>
+            <div class=divider><span></span>◆<span></span></div>
+            <p class=download-description style="max-width:600px; margin: 0 auto;">Descargar Pedidos 3D es sencillo.
+              Nuestra aplicación se distribuye mediante GitHub Releases, donde encontrarás las versiones disponibles.
+            </p>
+          </div>
+          <div class=grid-requisitos>
+            <div class="box-dark gold">
+              <div class=kicker>01 &nbsp; REVISA LOS REQUISITOS</div>
+              <p>Asegúrate de contar con Windows 10/11 o Android 8.0+</p>
+            </div>
+            <div class="box-dark gold">
+              <div class=kicker>02 &nbsp; VE A GITHUB RELEASES</div>
+              <p>Serás dirigido a la página oficial de versiones de Pedidos 3D.</p>
+            </div>
+            <div class="box-dark gold">
+              <div class=kicker>03 &nbsp; DESCARGA LA VERSIÓN</div>
+              <p>Selecciona el archivo correspondiente y comienza a utilizar Pedidos 3D.</p>
+            </div>
+          </div>
+          <h2 id=tit-pasos>INSTALACIÓN EN 4 PASOS</h2>
+          <p id=sub-pasos>Click en la imagen para agrandar — el aviso de Windows es normal</p>
+          <div class=grid-pasos>
+            <div class=card-paso>
+              <div class=head-paso>
+                <div class=num>1</div>
+                <h4>Descarga el .exe</h4>
+              </div>
+              <p>Arriba a la derecha en Chrome aparece la descarga.</p><img src=paso1.png class=zoomable><span
+                class=tag>CLICK EN EL ARCHIVO</span>
+            </div>
+            <div class=card-paso>
+              <div class=head-paso>
+                <div class=num>2</div>
+                <h4>Windows protege</h4>
+              </div>
+              <p>Ventana azul es normal, no es virus.</p><img src=paso2.png class=zoomable><span class=tag>CLICK EN MÁS
+                INFORMACIÓN</span>
+            </div>
+            <div class=card-paso>
+              <div class=head-paso>
+                <div class=num>3</div>
+                <h4>Ejecutar igual</h4>
+              </div>
+              <p>Ahora sí te deja instalarlo.</p><img src=paso3.png class=zoomable><span class=tag>EJECUTAR DE TODAS
+                FORMAS</span>
+            </div>
+            <div class=card-paso>
+              <div class=head-paso>
+                <div class=num style=background:#fff;>✓</div>
+                <h4>¡Listo!</h4>
+              </div>
+              <p>Se abre directo y puedes crear tu pedido.</p><img src=paso4.png class=zoomable><span class=tag
+                style=background:#FFC107;color:#000;>+ NUEVO PEDIDO</span>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class=big-download><span>✦</span> PRÓXIMAMENTE </div>
+        <div class=platform-download-area id=descarga>
+          <div class=platform-download-heading>
+            <p class=eyebrow>PRÓXIMAMENTE</p>
+            <h3>DESCARGA DIRECTA</h3>
+            <p> Las versiones para cada plataforma estarán disponibles próximamente. </p>
+          </div>
+          <div class=download-platforms>
+            <article class="download-card recommended" id=card-windows data-platform=windows>
+              <div class=recommended-badge>PRÓXIMAMENTE</div>
+              <div class=platform-icon>PC</div>
+              <h3>PC WINDOWS</h3>
+              <p class=platform-version>Windows 10 / 11</p>
+              <p class=platform-size>64 bits</p>
+              <div class=download-platform-btn> PRÓXIMAMENTE </div>
+            </article>
+            <article class=download-card id=card-android data-platform=android>
+              <div class=recommended-badge>PRÓXIMAMENTE</div>
+              <div class=platform-icon>APK</div>
+              <h3>ANDROID</h3>
+              <p class=platform-version>Android 8.0+</p>
+              <p class=platform-size>APK</p>
+              <div class=download-platform-btn> PRÓXIMAMENTE </div>
+            </article>
+          </div>
+          <p class=download-help> Las descargas estarán disponibles próximamente. </p>
+          <footer class=footer-min>
+            <p>© 2026 NOVA - Todos los derechos reservados</p>
+            <p>Desarrollado por HagChief | Pedidos 3D &amp; NOVA</p>
+          </footer>
+        </div>
+        </div>
+      </section>
+    </section>
+    <section id=nova class="site-view nova-view" data-view=nova>
+      <div class="nova-light nova-light-red" aria-hidden=true></div>
+      <div class="nova-light nova-light-white" aria-hidden=true></div>
+      <div class=nova-container>
+        <div class=nova-eyebrow><span>PROYECTO 03</span><span class=nova-status>EN DESARROLLO</span></div>
+        <div class=nova-content>
+          <div class=nova-logo-area>
+            <div class=nova-symbol>N</div>
+          </div>
+          <div class=nova-text><span class=eyebrow>ASISTENTE VIRTUAL</span>
+            <h1>NOVA</h1>
+            <h2> UNA NUEVA FORMA<br> DE INTERACTUAR. </h2>
+            <p> NOVA es un proyecto de asistente virtual en desarrollo, creado para combinar inteligencia artificial,
+              voz, visión y una interfaz propia. </p>
+            <p> La idea es construir un sistema capaz de comprender el entorno, interactuar mediante voz, recordar
+              información y convertirse en una herramienta personal. </p>
+            <div class=nova-features>
+              <div class=nova-feature><span>01</span><strong>VOZ Y VISIÓN</strong></div>
+              <div class=nova-feature><span>02</span><strong>INTEGRACIÓN</strong></div>
+              <div class=nova-feature><span>03</span><strong>MEMORIA</strong></div>
+              <div class=nova-feature><span>04</span><strong>CONTROL</strong></div>
+            </div>
+            <div class=nova-coming-soon> ESTADO DE DESARROLLO: <strong>PRÓXIMAMENTE</strong></div>
+          </div>
+        </div>
+        <div class=nova-mision-wrap><span class=tag> PROYECTO INTERNO — OPEN SOURCE </span>
+          <h2> NOVA NO ES UN PRODUCTO.<br> ES MI <span>COMPAÑERA DE TALLER.</span></h2>
+          <p> NOVA nació porque programar todo esto solo es imposible. Necesitaba alguien que me ayudara a investigar a
+            las 3 AM, que revisara mi código y que viera mi pantalla y me dijera "aquí está el error". </p>
+          <p><strong>Nuestra misión es simple:</strong> Construir una inteligencia local, que viva en mi PC sin depender
+            de la nube, que aprenda cómo trabajo y que me permita construir Pedidos 3D y futuros proyectos 10 veces más
+            rápido. No para reemplazarme, sino para potenciarme. </p>
+          <p><strong>Y no será solo mía.</strong> NOVA será <strong>Open Source</strong>. Cualquiera que quiera podrá
+            probar, mejorar, adaptar y llevarla a su propio taller. Quiero que sea una herramienta de makers, para
+            makers. Mi código, tu taller. </p>
+          <div class=nova-obj>
+            <div><b>01</b><span>INVESTIGAR</span>
+              <p> Que busque docs, lea foros y me traiga la respuesta sin que yo pierda 2 horas. </p>
+            </div>
+            <div><b>02</b><span>PROGRAMAR</span>
+              <p> Que vea mi código, encuentre bugs y programe conmigo como un segundo cerebro. </p>
+            </div>
+            <div><b>03</b><span>OPEN SOURCE</span>
+              <p> Que cualquiera pueda clonarla, mejorarla y adaptarla a su forma de trabajar. Sin candados. </p>
+            </div>
+          </div>
+        </div>
+        <div class=nova-descent>
+          <div class=nova-descent-line></div><span>DESCENDIENDO AL NÚCLEO</span>
+          <div class=nova-descent-line></div>
+        </div>
+        <div class=nova-journey-intro><span class=nova-journey-line></span><span class=nova-journey-line></span></div>
+        <section class=nova-roadmap>
+          <div class=nova-roadmap-header>
+            <div><span class=nova-roadmap-kicker> NOVA DEVELOPMENT PATH </span>
+              <h3>EL CAMINO DE NOVA</h3>
+              <p> Cada módulo representa una parte del sistema. Los componentes activos muestran el estado actual del
+                desarrollo. </p>
+            </div>
+            <div class=nova-roadmap-progress><span>PROGRESO</span><strong><b>03</b> / 09 </strong>
+              <div class=nova-progress-track>
+                <div class=nova-progress-fill style=width:33.333%;></div>
+              </div>
+            </div>
+          </div>
+          <div class=nova-mine><svg class=nova-svg-line preserveaspectratio=none>
+              <polyline id=novaPoly fill=none stroke=#ff1010 stroke-width=3
+                style="filter:drop-shadow(0 0 6px rgba(255,16,16,.9))" />
+            </svg>
+            <div class=nova-tunnel-glow></div>
+            <div class=nova-tunnel-core></div><span class="nova-crystal crystal-1" aria-hidden=true></span><span
+              class="nova-crystal crystal-2" aria-hidden=true></span><span class="nova-crystal crystal-3"
+              aria-hidden=true></span><span class="nova-crystal crystal-4" aria-hidden=true></span><span
+              class="nova-crystal crystal-5" aria-hidden=true></span><span class="nova-crystal crystal-6"
+              aria-hidden=true></span><span class="nova-crystal crystal-7" aria-hidden=true></span><span
+              class="nova-crystal crystal-8" aria-hidden=true></span><span class="nova-rock rock-1"
+              aria-hidden=true></span><span class="nova-rock rock-2" aria-hidden=true></span><span
+              class="nova-rock rock-3" aria-hidden=true></span><span class="nova-rock rock-4" aria-hidden=true></span>
+            <article class="nova-roadmap-item ready right">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>01</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status ready-status">● LISTO</span>
+                  <h4>VOZ</h4>
+                  <p> Sistema de interacción mediante voz para recibir instrucciones y responder de forma natural. </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item ready left">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>02</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status ready-status">● LISTO</span>
+                  <h4>VISIÓN</h4>
+                  <p> Uso de cámara para observar el entorno, identificar objetos y obtener información sobre lo que
+                    NOVA está viendo. </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item ready right">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>03</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status ready-status">● LISTO</span>
+                  <h4>BÚSQUEDA WEB</h4>
+                  <p> Capacidad de consultar información actualizada mediante búsqueda web y utilizarla como contexto.
+                  </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item locked left">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>04</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status locked-status">● ?</span>
+                  <h4>MEMORIA</h4>
+                  <p> Sistema para conservar información, contexto y datos relevantes entre diferentes interacciones.
+                  </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item locked right">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>05</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status locked-status">● ?</span>
+                  <h4>PERSONALIDAD</h4>
+                  <p> Definición del comportamiento, identidad y forma de interacción característica de NOVA. </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item locked left">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>06</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status locked-status">● ?</span>
+                  <h4>CONTROL</h4>
+                  <p> Capacidad futura para interactuar con aplicaciones, dispositivos y diferentes funciones del
+                    ordenador. </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item locked right">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>07</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status locked-status">● ?</span>
+                  <h4>INTEGRACIÓN</h4>
+                  <p> Integración de voz, visión, memoria y herramientas dentro de un único sistema. </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item locked left">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>08</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status locked-status">● ?</span>
+                  <h4>INTERFAZ</h4>
+                  <p> Evolución de la interfaz visual para convertir a NOVA en una experiencia más completa e
+                    interactiva. </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <article class="nova-roadmap-item locked right final-node">
+              <div class=nova-roadmap-card>
+                <div class=nova-roadmap-number>09</div>
+                <div class=nova-roadmap-info><span class="nova-roadmap-status locked-status">● ?</span>
+                  <h4>NOVA CORE</h4>
+                  <p> El punto donde todas las capacidades convergen para formar el sistema completo de NOVA. </p>
+                </div>
+              </div>
+              <div class=nova-node><span></span></div>
+            </article>
+            <div class=nova-core>
+              <div class="nova-core-ring ring-1"></div>
+              <div class="nova-core-ring ring-2"></div>
+              <div class="nova-core-ring ring-3"></div>
+              <div class=nova-core-center>N</div><span class=nova-core-label></span>
+            </div>
+          </div>
+          <div class=nova-roadmap-footer><span>03 DE 09 SISTEMAS ACTIVOS</span><span>SISTEMA EN DESARROLLO</span></div>
+          <div class=nova-finale>
+            <div class=nova-finale-inner>
+              <div class=nova-finale-tag>// FIN DEL MAPEO</div>
+              <h2 class=nova-finale-title> LA MINA SIGUE<br><span>PROFUNDIZANDO</span></h2>
+              <p class=nova-finale-desc> NOVA no está terminada. Cada sistema desbloqueado expande su capacidad de
+                pensar, recordar y crear. </p>
+              <div class=nova-finale-stats>
+                <div><b>09</b><i>SISTEMAS TOTALES</i></div>
+                <div><b>03</b><i>ACTIVOS</i></div>
+                <div><b>06</b><i>EN EXCAVACIÓN</i></div>
+              </div>
+              <div class=nova-finale-bar><span></span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+    <section id=calculadora class="site-view calculadora-view" data-view=calculadora>
+      <div class=calc-container>
+        <div class=calc-form><span class=calc-badge>● ONLINE — BETA ABIERTA</span>
+          <h2> CALCULADORA <span>3D</span></h2>
+          <p class=sub> Calcula el costo real de tu impresión. </p>
+          <div class=calc-grid>
+            <div class=calc-input><label>GRAMOS USADOS (g)</label><input type=number id=calcGramos value=100></div>
+            <div class=calc-input><label>PRECIO FILAMENTO / KG ($)</label><input type=number id=calcPrecioKg
+                value=25000></div>
+            <div class=calc-input><label>HORAS DE IMPRESIÓN</label><input type=number id=calcHoras value=5></div>
+            <div class=calc-input><label>COSTO LUZ / HORA ($)</label><input type=number id=calcLuz value=150></div>
+            <div class=calc-input><label>% DESGASTE</label><input type=number id=calcDesgaste value=10></div>
+            <div class=calc-input><label>MARGEN GANANCIA %</label><input type=number id=calcMargen value=150></div>
+          </div>
+          <div class=calc-input><label>MANO DE OBRA ($)</label><input type=number id=calcMano value=2000></div>
+        </div>
+        <div class=calc-result>
+          <h3>RESUMEN DE COSTO</h3>
+          <div class=calc-line><span>Filamento</span><b id=resFilamento>$2.500</b></div>
+          <div class=calc-line><span>Electricidad</span><b id=resLuz>$750</b></div>
+          <div class=calc-line><span>Desgaste</span><b id=resDesgaste>$325</b></div>
+          <div class=calc-line><span>Mano de obra</span><b id=resMano>$2.000</b></div>
+          <div class="calc-line total"><span>COSTO TOTAL</span><b id=resTotal>$5.575</b></div>
+          <div class="calc-line ganancia"><span>PRECIO VENTA</span><b id=resVenta>$13.937</b></div><button
+            class=calc-btn> GUARDAR COMO PEDIDO → </button>
+        </div>
+      </div>
+    </section>
+    <section id=syncdrive class="site-view syncdrive-view" data-view=syncdrive>
+      <div class=syncdrive-container><iframe id=syncDriveFrame src=./syncdrive/index.html title="SyncDrive Pro"
+          loading=lazy></iframe></div>
+    </section>
+    <footer class=site-footer>
+      <div class=footer-inner>
+        <div class=footer-top>
+          <div class=footer-brand>
+            <div class=footer-logo><span class=logo-badge>P3D</span><span>PROYECTOS</span></div>
+            <p> Proyectos, tecnología y creación.<br> Diseñamos el futuro en 3D. </p>
+          </div>
+          <div class=footer-col>
+            <h4>NAVEGACIÓN</h4><a href=#inicio>Inicio</a><a href=#pedidos3d>Pedidos 3D</a><a href=#nova>Nova</a>
+          </div>
+          <div class=footer-col>
+            <h4>SERVICIOS</h4><a href=#>Impresión 3D</a><a href=#>Diseño a medida</a><a href=#>Prototipado</a><a
+              href=#>Cotizar proyecto</a>
+          </div>
+          <div class="footer-col legal-simple">
+            <h4>LEGAL</h4><a href=# id=open-terms>Términos</a><a href=# id=open-privacy>Privacidad</a><button
+              id=open-cookies class=link-btn> Cookies </button>
+          </div>
+        </div>
+        <div class=footer-bottom><span class=footer-shine> © 2026 PROYECTOS </span><span class=footer-extra> MADE IN
+            CHILE • v1.0 </span><span class="footer-shine soft"> PEDIDOS 3D • NOVA </span></div>
+      </div>
+    </footer>
+  </main>
+  <div id=spa-auth class="spa-page auth-spa"><button class=spa-back> ← Volver </button>
+    <div class=lamp-container>
+      <div class=lamp-wire></div>
+      <div class=lamp-shade><span></span></div>
+      <div class=light-cone></div>
+      <div class=light-glow></div>
     </div>
     <div class="spa-inner auth-inner">
-      <div class="spa-badge">● CUENTA</div>
-      <h2 id="authTitle">LOGIN</h2>
-      <div class="spa-line"></div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" data-tab="login">Iniciar sesión</button>
-        <button class="auth-tab" data-tab="register">Registrarse</button>
-      </div>
-
-      <form class="auth-form active-form" id="form-login">
-        <div class="spa-card"><span>👤</span><input type="email" placeholder="Email" required></div>
-        <div class="spa-card">
-          <span>🔒</span>
-          <input type="password" placeholder="Contraseña" required id="pass-login">
-          <button type="button" class="toggle-pass" data-target="pass-login">👁️</button>
-        </div>
-        <button type="submit" class="calc-btn" style="width:100%; margin-top:10px;">ENTRAR →</button>
-        <p class="auth-hint">¿No tienes cuenta? <b data-switch="register">Regístrate</b></p>
+      <div class=spa-badge>● CUENTA</div>
+      <h2 id=authTitle>LOGIN</h2>
+      <div class=spa-line></div>
+      <div class=auth-tabs><button class="auth-tab active" data-tab=login> Iniciar sesión </button><button
+          class=auth-tab data-tab=register> Registrarse </button></div>
+      <form class="auth-form active-form" id=form-login>
+        <div class=spa-card><span>👤</span><input type=email placeholder=Email required></div>
+        <div class=spa-card><span>🔒</span><input type=password placeholder=Contraseña required id=pass-login><button
+            type=button class=toggle-pass data-target=pass-login> 👁️ </button></div><button type=submit class=calc-btn
+          style=width:100%;margin-top:10px;> ENTRAR → </button>
+        <p class=auth-hint> ¿No tienes cuenta? <b data-switch=register>Regístrate</b></p>
       </form>
-
-      <form class="auth-form" id="form-register">
-        <div class="spa-card"><span>✦</span><input type="text" placeholder="Nombre" required></div>
-        <div class="spa-card"><span>👤</span><input type="email" placeholder="Email" required></div>
-        <div class="spa-card">
-          <span>🔒</span>
-          <input type="password" placeholder="Contraseña" required id="pass-reg">
-          <button type="button" class="toggle-pass" data-target="pass-reg">👁️</button>
-        </div>
-        <button type="submit" class="calc-btn" style="width:100%; margin-top:10px; background:#fff; color:#000;">CREAR CUENTA →</button>
-        <p class="auth-hint">¿Ya tienes cuenta? <b data-switch="login">Inicia sesión</b></p>
+      <form class=auth-form id=form-register>
+        <div class=spa-card><span>✦</span><input type=text placeholder=Nombre required></div>
+        <div class=spa-card><span>👤</span><input type=email placeholder=Email required></div>
+        <div class=spa-card><span>🔒</span><input type=password placeholder=Contraseña required id=pass-reg><button
+            type=button class=toggle-pass data-target=pass-reg> 👁️ </button></div><button type=submit class=calc-btn
+          style=width:100%;margin-top:10px;background:#fff;color:#000;> CREAR CUENTA → </button>
+        <p class=auth-hint> ¿Ya tienes cuenta? <b data-switch=login>Inicia sesión</b></p>
       </form>
-
-      <p class="spa-foot">Acceso seguro • 2026</p>
+      <p class=spa-foot> Acceso seguro • 2026 </p>
     </div>
   </div>
-
-  <div id="lightbox"><img id="lightbox-img" src=""></div>
+  <div id=spa-account class="spa-page account-spa"><button class="spa-back account-back" type=button> ← Volver </button>
+    <div class=account-container>
+      <div class=account-header>
+        <div class=account-header-top>
+          <div class=account-badge> ● CUENTA ACTIVA </div><button type=button class=account-notification-btn
+            id=accountNotificationBtn aria-label=Notificaciones><span>♢</span><b id=notificationCount>0</b></button>
+        </div>
+        <div class=account-avatar id=accountAvatar> H </div>
+        <h2 id=accountName>HAG</h2>
+        <p id=accountEmail> usuario@email.com </p>
+      </div>
+      <div class=account-line></div>
+      <section class=account-section>
+        <div class=account-section-heading>
+          <div><span>RESUMEN</span>
+            <h3>MI ACTIVIDAD</h3>
+          </div><small>CUENTA PERSONAL</small>
+        </div>
+        <div class=account-stats>
+          <article class=account-stat><span class=account-stat-icon>📦</span>
+            <div><strong id=accountOrders>0</strong><span>PEDIDOS</span></div>
+          </article>
+          <article class=account-stat><span class=account-stat-icon>☁</span>
+            <div><strong id=accountFiles>0</strong><span>ARCHIVOS</span></div>
+          </article>
+          <article class=account-stat><span class=account-stat-icon>🧮</span>
+            <div><strong id=accountQuotes>0</strong><span>COTIZACIONES</span></div>
+          </article>
+          <article class=account-stat><span class=account-stat-icon>◷</span>
+            <div><strong id=accountSessions>1</strong><span>SESIÓN</span></div>
+          </article>
+        </div>
+      </section>
+      <section class=account-section>
+        <div class=account-grid>
+          <article class=account-card>
+            <div class=account-card-icon> 👤 </div>
+            <div class=account-card-content><span class=account-card-kicker> PERFIL </span>
+              <h3>MI CUENTA</h3>
+              <p> Gestiona tu sesión y la información básica de tu cuenta. </p><button type=button
+                class=account-inline-btn data-account-panel=profile> VER PERFIL → </button>
+            </div>
+          </article>
+          <article class="account-card account-card-sync">
+            <div class=account-card-icon> ☁ </div>
+            <div class=account-card-content><span class=account-card-kicker> NUBE </span>
+              <h3>SYNC DRIVE PRO</h3>
+              <p> Tus archivos y documentos, preparados para conectarse con tu cuenta. </p><a
+                href=https://hagchief13.github.io/SyncDrive-Pro/ class=account-action> ABRIR SYNC DRIVE → </a>
+            </div>
+          </article>
+          <article class=account-card>
+            <div class=account-card-icon> ● </div>
+            <div class=account-card-content><span class=account-card-kicker> ESTADO </span>
+              <h3>SESIÓN ACTIVA</h3>
+              <p id=accountStatus> Conectado correctamente. </p>
+            </div>
+          </article>
+          <article class=account-card>
+            <div class=account-card-icon> ⚙ </div>
+            <div class=account-card-content><span class=account-card-kicker> CONFIGURACIÓN </span>
+              <h3>PREFERENCIAS</h3>
+              <p> Personaliza las opciones de tu cuenta y las notificaciones. </p><button type=button
+                class=account-inline-btn data-account-panel=settings> CONFIGURAR → </button>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class=account-section>
+        <div class=account-section-heading>
+          <div><span>HISTORIAL</span>
+            <h3>ACTIVIDAD RECIENTE</h3>
+          </div>
+        </div>
+        <div class=account-activity id=accountActivity>
+          <div class=account-empty><span>◷</span>
+            <div><strong>Sin actividad registrada</strong>
+              <p> Tus próximas acciones aparecerán aquí. </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="account-section account-notifications-panel" id=accountNotifications>
+        <div class=account-section-heading>
+          <div><span>SISTEMA</span>
+            <h3>NOTIFICACIONES</h3>
+          </div>
+        </div>
+        <div class=account-notification-list>
+          <div class="account-notification empty-notification">
+            <div class=account-notification-icon> ✓ </div>
+            <div><strong>Todo está actualizado</strong>
+              <p> No tienes nuevas notificaciones. </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class=account-section>
+        <div class=account-section-heading>
+          <div><span>SEGURIDAD</span>
+            <h3>CUENTA Y ACCESO</h3>
+          </div>
+        </div>
+        <div class=account-security>
+          <div class=security-row>
+            <div><strong>Correo electrónico</strong><span id=securityEmail> Verificado según el estado de Supabase.
+              </span></div><span class=security-status> ● ACTIVO </span>
+          </div>
+          <div class=security-row>
+            <div><strong>Contraseña</strong><span> Gestionada de forma segura mediante Supabase Auth. </span></div>
+            <button type=button class=security-btn id=changePasswordBtn> CAMBIAR </button>
+          </div>
+        </div>
+      </section>
+      <section class=account-section>
+        <div class=account-section-heading>
+          <div><span>PERSONALIZACIÓN</span>
+            <h3>CONFIGURACIÓN</h3>
+          </div>
+        </div>
+        <div class=account-settings>
+          <div class=setting-row>
+            <div><strong>Novedades</strong><span> Mostrar nuevas actualizaciones del proyecto. </span></div><label
+              class=setting-switch><input type=checkbox id=settingNews checked><span></span></label>
+          </div>
+          <div class=setting-row>
+            <div><strong>Notificaciones</strong><span> Permitir avisos dentro del panel de cuenta. </span></div><label
+              class=setting-switch><input type=checkbox id=settingNotifications checked><span></span></label>
+          </div>
+          <div class=setting-row>
+            <div><strong>Animaciones</strong><span> Mantener los efectos visuales del sitio. </span></div><label
+              class=setting-switch><input type=checkbox id=settingAnimations checked><span></span></label>
+          </div>
+        </div>
+      </section><button id=accountLogout class=account-logout> CERRAR SESIÓN → </button>
+      <p class=account-footer> SUPABASE AUTH • SYNC DRIVE PRO • 2026 </p>
+    </div>
+  </div>
+  <div id=lightbox><img id=lightbox-img src alt></div>
+  <div id=cookie-banner style=display:none;>
+    <p> Usamos cookies para mejorar tu experiencia. ¿Deseas aceptarlas? </p>
+    <div><button id=accept-cookies> Aceptar </button><button id=reject-cookies class=ghost> Rechazar </button></div>
+  </div>
+  <div id=spa-terms class=spa-page> ... </div>
+  <div id=spa-privacy class=spa-page> ... </div>
   <script src="./script.js?v=98"></script>
-  
-  
+  <script>
+    const SUPABASE_URL =
+      "https://fjhnbrmrrdmygyazopge.supabase.co";
 
-<script>
-const SUPABASE_URL = "https://fjhnbrmrrdmygyazopge.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_S_onTmeswWlPZlFQeK72ww_sM6Wty2G";
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const SUPABASE_ANON_KEY =
+      "sb_publishable_S_onTmeswWlPZlFQeK72ww_sM6Wty2G";
 
-const authSpa = document.getElementById("spa-auth");
-const authTitle = document.getElementById("authTitle");
-const lamp = document.querySelector(".lamp-container");
-const menuAuthBtn = document.querySelector(".menu-auth-link span:last-child");
-const authMenuToggle = document.getElementById("menuToggle");
-const authSiteMenu = document.getElementById("siteMenu");
+    const supabaseClient =
+      supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
 
-// Menu
-authMenuToggle?.addEventListener("click", ()=>{
-  const open = authSiteMenu.classList.toggle("open");
-  authSiteMenu.classList.toggle("menu-open", open);
-});
+    const authSpa =
+      document.getElementById("spa-auth");
 
-function switchTab(tab){
-  if(lamp){ lamp.classList.remove("flicker"); void lamp.offsetWidth; lamp.classList.add("flicker"); setTimeout(()=>lamp.classList.remove("flicker"),600); }
-  setTimeout(()=>{
-    document.querySelectorAll(".auth-tab").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
-    document.getElementById("form-login")?.classList.toggle("active-form", tab==="login");
-    document.getElementById("form-register")?.classList.toggle("active-form", tab==="register");
-    if(authTitle) authTitle.textContent = tab==="login"? "LOGIN" : "REGISTER";
-  },120);
-}
-function openAuth(tab="login"){ switchTab(tab); authSpa?.classList.add("show"); document.body.style.overflow="hidden"; }
-function closeAuth(){ authSpa?.classList.remove("show"); document.body.style.overflow=""; }
+    const authTitle =
+      document.getElementById("authTitle");
 
-document.getElementById("btnLogin")?.addEventListener("click", (e)=>{
-  if(e.currentTarget.dataset.action==="logout") return;
-  e.preventDefault(); openAuth("login");
-});
-// ESTE ERA EL QUE FALLABA - AHORA CON ESPACIO
-document.querySelector("#spa-auth .spa-back")?.addEventListener("click", closeAuth);
-authSpa?.addEventListener("click", e=>{ if(e.target===authSpa) closeAuth(); });
-document.querySelectorAll(".auth-tab, [data-switch]").forEach(el=> el.addEventListener("click", ()=> switchTab(el.dataset.tab || el.dataset.switch)));
+    const lamp =
+      document.querySelector(".lamp-container");
 
-function updateMenu(user){
-  if(!menuAuthBtn) return;
-  if(user){
-    menuAuthBtn.textContent = user.email.split("@")[0].toUpperCase() + " • SALIR";
-    document.getElementById("btnLogin").dataset.action = "logout";
-  } else {
-    menuAuthBtn.textContent = "LOGIN / REGISTER";
-    document.getElementById("btnLogin").dataset.action = "login";
-  }
-}
+    const menuAuthBtn =
+      document.querySelector(".menu-auth-link span:last-child");
 
-document.getElementById("form-login")?.addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  const email = e.target.querySelector('input[type="email"]').value.trim();
-  const password = e.target.querySelector('input[type="password"]').value;
-  const btn = e.target.querySelector("button"); btn.textContent="ENTRANDO...";
-  const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-  btn.textContent="ENTRAR →";
-  if(error){
-    if(error.message.toLowerCase().includes("confirmed")){
-      alert("Tu cuenta no está confirmada. Ve a Supabase > Authentication > Users > Confirma el email de hag13123@gmail.com");
-    } else {
-      alert("Error: "+error.message);
-    }
-    return;
-  }
-  closeAuth(); updateMenu(data.user);
-});
+    const authMenuToggle =
+      document.getElementById("menuToggle");
 
-document.getElementById("form-register")?.addEventListener("submit", async (e)=>{
-  e.preventDefault();
-  const inputs = e.target.querySelectorAll("input");
-  const email = inputs[1].value.trim();
-  const password = inputs[2].value;
-  const btn = e.target.querySelector("button"); btn.textContent="CREANDO...";
-  const { data, error } = await supabaseClient.auth.signUp({ email, password });
-  btn.textContent="CREAR CUENTA →";
-  if(error){ alert("Error: "+error.message); return; }
-  alert("Cuenta creada. Si tienes confirmación de email activada, ve a tu correo o confirma en Supabase > Users.");
-  switchTab("login");
-});
+    const authSiteMenu =
+      document.getElementById("siteMenu");
 
-document.getElementById("btnLogin")?.addEventListener("click", async (e)=>{
-  if(e.currentTarget.dataset.action==="logout"){
-    e.preventDefault(); await supabaseClient.auth.signOut(); updateMenu(null);
-  }
-});
-supabaseClient.auth.getSession().then(({data})=> updateMenu(data.session?.user));
-supabaseClient.auth.onAuthStateChange((_, s)=> updateMenu(s?.user));
+    authMenuToggle?.addEventListener("click", () => {
+      const open =
+        authSiteMenu.classList.toggle("open");
 
-// CALCULADORA
-function calcular3D(){
-  const g = parseFloat(document.getElementById("calcGramos")?.value)||0;
-  const pKg = parseFloat(document.getElementById("calcPrecioKg")?.value)||0;
-  const h = parseFloat(document.getElementById("calcHoras")?.value)||0;
-  const luzH = parseFloat(document.getElementById("calcLuz")?.value)||0;
-  const desg = parseFloat(document.getElementById("calcDesgaste")?.value)||0;
-  const margen = parseFloat(document.getElementById("calcMargen")?.value)||0;
-  const mano = parseFloat(document.getElementById("calcMano")?.value)||0;
-  const cFil = g * (pKg/1000); const cLuz = h * luzH; const cDesg = (cFil + cLuz) * (desg/100);
-  const total = cFil + cLuz + cDesg + mano; const venta = total * (1 + margen/100);
-  const fmt = n => "$" + Math.round(n).toLocaleString("es-CL");
-  const set = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
-  set("resFilamento", fmt(cFil)); set("resLuz", fmt(cLuz)); set("resDesgaste", fmt(cDesg)); set("resMano", fmt(mano)); set("resTotal", fmt(total)); set("resVenta", fmt(venta));
-}
-["calcGramos","calcPrecioKg","calcHoras","calcLuz","calcDesgaste","calcMargen","calcMano"].forEach(id=> document.getElementById(id)?.addEventListener("input", calcular3D));
-
-// NAVEGACION - FIX CALCULADORA NO APARECE
-function mostrarVista(id){
-  document.querySelectorAll(".site-view").forEach(v=> v.classList.remove("active-view"));
-  document.getElementById(id)?.classList.add("active-view");
-  document.querySelectorAll(".menu-link[data-section]").forEach(l=> l.classList.remove("active"));
-  document.querySelector(`.menu-link[data-section="${id}"]`)?.classList.add("active");
-  siteMenu?.classList.remove("menu-open","open");
-  if(id==="calculadora") setTimeout(calcular3D,100);
-}
-document.querySelectorAll("[data-section]").forEach(link => {
-
-    link.addEventListener("click", e => {
-
-        e.preventDefault();
-
-        const sec = link.dataset.section;
-
-        if (!sec) return;
-
-        mostrarVista(sec);
-
-        history.replaceState(
-            null,
-            "",
-            "#" + sec
-        );
-
+      authSiteMenu.classList.toggle(
+        "menu-open",
+        open
+      );
     });
 
-});
-calcular3D();
-// OJITO + LAMPARA - CORREGIDO
-document.querySelectorAll(".toggle-pass").forEach(btn=>{
-  const input = document.getElementById(btn.dataset.target);
-  if(!input) return;
-  input.type = "password";
-  btn.textContent = "👁️";
-  lamp?.classList.remove("off");
-  btn.addEventListener("click", ()=>{
-    const isHidden = input.type === "password";
-    if(isHidden){ input.type = "text"; btn.textContent = "🙈"; lamp?.classList.add("off"); }
-    else { input.type = "password"; btn.textContent = "👁️"; lamp?.classList.remove("off"); lamp?.classList.remove("flicker"); void lamp.offsetWidth; lamp?.classList.add("flicker"); setTimeout(()=>lamp?.classList.remove("flicker"),600); }
-  });
-});
-</script>
+    function switchTab(tab) {
 
-<!-- COOKIES -->
-<div id="cookieBanner" style="display:none; position:fixed; bottom:20px; left:20px; right:20px; max-width:420px; background:#111; border:1px solid #222; padding:18px; z-index:10000; font-family:monospace; font-size:12px; color:#aaa;">
-  <p style="margin:0 0 12px; color:#fff;">USAMOS COOKIES PARA MEJORAR TU EXPERIENCIA. ¿ACEPTAS?</p>
-  <div style="display:flex; gap:10px;">
-    <button id="aceptarCookies" style="flex:1; background:#ff0a0a; color:#000; border:none; padding:10px; font-weight:bold; cursor:pointer;">ACEPTAR</button>
-    <button id="rechazarCookies" style="flex:1; background:transparent; color:#aaa; border:1px solid #333; padding:10px; cursor:pointer;">RECHAZAR</button>
-  </div>
-</div>
+      if (lamp) {
 
-<!-- SPLASH TERMINOS Y PRIVACIDAD -->
-<div id="splashLegal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.95); z-index:10001; justify-content:center; align-items:center; padding:20px;">
-  <div style="background:#0a0a0a; border:1px solid #ff0a0a; max-width:600px; width:100%; padding:30px; font-family:monospace;">
-    <h2 style="color:#fff; margin:0 0 10px;">TÉRMINOS Y PRIVACIDAD</h2>
-    <p style="color:#777; font-size:12px; line-height:1.6; max-height:300px; overflow:auto;">
-      Al usar PEDIDOS 3D aceptas el tratamiento de datos para gestionar tus pedidos. No compartimos información con terceros. Puedes solicitar la eliminación de tus datos en cualquier momento. Este es un proyecto independiente.
-    </p>
-    <div style="display:flex; gap:10px; margin-top:20px;">
-      <button id="aceptarLegal" style="flex:1; background:#fffffd; border:none; padding:12px; font-weight:bold; cursor:pointer;">ACEPTAR Y CONTINUAR</button>
-    </div>
-  </div>
-</div>
+        lamp.classList.remove("flicker");
+        void lamp.offsetWidth;
+        lamp.classList.add("flicker");
 
-<!-- MANUAL PEDIDOS 3D -->
-<div id="manualPedidosModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:10002; justify-content:center; align-items:center; padding:20px;">
-  <div style="background:#111; border:1px solid #333; max-width:700px; width:100%; padding:30px; position:relative;">
-    <button id="cerrarManualPedidos" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">×</button>
-    <h2 style="color:#fbff0a; font-size:14px; letter-spacing:3px;">01 — MANUAL</h2>
-    <h3 style="color:#fff; font-size:28px; margin:5px 0 20px;">PEDIDOS 3D</h3>
-    <div style="color:#aaa; font-size:13px; line-height:1.8;">
-      <p>1. Crea un cliente nuevo.<br>2. Agrega las piezas con medidas y material.<br>3. El sistema calcula precio y tiempo automático.<br>4. Envía el presupuesto por WhatsApp.<br>5. Cambia estado a Listo / Entregado.</p>
-      <p style="margin-top:15px; color:#555;">Tip: Usa Ctrl + K para búsqueda rápida.</p>
-    </div>
-  </div>
-</div>
+        setTimeout(
+          () => lamp.classList.remove("flicker"),
+          600
+        );
+      }
 
+      setTimeout(() => {
+
+        document
+          .querySelectorAll(".auth-tab")
+          .forEach(
+            b =>
+              b.classList.toggle(
+                "active",
+                b.dataset.tab === tab
+              )
+          );
+
+        document
+          .getElementById("form-login")
+          ?.classList.toggle(
+            "active-form",
+            tab === "login"
+          );
+
+        document
+          .getElementById("form-register")
+          ?.classList.toggle(
+            "active-form",
+            tab === "register"
+          );
+
+        if (authTitle) {
+          authTitle.textContent =
+            tab === "login"
+              ? "LOGIN"
+              : "REGISTER";
+        }
+
+      }, 120);
+    }
+
+    function openAuth(tab = "login") {
+
+      switchTab(tab);
+
+      authSpa?.classList.add("show");
+
+      document.body.style.overflow =
+        "hidden";
+    }
+
+    function closeAuth() {
+
+      authSpa?.classList.remove("show");
+
+      document.body.style.overflow =
+        "";
+    }
+
+    document
+      .getElementById("btnLogin")
+      ?.addEventListener(
+        "click",
+        async e => {
+
+          const action =
+            e.currentTarget.dataset.action;
+
+          if (action === "account") {
+
+            e.preventDefault();
+
+            const {
+              data: {
+                session
+              }
+            } =
+              await supabaseClient.auth.getSession();
+
+            if (session?.user) {
+              openAccount(session.user);
+            }
+
+            return;
+          }
+
+          if (action === "login") {
+
+            e.preventDefault();
+
+            openAuth("login");
+          }
+        }
+      );
+
+    document
+      .querySelector("#spa-auth .spa-back")
+      ?.addEventListener(
+        "click",
+        closeAuth
+      );
+
+    authSpa?.addEventListener(
+      "click",
+      e => {
+        if (e.target === authSpa) {
+          closeAuth();
+        }
+      }
+    );
+
+    document
+      .querySelectorAll(".auth-tab,[data-switch]")
+      .forEach(
+        el =>
+          el.addEventListener(
+            "click",
+            () =>
+              switchTab(
+                el.dataset.tab ||
+                el.dataset.switch
+              )
+          )
+      );
+
+    function updateMenu(user) {
+
+      if (!menuAuthBtn) return;
+
+      const btn =
+        document.getElementById("btnLogin");
+
+      if (user) {
+
+        const email =
+          user.email || "";
+
+        const nombre =
+          user.user_metadata?.nombre ||
+          email.split("@")[0] ||
+          "USUARIO";
+
+        menuAuthBtn.textContent =
+          nombre.toUpperCase() +
+          " • CUENTA";
+
+        btn?.setAttribute(
+          "data-action",
+          "account"
+        );
+
+      } else {
+
+        menuAuthBtn.textContent =
+          "LOGIN / REGISTER";
+
+        btn?.setAttribute(
+          "data-action",
+          "login"
+        );
+      }
+    }
+
+    document
+      .getElementById("form-login")
+      ?.addEventListener(
+        "submit",
+        async e => {
+
+          e.preventDefault();
+
+          const email =
+            e.target
+              .querySelector('input[type="email"]')
+              .value
+              .trim();
+
+          const password =
+            e.target
+              .querySelector('input[type="password"]')
+              .value;
+
+          const btn =
+            e.target.querySelector("button");
+
+          btn.textContent =
+            "ENTRANDO...";
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth.signInWithPassword({
+              email,
+              password
+            });
+
+          btn.textContent =
+            "ENTRAR →";
+
+          if (error) {
+
+            if (
+              error.message
+                .toLowerCase()
+                .includes("confirmed")
+            ) {
+
+              alert(
+                "Tu cuenta no está confirmada. Revisa la confirmación de email en Supabase."
+              );
+
+            } else {
+
+              alert(
+                "Error: " +
+                error.message
+              );
+            }
+
+            return;
+          }
+
+          closeAuth();
+          updateMenu(data.user);
+        }
+      );
+
+    document
+      .getElementById("form-register")
+      ?.addEventListener(
+        "submit",
+        async e => {
+
+          e.preventDefault();
+
+          const inputs =
+            e.target.querySelectorAll("input");
+
+          const nombre =
+            inputs[0].value.trim();
+
+          const email =
+            inputs[1].value.trim();
+
+          const password =
+            inputs[2].value;
+
+          const btn =
+            e.target.querySelector("button");
+
+          btn.textContent =
+            "CREANDO...";
+
+          btn.disabled =
+            true;
+
+          const {
+            data,
+            error
+          } =
+            await supabaseClient.auth.signUp({
+              email,
+              password,
+              options: {
+                data: {
+                  nombre: nombre
+                }
+              }
+            });
+
+          btn.textContent =
+            "CREAR CUENTA →";
+
+          btn.disabled =
+            false;
+
+          if (error) {
+
+            alert(
+              "Error: " +
+              error.message
+            );
+
+            return;
+          }
+
+          alert(
+            "Cuenta creada correctamente.\n\n" +
+            "Si tienes la confirmación por email activada, revisa tu correo antes de iniciar sesión."
+          );
+
+          switchTab("login");
+        }
+      );
+
+    supabaseClient.auth
+      .getSession()
+      .then(
+        ({ data }) =>
+          updateMenu(
+            data.session?.user
+          )
+      );
+
+    supabaseClient.auth
+      .onAuthStateChange(
+        (_, session) => {
+
+          updateMenu(
+            session?.user
+          );
+
+          if (session?.user) {
+            updateAccountUI(session.user);
+          }
+        }
+      );
+
+    function calcular3D() {
+
+      const g =
+        parseFloat(
+          document.getElementById("calcGramos")?.value
+        ) || 0;
+
+      const pKg =
+        parseFloat(
+          document.getElementById("calcPrecioKg")?.value
+        ) || 0;
+
+      const h =
+        parseFloat(
+          document.getElementById("calcHoras")?.value
+        ) || 0;
+
+      const luzH =
+        parseFloat(
+          document.getElementById("calcLuz")?.value
+        ) || 0;
+
+      const desg =
+        parseFloat(
+          document.getElementById("calcDesgaste")?.value
+        ) || 0;
+
+      const margen =
+        parseFloat(
+          document.getElementById("calcMargen")?.value
+        ) || 0;
+
+      const mano =
+        parseFloat(
+          document.getElementById("calcMano")?.value
+        ) || 0;
+
+      const cFil =
+        g * (pKg / 1000);
+
+      const cLuz =
+        h * luzH;
+
+      const cDesg =
+        (cFil + cLuz) *
+        (desg / 100);
+
+      const total =
+        cFil +
+        cLuz +
+        cDesg +
+        mano;
+
+      const venta =
+        total *
+        (1 + margen / 100);
+
+      const fmt =
+        n =>
+          "$" +
+          Math.round(n)
+            .toLocaleString("es-CL");
+
+      const set =
+        (id, v) => {
+
+          const el =
+            document.getElementById(id);
+
+          if (el) {
+            el.textContent = v;
+          }
+        };
+
+      set("resFilamento", fmt(cFil));
+      set("resLuz", fmt(cLuz));
+      set("resDesgaste", fmt(cDesg));
+      set("resMano", fmt(mano));
+      set("resTotal", fmt(total));
+      set("resVenta", fmt(venta));
+    }
+
+    [
+      "calcGramos",
+      "calcPrecioKg",
+      "calcHoras",
+      "calcLuz",
+      "calcDesgaste",
+      "calcMargen",
+      "calcMano"
+    ].forEach(
+      id =>
+        document
+          .getElementById(id)
+          ?.addEventListener(
+            "input",
+            calcular3D
+          )
+    );
+
+    function mostrarVista(id) {
+
+      document
+        .querySelectorAll(".site-view")
+        .forEach(
+          v =>
+            v.classList.remove(
+              "active-view"
+            )
+        );
+
+      document
+        .getElementById(id)
+        ?.classList.add(
+          "active-view"
+        );
+
+      document
+        .querySelectorAll(".menu-link[data-section]")
+        .forEach(
+          l =>
+            l.classList.remove(
+              "active"
+            )
+        );
+
+      document
+        .querySelector(
+          `.menu-link[data-section="${id}"]`
+        )
+        ?.classList.add("active");
+
+      authSiteMenu?.classList.remove(
+        "menu-open",
+        "open"
+      );
+
+      if (id === "calculadora") {
+        setTimeout(
+          calcular3D,
+          100
+        );
+      }
+    }
+
+    document
+      .querySelectorAll("[data-section]")
+      .forEach(
+        link => {
+
+          link.addEventListener(
+            "click",
+            e => {
+
+              e.preventDefault();
+
+              const sec =
+                link.dataset.section;
+
+              if (!sec) return;
+
+              mostrarVista(sec);
+
+              history.replaceState(
+                null,
+                "",
+                "#" + sec
+              );
+            }
+          );
+        }
+      );
+
+    calcular3D();
+
+    document
+      .querySelectorAll(".toggle-pass")
+      .forEach(
+        btn => {
+
+          const input =
+            document.getElementById(
+              btn.dataset.target
+            );
+
+          if (!input) return;
+
+          input.type =
+            "password";
+
+          btn.textContent =
+            "👁️";
+
+          lamp?.classList.remove("off");
+
+          btn.addEventListener(
+            "click",
+            () => {
+
+              const isHidden =
+                input.type === "password";
+
+              if (isHidden) {
+
+                input.type =
+                  "text";
+
+                btn.textContent =
+                  "🙈";
+
+                lamp?.classList.add("off");
+
+              } else {
+
+                input.type =
+                  "password";
+
+                btn.textContent =
+                  "👁️";
+
+                lamp?.classList.remove("off");
+
+                lamp?.classList.remove("flicker");
+
+                void lamp.offsetWidth;
+
+                lamp?.classList.add("flicker");
+
+                setTimeout(
+                  () =>
+                    lamp?.classList.remove("flicker"),
+                  600
+                );
+              }
+            }
+          );
+        }
+      );
+
+    /* =====================================================
+       CUENTA
+       ===================================================== */
+
+    const accountSpa =
+      document.getElementById("spa-account");
+
+    const accountName =
+      document.getElementById("accountName");
+
+    const accountEmail =
+      document.getElementById("accountEmail");
+
+    const accountAvatar =
+      document.getElementById("accountAvatar");
+
+    const accountLogout =
+      document.getElementById("accountLogout");
+
+    const accountStatus =
+      document.getElementById("accountStatus");
+
+    function updateAccountUI(user) {
+
+      if (!user) return;
+
+      const email =
+        user.email || "";
+
+      const metadata =
+        user.user_metadata || {};
+
+      const nombre =
+        metadata.nombre ||
+        email.split("@")[0] ||
+        "USUARIO";
+
+      const nombreMostrar =
+        nombre.toUpperCase();
+
+      if (accountName) {
+        accountName.textContent =
+          nombreMostrar;
+      }
+
+      if (accountEmail) {
+        accountEmail.textContent =
+          email;
+      }
+
+      if (accountAvatar) {
+        accountAvatar.textContent =
+          nombreMostrar.charAt(0);
+      }
+
+      if (accountStatus) {
+        accountStatus.textContent =
+          "Conectado correctamente.";
+      }
+
+      const securityEmail =
+        document.getElementById(
+          "securityEmail"
+        );
+
+      if (securityEmail) {
+        securityEmail.textContent =
+          user.email_confirmed_at
+            ? "Correo confirmado."
+            : "Correo pendiente de confirmación.";
+      }
+    }
+
+    function openAccount(user) {
+
+      if (!user || !accountSpa)
+        return;
+
+      updateAccountUI(user);
+
+      accountSpa.classList.add("show");
+
+      document.body.style.overflow =
+        "hidden";
+    }
+
+    function closeAccount() {
+
+      accountSpa?.classList.remove("show");
+
+      document.body.style.overflow =
+        "";
+    }
+
+    document
+      .querySelector(".account-back")
+      ?.addEventListener(
+        "click",
+        closeAccount
+      );
+
+    accountSpa?.addEventListener(
+      "click",
+      e => {
+
+        if (e.target === accountSpa) {
+          closeAccount();
+        }
+      }
+    );
+
+    accountLogout?.addEventListener(
+      "click",
+      async () => {
+
+        accountLogout.textContent =
+          "CERRANDO...";
+
+        const { error } =
+          await supabaseClient.auth.signOut();
+
+        accountLogout.textContent =
+          "CERRAR SESIÓN →";
+
+        if (error) {
+
+          alert(
+            "No se pudo cerrar la sesión: " +
+            error.message
+          );
+
+          return;
+        }
+
+        closeAccount();
+        updateMenu(null);
+      }
+    );
+
+    /* =====================================================
+       DASHBOARD — CONTROLES VISUALES
+       ===================================================== */
+
+    const notificationBtn =
+      document.getElementById(
+        "accountNotificationBtn"
+      );
+
+    const notificationPanel =
+      document.getElementById(
+        "accountNotifications"
+      );
+
+    notificationBtn?.addEventListener(
+      "click",
+      () => {
+
+        notificationPanel?.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      }
+    );
+
+    document
+      .querySelectorAll("[data-account-panel]")
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const panel =
+                button.dataset.accountPanel;
+
+              if (panel === "profile") {
+
+                document
+                  .getElementById("accountActivity")
+                  ?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                  });
+
+              }
+
+              if (panel === "settings") {
+
+                const settings =
+                  document.querySelector(
+                    ".account-settings"
+                  );
+
+                settings?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center"
+                });
+
+              }
+            }
+          );
+        }
+      );
+
+    document
+      .getElementById("changePasswordBtn")
+      ?.addEventListener(
+        "click",
+        async () => {
+
+          const {
+            data: {
+              session
+            }
+          } =
+            await supabaseClient.auth.getSession();
+
+          if (!session?.user?.email) {
+
+            alert(
+              "No hay una sesión activa."
+            );
+
+            return;
+          }
+
+          const email =
+            session.user.email;
+
+          const { error } =
+            await supabaseClient.auth.resetPasswordForEmail(
+              email,
+              {
+                redirectTo:
+                  window.location.origin +
+                  window.location.pathname
+              }
+            );
+
+          if (error) {
+
+            alert(
+              "No se pudo solicitar el cambio de contraseña: " +
+              error.message
+            );
+
+            return;
+          }
+
+          alert(
+            "Te enviamos un enlace para cambiar tu contraseña."
+          );
+        }
+      );
+  </script>
 </body>
+
 </html>
